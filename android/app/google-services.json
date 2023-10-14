@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "284598395132",
+    "project_id": "coders-flow",
+    "storage_bucket": "coders-flow.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:284598395132:android:7bd4746bdb8f51fb657779",
+        "android_client_info": {
+          "package_name": "com.jcc.jcc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7RVyZ_VPR_rdCtNepvs2srnzO8l4MMeo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
