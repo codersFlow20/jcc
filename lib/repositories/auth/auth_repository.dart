@@ -6,20 +6,20 @@ class AuthRepository {
 
   final FirebaseAuth _firebaseAuth;
 
-  Future<void> signInWithPhoneNumber(String phoneNumber,
-      Function(String verifactioId, int? resendToken) codeSent) async {
-    try {
-      await _firebaseAuth.verifyPhoneNumber(
-        phoneNumber: "+91$phoneNumber",
-        timeout: const Duration(seconds: 60),
-        verificationCompleted: (PhoneAuthCredential authCredential) {},
-        verificationFailed: (FirebaseAuthException e) {},
-        codeSent: codeSent,
-        codeAutoRetrievalTimeout: (String verificationId) {},
-      );
-    } catch (e) {
-      rethrow;
-    }
+  Future<void> loginWithPhone({
+    required String phoneNumber,
+    required Function(PhoneAuthCredential) onVerificationCompleted,
+    required Function(FirebaseAuthException) onVerificationFailed,
+    required Function(String, int?) onCodeSent,
+    required Function(String) codeAutoRetrievalTimeout,
+  }) async {
+    await _firebaseAuth.verifyPhoneNumber(
+      phoneNumber: "+91"+ phoneNumber,
+      verificationCompleted: onVerificationCompleted,
+      verificationFailed: onVerificationFailed,
+      codeSent: onCodeSent,
+      codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
+    );
   }
 
   Future<UserCredential> signInWithOTP(
@@ -33,5 +33,20 @@ class AuthRepository {
     } catch (e) {
       rethrow;
     }
+  }
+
+  Future<void> signOut() async {
+    Future.wait([
+      _firebaseAuth.signOut(),
+    ]);
+  }
+
+  Future<bool> isSignedIn() async {
+    final currentUser = _firebaseAuth.currentUser;
+    return currentUser != null;
+  }
+
+  Future<String?> getUser() async {
+    return (_firebaseAuth.currentUser)?.email;
   }
 }

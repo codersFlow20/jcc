@@ -1,49 +1,80 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:jcc/bloc/login/login_bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:jcc/repositories/auth/auth_repository.dart';
-import 'package:jcc/utils/validators.dart';
 
 part 'login_event.dart';
-
 part 'login_state.dart';
 
-class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  LoginBloc({required AuthRepository authRepository})
+class LogInBloc extends Bloc<LogInEvent, LogInState> {
+  LogInBloc({required AuthRepository authRepository})
       : _authRepository = authRepository,
-        super(LoginState.empty()) {
-    on<LoginPressed>(_onLoginPressed);
-    on<LoginOtpSubmitted>(_onOtpSubmitted);
+        super(LogInState.empty()) {
+    on<SendOtpPressed>(_onSendOtpPressed);
+    on<OnPhoneOtpSent>(_onPhoneOtpSent);
+    on<VerifyOtpEvent>(_onVerifyOtpEvent);
+    on<OnPhoneAuthErrorEvent>(_onPhoneAuthErrorEvent);
+    on<OnPhoneAuthSuccessEvent>(_onPhoneAuthSuccessEvent);
   }
 
   final AuthRepository _authRepository;
 
-  void onPhoneChanged(String phone) {
-    emit(state.update(phone: phone));
-  }
-
-
-  Future<void> _onLoginPressed(LoginPressed event,
-      Emitter<LoginState> emit) async {
+  Future<void> _onSendOtpPressed(
+      SendOtpPressed event, Emitter<LogInState> emit) async {
     try {
-      _authRepository.signInWithPhoneNumber(
-          event.phone, (verifactioId, resendToken) {
-        emit(state.update(otpSent: true, verifactioId: verifactioId));
-      });
-    } catch (e) {
-      print("$e================================");
-      emit(LoginState.failure(error: e.toString()));
+      emit(LogInState.loading());
+      await _authRepository.loginWithPhone(
+          phoneNumber: event.phoneNumber,
+          onVerificationCompleted: (PhoneAuthCredential phoneAuthCredential) {
+            add(OnPhoneAuthSuccessEvent());
+          },
+          onVerificationFailed: (FirebaseAuthException firebaseAuthException) {
+            add(OnPhoneAuthErrorEvent(firebaseAuthException.message ?? ''));
+          },
+          onCodeSent: (String verificationId, int? forceResendingToken) {
+            add(OnPhoneOtpSent(
+                verificationId: verificationId,
+                forceResendingToken: forceResendingToken));
+          },
+          codeAutoRetrievalTimeout: (String verificationId) {
+            emit(state.copyWith(
+              isOtpSent: true,
+              verificationId: verificationId,
+            ));
+          });
+    } catch (_) {
+      emit(LogInState.failure(_.toString()));
     }
   }
 
-  Future<void> _onOtpSubmitted(LoginOtpSubmitted event,
-      Emitter<LoginState> emit) async {
+  Future<void> _onPhoneOtpSent(
+      OnPhoneOtpSent event, Emitter<LogInState> emit) async {
+    emit(state.copyWith(
+      isOtpSent: true,
+      verificationId: event.verificationId,
+      forceResendingToken: event.forceResendingToken,
+    ));
+  }
+
+  Future<void> _onVerifyOtpEvent(
+      VerifyOtpEvent event, Emitter<LogInState> emit) async {
     try {
-      final userCredential = await _authRepository.signInWithOTP(
-          event.verificationId, event.smsCode);
-      emit(LoginState.success());
-    } catch (e) {
-      emit(LoginState.failure(error: e.toString()));
+      _authRepository.signInWithOTP(event.verificationId, event.smsCode);
+      emit(LogInState.success());
+    } catch(e){
+      emit(LogInState.failure(e.toString()));
     }
+  }
+
+  Future<void> _onPhoneAuthErrorEvent(
+      OnPhoneAuthErrorEvent event, Emitter<LogInState> emit) async {
+    emit(LogInState.failure(event.error));
+  }
+
+  Future<void> _onPhoneAuthSuccessEvent(
+      OnPhoneAuthSuccessEvent event, Emitter<LogInState> emit) async {
+    emit(LogInState.success());
   }
 }

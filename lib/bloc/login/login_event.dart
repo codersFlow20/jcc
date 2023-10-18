@@ -1,34 +1,53 @@
 part of 'login_bloc.dart';
 
-abstract class LoginEvent extends Equatable {
-  const LoginEvent();
+abstract class LogInEvent extends Equatable{
+  const LogInEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-class LoginPressed extends LoginEvent {
-  final String phone;
+class SendOtpPressed extends LogInEvent{
+  final String phoneNumber;
 
-  const LoginPressed({required this.phone});
-
-  @override
-  List<Object> get props => [phone];
+  const SendOtpPressed({required this.phoneNumber});
 
   @override
-  String toString() => 'LoginPressed { phone: $phone }';
+  List<Object?> get props => [phoneNumber];
 }
 
-class LoginOtpSubmitted extends LoginEvent {
+class OnPhoneOtpSent extends LogInEvent{
+  final String verificationId;
+  final int? forceResendingToken;
+
+  const OnPhoneOtpSent({required this.verificationId, required this.forceResendingToken});
+
+  @override
+  List<Object?> get props => [verificationId, forceResendingToken];
+}
+
+class VerifyOtpEvent extends LogInEvent{
   final String verificationId;
   final String smsCode;
 
-  const LoginOtpSubmitted({required this.verificationId, required this.smsCode});
+  const VerifyOtpEvent({required this.verificationId, required this.smsCode});
 
   @override
-  List<Object> get props => [verificationId, smsCode];
-
-  @override
-  String toString() => 'LoginOtpSubmitted { verificationId: $verificationId, smsCode: $smsCode }';
+  List<Object?> get props => [verificationId, smsCode];
 }
 
+class OnPhoneAuthErrorEvent extends LogInEvent{
+  final String error;
+
+  const OnPhoneAuthErrorEvent(this.error);
+
+  @override
+  List<Object?> get props => [error];
+}
+
+class OnPhoneAuthSuccessEvent extends LogInEvent{
+  const OnPhoneAuthSuccessEvent();
+
+  @override
+  List<Object?> get props => [];
+}

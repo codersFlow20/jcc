@@ -26,6 +26,8 @@ dependencies:
   cloud_firestore:
   firebase_auth:
   google_sign_in:
+  otpview_sk: ^0.0.2
+  otpview: ^0.0.2
 
 dev_dependencies:
   flutter_test:
@@ -48,5 +50,7 @@ flutter:
   #         weight: 700
   #
   assets:
-    - assets/backgrounds/login_background.svg
+    - assets/
+    - assets/icon/
+    - assets/backgrounds/
 

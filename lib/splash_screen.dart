@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:jcc/generated/assets.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -12,13 +12,10 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    // Timer(Duration(seconds: 2), () {
-    //   context.go('/login');
-    // });
     Future.delayed(
-      Duration(seconds: 3),
+      Duration(milliseconds: 1500),
       () {
-            context.go('/login');
+            context.go('/auth');
       },
     );
     super.initState();
@@ -26,6 +23,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return FlutterLogo();
+    return Scaffold(
+      body: Center(
+        child: Image.asset(Assets.iconLogo),
+      ),
+    );
   }
 }

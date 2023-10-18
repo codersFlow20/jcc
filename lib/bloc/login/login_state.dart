@@ -1,112 +1,124 @@
 part of 'login_bloc.dart';
 
-class LoginState {
-  final String phone;
+
+class LogInState{
+
+  final bool isPhoneValid;
   final bool isSubmitting;
-  final bool isSuccess;
-  final bool isFailure;
+
+  final bool isOtpSent;
+  final bool isOtpVerified;
+  final bool isOtpError;
+
+  final String? verificationId;
+  final int? forceResendingToken;
   final String? error;
-  final bool otpSent;
-  final String? verifactionId;
 
-  bool get isFormValid => Validators.isValidMobileNo(phone);
-
-  LoginState({
-    required this.phone,
+  const LogInState({
+    required this.isPhoneValid,
     required this.isSubmitting,
-    required this.isSuccess,
-    required this.isFailure,
-    this.error,
-    required this.otpSent,
-    this.verifactionId,
+    required this.isOtpSent,
+    required this.isOtpVerified,
+    required this.isOtpError,
+    required this.verificationId,
+    required this.forceResendingToken,
+    required this.error,
   });
 
-  factory LoginState.empty() {
-    return LoginState(
-      phone: '',
+  factory LogInState.empty(){
+    return LogInState(
+      isPhoneValid: false,
       isSubmitting: false,
-      isSuccess: false,
-      isFailure: false,
-      otpSent: false,
+      isOtpSent: false,
+      isOtpVerified: false,
+      isOtpError: false,
+      verificationId: null,
+      forceResendingToken: null,
+      error: null,
     );
   }
 
-  factory LoginState.loading() {
-    return LoginState(
-      phone: '',
+  factory LogInState.loading(){
+    return LogInState(
+      isPhoneValid: true,
       isSubmitting: true,
-      isSuccess: false,
-      isFailure: false,
-      otpSent: false,
+      isOtpSent: false,
+      isOtpVerified: false,
+      isOtpError: false,
+      verificationId: null,
+      forceResendingToken: null,
+      error: null,
     );
   }
 
-  factory LoginState.failure({String? error}) {
-    return LoginState(
-      phone: '',
+  factory LogInState.failure(String error){
+    return LogInState(
+      isPhoneValid: true,
       isSubmitting: false,
-      isSuccess: false,
-      isFailure: true,
+      isOtpSent: false,
+      isOtpVerified: false,
+      isOtpError: true,
+      verificationId: null,
+      forceResendingToken: null,
       error: error,
-      otpSent: false,
     );
   }
 
-  factory LoginState.success() {
-    return LoginState(
-      phone: '',
+  factory LogInState.success(){
+    return LogInState(
+      isPhoneValid: true,
       isSubmitting: false,
-      isSuccess: true,
-      isFailure: false,
-      otpSent: false,
+      isOtpSent: false,
+      isOtpVerified: true,
+      isOtpError: false,
+      verificationId: null,
+      forceResendingToken: null,
+      error: null,
     );
   }
 
-  LoginState update({
-    String? phone,
-    bool? otpSent,
-    String? verifactioId,
-  }) {
-    return copyWith(
-      phone: phone,
-      isSubmitting: false,
-      isSuccess: false,
-      isFailure: false,
-      otpSent: otpSent,
-      verifactionId: verifactioId,
-    );
-  }
-
-  LoginState copyWith({
-    String? phone,
+  LogInState update({
+    bool? isPhoneValid,
     bool? isSubmitting,
-    bool? isSuccess,
-    bool? isFailure,
+    bool? isOtpSent,
+    bool? isOtpVerified,
+    bool? isOtpError,
+    String? verificationId,
+    int? forceResendingToken,
     String? error,
-    bool? otpSent,
-    String? verifactionId,
-  }) {
-    return LoginState(
-      phone: phone ?? this.phone,
-      isSubmitting: isSubmitting ?? this.isSubmitting,
-      isSuccess: isSuccess ?? this.isSuccess,
-      isFailure: isFailure ?? this.isFailure,
+  }){
+    return copyWith(
+      isPhoneValid: isPhoneValid,
+      isSubmitting: isSubmitting,
+      isOtpSent: isOtpSent,
+      isOtpVerified: isOtpVerified,
+      isOtpError: isOtpError,
+      verificationId: verificationId,
+      forceResendingToken: forceResendingToken,
       error: error,
-      otpSent: otpSent ?? this.otpSent,
-      verifactionId: verifactionId ?? this.verifactionId,
     );
   }
 
-  @override
-  String toString() {
-    return '''LoginState {
-      phone: $phone,
-      isSubmitting: $isSubmitting,
-      isSuccess: $isSuccess,
-      isFailure: $isFailure,
-      error: $error,
-      otpSent: $otpSent,
-      verifactionId: $verifactionId,
-    }''';
+  LogInState copyWith({
+    bool? isPhoneValid,
+    bool? isSubmitting,
+    bool? isOtpSent,
+    bool? isOtpVerified,
+    bool? isOtpError,
+    String? verificationId,
+    int? forceResendingToken,
+    String? error,
+  }){
+    return LogInState(
+      isPhoneValid: isPhoneValid ?? this.isPhoneValid,
+      isSubmitting: isSubmitting ?? this.isSubmitting,
+      isOtpSent: isOtpSent ?? this.isOtpSent,
+      isOtpVerified: isOtpVerified ?? this.isOtpVerified,
+      isOtpError: isOtpError ?? this.isOtpError,
+      verificationId: verificationId ?? this.verificationId,
+      forceResendingToken: forceResendingToken ?? this.forceResendingToken,
+      error: error ?? this.error,
+    );
   }
+
 }

@@ -8,6 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jcc/bloc/login/login_bloc.dart';
+import 'package:jcc/generated/assets.dart';
 import 'package:jcc/utils/constant.dart';
 import 'package:jcc/utils/validators.dart';
 
@@ -21,12 +22,12 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController _mobileNoController = TextEditingController();
 
-  late LoginBloc _loginBloc;
+  late LogInBloc _loginBloc;
 
   @override
   void initState() {
     super.initState();
-    _loginBloc = BlocProvider.of<LoginBloc>(context);
+    _loginBloc = BlocProvider.of<LogInBloc>(context);
     // _mobileNoController.addListener(_onPhoneChanged);
   }
 
@@ -34,23 +35,35 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      body: BlocListener<LoginBloc, LoginState>(
+      body: BlocListener<LogInBloc, LogInState>(
         listener: (context, state) {
-          if (state.isFailure) {
+          if (state.isOtpSent) {
+            context.go('/otpScreen',extra: {'verificationId':state.verificationId ?? ""});
+            print(state.verificationId);
+          } else if (state.isOtpError) {
+            Navigator.of(context).pop();
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
-                  "${state.error}",
+                  "Something went wrong ${state.error.toString()}",
                 ),
               ),
             );
-          } else if (state.otpSent) {
-            print("Login Sreen : ${state.verifactionId} ");
-            //go router to otp screen with parameter as verificationId
-            context.go('/otpScreen', extra: {'verificationId': state.verifactionId});
+          } else if (state.isSubmitting) {
+            showDialog(context: context, builder: (context) {
+              return AlertDialog(
+                content: Row(
+                  children: [
+                    CircularProgressIndicator(),
+                    SizedBox(width: 20,),
+                    Text("Sending OTP")
+                  ],
+                ),
+              );
+            },);
           }
         },
-        child: BlocBuilder<LoginBloc, LoginState>(
+        child: BlocBuilder<LogInBloc, LogInState>(
           bloc: _loginBloc,
           builder: (context, state) {
             return Stack(
@@ -60,6 +73,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   fit: BoxFit.cover,
                   width: double.infinity,
                   height: double.infinity,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 80.0),
+                  child: Image.asset(Assets.iconLogo),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(18.0),
@@ -133,13 +150,9 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  // void _onPhoneChanged() {
-  //   _loginBloc.add(LoginPressed(phone: _mobileNoController.text));
-  // }
-
   void _onLoginPressed() {
     if (Validators.isValidMobileNo(_mobileNoController.text)) {
-      _loginBloc.add(LoginPressed(phone: _mobileNoController.text));
+      _loginBloc.add(SendOtpPressed(phoneNumber: _mobileNoController.text));
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

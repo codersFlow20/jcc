@@ -5,5 +5,4 @@ class Validators {
     return _mobileNumberExp.hasMatch(mobileNo);
   }
 
-  static isValidPhone(String phone) {}
 }

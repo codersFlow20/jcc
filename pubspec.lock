@@ -392,6 +392,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
+  otpview:
+    dependency: "direct main"
+    description:
+      name: otpview
+      sha256: c65152b30b145d5ca3d1e6a31924ff8a54ef1fc47c2a796065329b6a7ef9fa1e
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2"
+  otpview_sk:
+    dependency: "direct main"
+    description:
+      name: otpview_sk
+      sha256: "0ffa6fc338f1358a189428aedce9615db184129fd91205778f646067de00d00b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2"
   package_config:
     dependency: transitive
     description:
