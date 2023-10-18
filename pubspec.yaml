@@ -1,0 +1,56 @@
+name: jcc
+description: Jamnagar Corporation Care
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.1.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  go_router: ^11.1.3
+#  UI Libs
+  google_fonts: ^6.1.0
+  flutter_svg: ^2.0.7
+#  Bloc Libs
+  equatable: ^2.0.5
+  bloc: ^8.1.2
+  flutter_bloc: ^8.1.3
+#  Firebase Libs
+  firebase_core:
+  cloud_firestore:
+  firebase_auth:
+  google_sign_in:
+  otpview_sk: ^0.0.2
+  otpview: ^0.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+  # example:
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  assets:
+    - assets/
+    - assets/icon/
+    - assets/backgrounds/
+
