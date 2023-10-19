@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jcc/bloc/login/login_bloc.dart';
-import 'package:jcc/utils/constant.dart';
+import 'package:jcc/theme/colors.dart';
 
 class OtpScreen extends StatefulWidget {
 
@@ -83,19 +83,19 @@ class _OtpScreenState extends State<OtpScreen> {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
                             borderSide: BorderSide(
-                              color: ColorConstants.darkMiddleBlue,
+                              color: AppColors.darkMidnightBlue,
                             ),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
                             borderSide: BorderSide(
-                              color: ColorConstants.darkMiddleBlue,
+                              color: AppColors.darkMidnightBlue,
                             ),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
                             borderSide: BorderSide(
-                              color: ColorConstants.darkMiddleBlue,
+                              color: AppColors.darkMidnightBlue,
                             ),
                           ),
                         ),
@@ -141,7 +141,7 @@ class _OtpScreenState extends State<OtpScreen> {
                             height: 60,
                             width: double.infinity,
                             decoration: BoxDecoration(
-                              color: ColorConstants.darkMiddleBlue,
+                              color: AppColors.darkMidnightBlue,
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Center(

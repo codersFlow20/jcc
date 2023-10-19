@@ -9,7 +9,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jcc/bloc/login/login_bloc.dart';
 import 'package:jcc/generated/assets.dart';
-import 'package:jcc/utils/constant.dart';
+import 'package:jcc/theme/colors.dart';
 import 'package:jcc/utils/validators.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -124,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           height: 60,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: ColorConstants.darkMiddleBlue,
+                            color: AppColors.darkMidnightBlue,
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: Center(
