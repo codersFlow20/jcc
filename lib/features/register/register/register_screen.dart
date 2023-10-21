@@ -38,89 +38,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "First name",
-                  style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                TextFormField(
-                  cursorColor: Colors.black,
-                  controller: _firstName,
-                  keyboardType: TextInputType.name,
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    filled: true,
-                    hintText: "Enter your first name",
-                    hintStyle: GoogleFonts.poppins(
-                      fontSize: 16,
-                      color: Colors.grey,
-                    ),
-                    fillColor: Colors.white,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  "Last name",
-                  style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                TextFormField(
-                  cursorColor: Colors.black,
-                  controller: _lastName,
-                  keyboardType: TextInputType.name,
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    filled: true,
-                    hintText: "Enter your last name",
-                    hintStyle: GoogleFonts.poppins(
-                      fontSize: 16,
-                      color: Colors.grey,
-                    ),
-                    fillColor: Colors.white,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  "Email address",
-                  style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                TextFormField(
-                  cursorColor: Colors.black,
-                  controller: _emailAddress,
-                  keyboardType: TextInputType.name,
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    filled: true,
-                    hintText: "Enter your email address",
-                    hintStyle: GoogleFonts.poppins(
-                      fontSize: 16,
-                      color: Colors.grey,
-                    ),
-                    fillColor: Colors.white,
-                  ),
-                ),
-                const SizedBox(height: 10),
+                _buildUserInputArea(
+                    context, _firstName, "First name", "Enter yout first name"),
+                _buildUserInputArea(
+                    context, _lastName, "Last name", "Enter yout last name"),
+                _buildUserInputArea(context, _emailAddress, "Email address",
+                    "Enter yout email address"),
                 InkWell(
-                  // onTap: _onLoginPressed,
+                  onTap: _onLoginPressed,
                   child: Container(
                     height: 60,
                     width: double.infinity,
@@ -148,20 +73,58 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     );
   }
 
+  Widget _buildUserInputArea(BuildContext context,
+      TextEditingController controller, String title, String hintText) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: GoogleFonts.poppins(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        const SizedBox(height: 10),
+        TextFormField(
+          cursorColor: Colors.black,
+          controller: controller,
+          keyboardType: TextInputType.name,
+          decoration: InputDecoration(
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            filled: true,
+            hintText: hintText,
+            hintStyle: GoogleFonts.poppins(
+              fontSize: 16,
+              color: Colors.grey,
+            ),
+            fillColor: Colors.white,
+          ),
+        ),
+        const SizedBox(height: 10),
+      ],
+    );
+  }
+
   void _onLoginPressed() {
-    if(_firstName.text.isEmpty){
+    if (_firstName.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("Please enter your first name"),
         ),
       );
-    } else if (_lastName.text.isEmpty){
+    } else if (_lastName.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("Please enter your last name"),
         ),
       );
-    } else if (_emailAddress.text.isEmpty){
+    } else if (_emailAddress.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("Please enter your email address"),
@@ -175,5 +138,4 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       );
     }
   }
-
 }

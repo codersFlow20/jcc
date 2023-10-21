@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jcc/common/widget/custom_button.dart';
+import 'package:jcc/theme/colors.dart';
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({super.key});
@@ -13,7 +14,7 @@ class NotificationScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           "Notification Screen",
-          style: Theme.of(context).textTheme.titleLarge,
+          style: GoogleFonts.poppins(fontSize: 18),
         ),
         actions: [
           IconButton(
@@ -74,6 +75,7 @@ class NotificationScreen extends StatelessWidget {
       ),
       body: ListView.builder(
         itemCount: 10,
+        physics: BouncingScrollPhysics(),
         itemBuilder: (context, index) {
           return _buildNotificationItem(
               title: "Water Department",
@@ -95,10 +97,10 @@ Widget _buildNotificationItem(
     required int index,
     required BuildContext context}) {
   return Container(
-    margin: EdgeInsets.only(left: 8, right: 8, top: 0, bottom: 5),
-    padding: EdgeInsets.symmetric(vertical: 8),
+    margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
     decoration: BoxDecoration(
-      color: Colors.grey.shade200,
+      color: AppColors.antiFlashWhite,
       borderRadius: BorderRadius.only(
         topLeft: index == 0 ? Radius.circular(20) : Radius.circular(0),
         topRight: index == 0 ? Radius.circular(20) : Radius.circular(0),

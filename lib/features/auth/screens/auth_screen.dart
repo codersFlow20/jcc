@@ -18,7 +18,7 @@ class AuthScreen extends StatelessWidget {
           context.go('/login');
         } else if (state is Authenticated) {
           dev.log('Authenticated state in AuthScreen, Going home screen');
-          context.go('/home');
+          context.go('/Complaints');
         } else {
           dev.log('Unknown state', name: 'AuthState');
           context.go('/login');

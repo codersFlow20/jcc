@@ -7,6 +7,7 @@ import 'package:jcc/features/home/screens/home_screen.dart';
 import 'package:jcc/features/login/screens/login_screen.dart';
 import 'package:jcc/features/login/screens/otp_screen.dart';
 import 'package:jcc/features/notification/screens/notification_screen.dart';
+import 'package:jcc/features/register/register/register_screen.dart';
 import 'package:jcc/splash_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -20,6 +21,11 @@ final router = GoRouter(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/splash',
       builder: (context, state) => const SplashScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/registration',
+      builder: (context, state) => const RegistrationScreen(),
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
