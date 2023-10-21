@@ -1,8 +1,6 @@
 part of 'login_bloc.dart';
 
-
-class LogInState{
-
+class LogInState {
   final bool isPhoneValid;
   final bool isSubmitting;
 
@@ -25,7 +23,7 @@ class LogInState{
     required this.error,
   });
 
-  factory LogInState.empty(){
+  factory LogInState.empty() {
     return LogInState(
       isPhoneValid: false,
       isSubmitting: false,
@@ -38,7 +36,7 @@ class LogInState{
     );
   }
 
-  factory LogInState.loading(){
+  factory LogInState.loading() {
     return LogInState(
       isPhoneValid: true,
       isSubmitting: true,
@@ -51,7 +49,7 @@ class LogInState{
     );
   }
 
-  factory LogInState.failure(String error){
+  factory LogInState.failure(String error) {
     return LogInState(
       isPhoneValid: true,
       isSubmitting: false,
@@ -64,7 +62,7 @@ class LogInState{
     );
   }
 
-  factory LogInState.success(){
+  factory LogInState.success() {
     return LogInState(
       isPhoneValid: true,
       isSubmitting: false,
@@ -86,7 +84,7 @@ class LogInState{
     String? verificationId,
     int? forceResendingToken,
     String? error,
-  }){
+  }) {
     return copyWith(
       isPhoneValid: isPhoneValid,
       isSubmitting: isSubmitting,
@@ -108,7 +106,7 @@ class LogInState{
     String? verificationId,
     int? forceResendingToken,
     String? error,
-  }){
+  }) {
     return LogInState(
       isPhoneValid: isPhoneValid ?? this.isPhoneValid,
       isSubmitting: isSubmitting ?? this.isSubmitting,
@@ -120,5 +118,4 @@ class LogInState{
       error: error ?? this.error,
     );
   }
-
 }

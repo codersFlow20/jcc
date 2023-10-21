@@ -14,7 +14,7 @@ class AuthRepository {
     required Function(String) codeAutoRetrievalTimeout,
   }) async {
     await _firebaseAuth.verifyPhoneNumber(
-      phoneNumber: "+91"+ phoneNumber,
+      phoneNumber: "+91" + phoneNumber,
       verificationCompleted: onVerificationCompleted,
       verificationFailed: onVerificationFailed,
       codeSent: onCodeSent,

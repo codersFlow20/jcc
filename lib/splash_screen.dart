@@ -15,17 +15,17 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(
       Duration(milliseconds: 1500),
       () {
-            context.go('/auth');
+        context.go('/auth');
       },
     );
-    super.initState();
+    // super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Image.asset(Assets.iconLogo),
+        child: Image.asset(Assets.iconsLogo),
       ),
     );
   }

@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:jcc/repositories/auth/auth_repository.dart';
 
 part 'login_event.dart';
+
 part 'login_state.dart';
 
 class LogInBloc extends Bloc<LogInEvent, LogInState> {
@@ -37,13 +38,12 @@ class LogInBloc extends Bloc<LogInEvent, LogInState> {
             add(OnPhoneOtpSent(
                 verificationId: verificationId,
                 forceResendingToken: forceResendingToken));
-          },
-          codeAutoRetrievalTimeout: (String verificationId) {
             emit(state.copyWith(
               isOtpSent: true,
               verificationId: verificationId,
             ));
-          });
+          },
+          codeAutoRetrievalTimeout: (String verificationId) {});
     } catch (_) {
       emit(LogInState.failure(_.toString()));
     }
@@ -63,7 +63,7 @@ class LogInBloc extends Bloc<LogInEvent, LogInState> {
     try {
       _authRepository.signInWithOTP(event.verificationId, event.smsCode);
       emit(LogInState.success());
-    } catch(e){
+    } catch (e) {
       emit(LogInState.failure(e.toString()));
     }
   }

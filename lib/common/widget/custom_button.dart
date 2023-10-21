@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jcc/utils/constant.dart';
+import 'package:jcc/theme/colors.dart';
 
 class MyButton extends StatefulWidget {
   final VoidCallback onTap;
@@ -19,7 +19,7 @@ class _MyButtonState extends State<MyButton> {
         height: 60,
         width: double.infinity,
         decoration: BoxDecoration(
-          color: ColorConstants.darkMiddleBlue,
+          color: AppColors.darkMidnightBlue,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Center(

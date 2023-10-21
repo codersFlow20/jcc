@@ -5,6 +5,14 @@ class Assets {
   static const String backgroundsLoginBackground = 'assets/backgrounds/login_background.svg';
   static const String backgroundsOptBackground = 'assets/backgrounds/opt_background.svg';
   static const String backgroundsOtpBackground = 'assets/backgrounds/otp_background.svg';
-  static const String iconLogo = 'assets/icon/logo.png';
+  static const String backgroundsRegistrationBackground = 'assets/backgrounds/registration_background.svg';
+  static const String fontsPoppinsRegular = 'assets/fonts/Poppins-Regular.ttf';
+  static const String fontsRobotoCondensedRegular = 'assets/fonts/RobotoCondensed-Regular.ttf';
+  static const String fontsRobotoRegular = 'assets/fonts/Roboto-Regular.ttf';
+  static const String fontsRobotoThin = 'assets/fonts/Roboto-Thin.ttf';
+  static const String iconsComplaints = 'assets/icons/complaints.svg';
+  static const String iconsHome = 'assets/icons/home.svg';
+  static const String iconsLogo = 'assets/icons/logo.png';
+  static const String iconsNotifications = 'assets/icons/notifications.svg';
 
 }

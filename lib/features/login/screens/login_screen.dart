@@ -9,7 +9,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jcc/bloc/login/login_bloc.dart';
 import 'package:jcc/generated/assets.dart';
-import 'package:jcc/utils/constant.dart';
+import 'package:jcc/theme/colors.dart';
 import 'package:jcc/utils/validators.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -38,7 +38,8 @@ class _LoginScreenState extends State<LoginScreen> {
       body: BlocListener<LogInBloc, LogInState>(
         listener: (context, state) {
           if (state.isOtpSent) {
-            context.go('/otpScreen',extra: {'verificationId':state.verificationId ?? ""});
+            context.go('/otpScreen',
+                extra: {'verificationId': state.verificationId ?? ""});
             print(state.verificationId);
           } else if (state.isOtpError) {
             Navigator.of(context).pop();
@@ -50,17 +51,22 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             );
           } else if (state.isSubmitting) {
-            showDialog(context: context, builder: (context) {
-              return AlertDialog(
-                content: Row(
-                  children: [
-                    CircularProgressIndicator(),
-                    SizedBox(width: 20,),
-                    Text("Sending OTP")
-                  ],
-                ),
-              );
-            },);
+            showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  content: Row(
+                    children: [
+                      CircularProgressIndicator(),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Text("Sending OTP")
+                    ],
+                  ),
+                );
+              },
+            );
           }
         },
         child: BlocBuilder<LogInBloc, LogInState>(
@@ -76,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 80.0),
-                  child: Image.asset(Assets.iconLogo),
+                  child: Image.asset(Assets.iconsLogo),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(18.0),
@@ -124,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           height: 60,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: ColorConstants.darkMiddleBlue,
+                            color: AppColors.darkMidnightBlue,
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: Center(

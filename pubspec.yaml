@@ -51,6 +51,8 @@ flutter:
   #
   assets:
     - assets/
-    - assets/icon/
+    - assets/fonts/
+    - assets/icons/
     - assets/backgrounds/
+
 
