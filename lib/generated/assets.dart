@@ -5,6 +5,30 @@ class Assets {
   static const String backgroundsLoginBackground = 'assets/backgrounds/login_background.svg';
   static const String backgroundsOptBackground = 'assets/backgrounds/opt_background.svg';
   static const String backgroundsOtpBackground = 'assets/backgrounds/otp_background.svg';
-  static const String iconLogo = 'assets/icons/logo.png';
+  static const String departmentIconsCivil = 'assets/departmentIcons/Civil.png';
+  static const String departmentIconsESmartLight = 'assets/departmentIcons/E_Smart_Light.png';
+  static const String departmentIconsEstate = 'assets/departmentIcons/Estate.png';
+  static const String departmentIconsFloodControl = 'assets/departmentIcons/Flood_Control.png';
+  static const String departmentIconsGarden = 'assets/departmentIcons/Garden.png';
+  static const String departmentIconsHealth = 'assets/departmentIcons/Health.png';
+  static const String departmentIconsHouseTax = 'assets/departmentIcons/House_Tax.png';
+  static const String departmentIconsICDS = 'assets/departmentIcons/ICDS.png';
+  static const String departmentIconsLightEESL = 'assets/departmentIcons/Light_EESL.png';
+  static const String departmentIconsProjectPlanning = 'assets/departmentIcons/Project_Planning.png';
+  static const String departmentIconsSecurity = 'assets/departmentIcons/Security.png';
+  static const String departmentIconsSlumDepartment = 'assets/departmentIcons/Slum_Department.png';
+  static const String departmentIconsSolidWaste = 'assets/departmentIcons/Solid_Waste.png';
+  static const String departmentIconsTownPlanning = 'assets/departmentIcons/Town_Planning.png';
+  static const String departmentIconsUCD = 'assets/departmentIcons/UCD.png';
+  static const String departmentIconsUndergroundSewers = 'assets/departmentIcons/Underground_Sewers.png';
+  static const String departmentIconsWaterDepartment = 'assets/departmentIcons/Water_Department.png';
+  static const String fontsPoppinsRegular = 'assets/fonts/Poppins-Regular.ttf';
+  static const String fontsRobotoCondensedRegular = 'assets/fonts/RobotoCondensed-Regular.ttf';
+  static const String fontsRobotoRegular = 'assets/fonts/Roboto-Regular.ttf';
+  static const String fontsRobotoThin = 'assets/fonts/Roboto-Thin.ttf';
+  static const String iconsComplaints = 'assets/icons/complaints.svg';
+  static const String iconsHome = 'assets/icons/home.svg';
+  static const String iconsLogo = 'assets/icons/logo.png';
+  static const String iconsNotifications = 'assets/icons/notifications.svg';
 
 }

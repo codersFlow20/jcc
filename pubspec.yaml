@@ -28,6 +28,7 @@ dependencies:
   google_sign_in:
   otpview_sk: ^0.0.2
   otpview: ^0.0.2
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:
@@ -58,4 +59,6 @@ flutter:
     - assets/
     - assets/icons/
     - assets/backgrounds/
+    - assets/departmentIcons/
+    - assets/fonts/
 
