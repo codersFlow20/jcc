@@ -36,47 +36,51 @@ class _ComplaintListState extends State<ComplaintList> {
         physics: BouncingScrollPhysics(),
         itemCount: 10,
         itemBuilder: (context, index) {
-          return Container(
-            margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: AppColors.antiFlashWhite
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Image.asset(
-                  'assets/icons/logo.png',
-                  width: 100,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Date and times",
-                      style: GoogleFonts.poppins(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.grey),
-                    ),
-                    Text(
-                      "Title",
-                      style: GoogleFonts.poppins(
-                          fontSize: 16, fontWeight: FontWeight.w500),
-                    ),
-                    Text(
-                      "description",
-                      style: GoogleFonts.poppins(
-                          fontSize: 12),
-                    ),
-                    Text("🔴 On Hold"),
-                    Text("Complaint Id : 64564ABH"),
-                  ],
-                )
-              ],
+          return Card(
+            color: Color(0xFFBCF2E7),
+            child: Container(
+              margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Image.asset(
+                    'assets/icons/logo.png',
+                    width: 100,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Date and times",
+                        style: GoogleFonts.poppins(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.grey),
+                      ),
+                      Text(
+                        "Title",
+                        style: GoogleFonts.poppins(
+                            fontSize: 16, fontWeight: FontWeight.w500),
+                      ),
+                      Text(
+                        "description",
+                        style: GoogleFonts.poppins(fontSize: 12),
+                      ),
+                      Text(
+                        "🔴 On Hold",
+                        style: GoogleFonts.poppins(),
+                      ),
+                      Text(
+                        "Complaint Id : 64564ABH",
+                        style: GoogleFonts.poppins(),
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
           );
         },

@@ -98,14 +98,16 @@ Widget _buildNotificationItem(
     required BuildContext context}) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-    decoration: BoxDecoration(
-      color: AppColors.antiFlashWhite,
-      borderRadius: BorderRadius.only(
-        topLeft: index == 0 ? Radius.circular(20) : Radius.circular(0),
-        topRight: index == 0 ? Radius.circular(20) : Radius.circular(0),
-        bottomLeft: index == 9 ? Radius.circular(20) : Radius.circular(0),
-        bottomRight: index == 9 ? Radius.circular(20) : Radius.circular(0),
+    padding: const EdgeInsets.symmetric(horizontal: 15.50, vertical: 15),
+    decoration: ShapeDecoration(
+      color: Color(0xFFE9F7F5),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10),
+          topRight: Radius.circular(10),
+          bottomLeft: Radius.circular(3),
+          bottomRight: Radius.circular(3),
+        ),
       ),
     ),
     child: Row(
@@ -113,49 +115,59 @@ Widget _buildNotificationItem(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(
-          margin: EdgeInsets.only(left: 10, right: 5, top: 10),
-          height: 50,
           width: 50,
-          decoration: BoxDecoration(
-            color: Colors.grey.shade300,
-            borderRadius: BorderRadius.circular(10),
+          height: 50,
+          clipBehavior: Clip.antiAlias,
+          decoration: ShapeDecoration(
+            color: Color(0xFFB0B0B0),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
           ),
           child: Icon(Icons.notifications),
         ),
-        SizedBox(width: 10),
-        Expanded(
+        SizedBox(width: 17),
+        Container(
           child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                title,
-                style: GoogleFonts.poppins(
+                'Water Department',
+                style: TextStyle(
+                  color: Colors.black,
                   fontSize: 16,
-                  fontWeight: FontWeight.w600,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w500,
+                  height: 0,
                 ),
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 4),
               Text(
-                subtitle,
-                style: GoogleFonts.poppins(
-                  fontSize: 11,
-                  fontWeight: FontWeight.w400,
+                'Your complaint has been resolved to your satisfaction. We\'re pleased to have addressed your concerns and thank you for your feedback. If you have any more issues, please don\'t hesitate to reach out.',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 12,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.normal,
+                  height: 0,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                'Fri, 12 Oct 2023, 10:00pm',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 8,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.normal,
+                  height: 0,
                 ),
               ),
             ],
           ),
-        ),
-        SizedBox(width: 10),
-        Container(
-          margin: EdgeInsets.only(top: 10, right: 5),
-          child: Text(
-            time,
-            style: TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-        ),
+        )
       ],
     ),
   );
