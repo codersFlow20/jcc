@@ -7,14 +7,13 @@ import 'package:jcc/features/home/screens/home_screen.dart';
 import 'package:jcc/features/login/screens/login_screen.dart';
 import 'package:jcc/features/login/screens/otp_screen.dart';
 import 'package:jcc/features/notification/screens/notification_screen.dart';
-import 'package:jcc/features/register/register/register_screen.dart';
 import 'package:jcc/splash_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKay = GlobalKey<NavigatorState>();
 
 final router = GoRouter(
-  initialLocation: '/registration',
+  initialLocation: '/splash',
   navigatorKey: _rootNavigatorKey,
   routes: <RouteBase>[
     GoRoute(
@@ -34,52 +33,43 @@ final router = GoRouter(
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
-      path: '/registration',
-      builder: (context, state) => const RegistrationScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: _rootNavigatorKey,
       path: '/otpScreen',
       builder: (context, state) => const OtpScreen(),
     ),
     ShellRoute(
         navigatorKey: _shellNavigatorKay,
-        builder: (context, state, child) =>
-            AppBottomNavigationBar(child: child),
+        builder: (context, state, child) => AppBottomNavigationBar(child: child),
         routes: [
           GoRoute(
               parentNavigatorKey: _shellNavigatorKay,
               path: '/home',
-              pageBuilder: (context, state) {
+              pageBuilder: (context, state){
                 return CustomTransitionPage(
                     child: const HomeScreen(),
                     transitionDuration: Duration.zero,
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
+                    transitionsBuilder: (context, animation, secondaryAnimation,child){
                       return child;
                     });
               }),
           GoRoute(
               parentNavigatorKey: _shellNavigatorKay,
               path: '/Complaints',
-              pageBuilder: (context, state) {
+              pageBuilder: (context, state){
                 return CustomTransitionPage(
                     child: const ComplaintList(),
                     transitionDuration: Duration.zero,
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
+                    transitionsBuilder: (context, animation, secondaryAnimation,child){
                       return child;
                     });
               }),
           GoRoute(
               parentNavigatorKey: _shellNavigatorKay,
               path: '/notifications',
-              pageBuilder: (context, state) {
+              pageBuilder: (context, state){
                 return CustomTransitionPage(
                     child: const NotificationScreen(),
                     transitionDuration: Duration.zero,
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
+                    transitionsBuilder: (context, animation, secondaryAnimation,child){
                       return child;
                     });
               }),

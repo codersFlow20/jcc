@@ -6,10 +6,6 @@ class ComplaintList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: null,
-        child: Icon(Icons.add),
-      ),
       body: Center(
         child: Text(
           "This is a Complaints list Page",

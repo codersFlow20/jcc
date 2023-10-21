@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 
 class AppColors {
@@ -12,5 +14,4 @@ class AppColors {
   static const Color fluorescentBlue = Color(0xFF40F8FF);
   static const Color teaGreen = Color(0xFFD5FFD0);
   static const Color antiFlashWhite = Color(0xFFF0F0F0);
-  static const Color antiFlashWhite2 = Color(0xFFE9F8F5);
 }
