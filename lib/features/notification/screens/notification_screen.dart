@@ -3,11 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:jcc/common/widget/custom_button.dart';
 
-/*
-This is just fot testing purpose
-void main() => runApp(NotificationScreen());
-*/
-
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({super.key});
 
