@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:jcc/bloc/complaint/register/complaint_register_bloc.dart';
 import 'package:jcc/common/widget/bottom_navigation_bar.dart';
 import 'package:jcc/features/auth/screens/auth_screen.dart';
 import 'package:jcc/features/complaint/screens/complaint_list.dart';
@@ -7,6 +8,7 @@ import 'package:jcc/features/home/screens/home_screen.dart';
 import 'package:jcc/features/login/screens/login_screen.dart';
 import 'package:jcc/features/login/screens/otp_screen.dart';
 import 'package:jcc/features/notification/screens/notification_screen.dart';
+import 'package:jcc/features/complaint/screens/complaint_register.dart' as ComplaintRegister;
 import 'package:jcc/splash_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -36,40 +38,49 @@ final router = GoRouter(
       path: '/otpScreen',
       builder: (context, state) => const OtpScreen(),
     ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/complaintRegister',
+      builder: (context, state) => const ComplaintRegister.ComplaintRegister(),
+    ),
     ShellRoute(
         navigatorKey: _shellNavigatorKay,
-        builder: (context, state, child) => AppBottomNavigationBar(child: child),
+        builder: (context, state, child) =>
+            AppBottomNavigationBar(child: child),
         routes: [
           GoRoute(
               parentNavigatorKey: _shellNavigatorKay,
               path: '/home',
-              pageBuilder: (context, state){
+              pageBuilder: (context, state) {
                 return CustomTransitionPage(
                     child: const HomeScreen(),
                     transitionDuration: Duration.zero,
-                    transitionsBuilder: (context, animation, secondaryAnimation,child){
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
                       return child;
                     });
               }),
           GoRoute(
               parentNavigatorKey: _shellNavigatorKay,
               path: '/Complaints',
-              pageBuilder: (context, state){
+              pageBuilder: (context, state) {
                 return CustomTransitionPage(
                     child: const ComplaintList(),
                     transitionDuration: Duration.zero,
-                    transitionsBuilder: (context, animation, secondaryAnimation,child){
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
                       return child;
                     });
               }),
           GoRoute(
               parentNavigatorKey: _shellNavigatorKay,
               path: '/notifications',
-              pageBuilder: (context, state){
+              pageBuilder: (context, state) {
                 return CustomTransitionPage(
                     child: const NotificationScreen(),
                     transitionDuration: Duration.zero,
-                    transitionsBuilder: (context, animation, secondaryAnimation,child){
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
                       return child;
                     });
               }),

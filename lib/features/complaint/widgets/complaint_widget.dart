@@ -3,6 +3,7 @@ import 'package:jcc/constants/string_constants.dart';
 
 import 'package:jcc/models/complaint_model.dart';
 import 'package:jcc/theme/colors.dart';
+import 'package:jcc/theme/container_theme.dart';
 import 'package:jcc/utils/conversion.dart';
 
 class ComplaintWidget extends StatelessWidget {
@@ -13,34 +14,20 @@ class ComplaintWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(left: 5, top: 10),
-      height: 120,
-      decoration: const BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black,
-              blurRadius: 2,
-              offset:Offset(  0, 2)
-            ),
-            BoxShadow(
-                color: Colors.white,
-                blurRadius: 2,
-                offset:Offset(  0, 2)
-            )
-          ],
-          color: AppColors.mintTulip,
-          borderRadius: BorderRadius.all(Radius.circular(15))),
+      padding: const EdgeInsets.all(10),
+      decoration: ContainerTheme.cardContainer,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          const SizedBox(width: 5),
           Image.asset(
            getIconName(complaint.departmentName),
-            height: 70,
-            width: 70,
+            height: 60,
+            width: 60,
           ),
           const SizedBox(
-            width: 5,
+            width: 15,
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
