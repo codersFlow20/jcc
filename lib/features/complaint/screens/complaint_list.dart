@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jcc/features/complaint/widgets/complaint_widget.dart';
-import 'package:jcc/models/complaint_model.dart';
-
-import '../../../theme/colors.dart';
+import '../../../bloc/complaint/complaint_bloc.dart';
 
 class ComplaintList extends StatelessWidget {
   const ComplaintList({super.key});
@@ -10,27 +9,48 @@ class ComplaintList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: ComplaintWidget(
-          complaint: ComplaintModel(
-            id: '45',
-            description: 'description',
-            registrationDate: DateTime.now(),
-            departmentName: 'Water Works',
-            subject: 'Irregular Water ',
-            status: 'Registered',
-            ward: '',
-            area: '',
-            userId: '',
-            imageUrls: const [],
-            optionalNumber: '',
-            siteAddress: '',
-            uniquePin: '',
-            assignedId: '',
-            isAssigned: false,
-            isLocked: false,
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {},
+          icon: const Icon(Icons.menu),
+        ),
+        title: const Text(
+          'Complaints',
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 22,
           ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.sort),
+          )
+        ],
+      ),
+      body: BlocBuilder<ComplaintBloc, ComplaintState>(
+        builder: (context, state) {
+          if (state is ComplaintLoading || state is ComplaintInitial) {
+            const CircularProgressIndicator();
+          } else if (state is ComplaintLoaded) {
+            return Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: ListView.separated(
+                itemBuilder: (context, index) {
+                  return ComplaintWidget(complaint: state.complaintList[index]);
+                },
+                separatorBuilder: (context, index) => const SizedBox(
+                  height: 10,
+                ),
+                itemCount: state.complaintList.length,
+              ),
+            );
+          } else if (state is ComplaintError) {
+            return Text(state.message);
+          }
+
+          return const CircularProgressIndicator();
+        },
       ),
     );
   }
