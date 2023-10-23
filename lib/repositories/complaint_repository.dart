@@ -1,9 +1,10 @@
+import 'dart:developer' as dev;
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'dart:developer' as dev;
+
 import '../models/complaint_model.dart';
 
 class ComplaintRepository {
@@ -51,5 +52,4 @@ class ComplaintRepository {
     }
     return _urls;
   }
-
 }
