@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:developer' as dev;
 import '../models/complaint_model.dart';
 
@@ -7,32 +10,16 @@ class ComplaintRepository {
   ComplaintRepository({
     FirebaseFirestore? firestore,
     FirebaseAuth? firebaseAuth,
+    FirebaseStorage? firebaseStorage,
   })  : _firestore = firestore ?? FirebaseFirestore.instance,
-        _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
+        _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
+        _firebaseStorage = firebaseStorage ?? FirebaseStorage.instance;
 
   final FirebaseFirestore _firestore;
   final FirebaseAuth _firebaseAuth;
+  final FirebaseStorage _firebaseStorage;
 
   Stream<List<ComplaintModel>> getComplaints() {
-    // ComplaintModel model = ComplaintModel(
-    //   id: '46',
-    //   description: 'description',
-    //   registrationDate: DateTime.now(),
-    //   departmentName: 'Civil',
-    //   subject: 'Irregular water ',
-    //   ward: '12',
-    //   area: 'area',
-    //   userId: '+916355303321',
-    //   uniquePin: 'uniquePin',
-    //   imageUrls: const ['imageUrls'],
-    //   status: 'status',
-    //   optionalNumber: 'optionalNumber',
-    //   siteAddress: 'siteAddress',
-    //   isLocked: false,
-    //   isAssigned: false,
-    //   assignedId: 'assignedId',
-    // );
-    // _firestore.collection('complaints').doc('46').set(model.toMap());
     dev.log("Current User : ${_firebaseAuth.currentUser!.phoneNumber}");
     return _firestore
         .collection('complaints')
@@ -43,4 +30,26 @@ class ComplaintRepository {
       return event.docs.map((e) => ComplaintModel.fromMap(e.data())).toList();
     });
   }
+
+  Future<ComplaintModel> registerComplaint(Map<String, dynamic> data) {
+    ComplaintModel _complaintModel = ComplaintModel.fromMap(data);
+    return _firestore.collection('complaints').add(data).then((value) {
+      _complaintModel.copyWith(id: value.id);
+      return _complaintModel;
+    });
+  }
+
+  Future<List<String>> uploadFiles(List<File> files) async {
+    List<String> _urls = [];
+    for (var file in files) {
+      final ref = _firebaseStorage.ref().child('complaints/${file.path}');
+      await ref.putFile(file).then((value) async {
+        await value.ref.getDownloadURL().then((value) {
+          _urls.add(value);
+        });
+      });
+    }
+    return _urls;
+  }
+
 }

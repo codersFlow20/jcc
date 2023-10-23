@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:jcc/features/complaint/widgets/complaint_widget.dart';
+import 'package:jcc/theme/colors.dart';
 import '../../../bloc/complaint/complaint_bloc.dart';
 
 class ComplaintList extends StatelessWidget {
@@ -9,6 +12,21 @@ class ComplaintList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(
+        label: Text(
+          "Register Complaint",
+          style: GoogleFonts.poppins(
+            fontSize: 14,
+            color: AppColors.white,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        icon: Icon(Icons.edit, color: AppColors.white),
+        onPressed: () {
+          context.push('/complaintRegister');
+        },
+        backgroundColor: AppColors.brilliantAzure,
+      ),
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {},
