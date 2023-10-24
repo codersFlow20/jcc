@@ -9,12 +9,18 @@ import 'package:jcc/firebase_options.dart';
 import 'package:jcc/repositories/auth/auth_repository.dart';
 import 'package:jcc/repositories/complaint_repository.dart';
 import 'package:jcc/theme/app_theme.dart';
-
+import 'package:onesignal_flutter/onesignal_flutter.dart';
+import 'package:jcc/config/onesignal_config.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  // OneSignal.Notifications.clearAll();
+  OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+  OneSignal.initialize(OneSignalConfig.oneSignalAppId);
+  OneSignal.Notifications.requestPermission(true);
   runApp(const MyApp());
 }
 
