@@ -21,7 +21,7 @@ class OtpScreen extends StatefulWidget {
 class _OtpScreenState extends State<OtpScreen> {
   String otp = "";
   String verificationId = "";
-  TextEditingController _otpController = TextEditingController();
+  final TextEditingController _otpController = TextEditingController();
 
   late LogInBloc _loginBloc;
 
@@ -60,7 +60,7 @@ class _OtpScreenState extends State<OtpScreen> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 25.0, vertical: 20.0),
                       child: Text(
-                        "we have sent an OTP to your mobile number",
+                        "We have sent an OTP to your mobile number",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w400,
