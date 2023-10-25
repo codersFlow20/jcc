@@ -18,14 +18,14 @@ class DepartmentData {
   DepartmentData({required this.name, required this.id, required this.subject});
 }
 
-class ComplaintRegister extends StatefulWidget {
-  const ComplaintRegister({super.key});
+class ComplaintRegistrationScreen extends StatefulWidget {
+  const ComplaintRegistrationScreen({super.key});
 
   @override
-  State<ComplaintRegister> createState() => _ComplaintRegisterState();
+  State<ComplaintRegistrationScreen> createState() => _ComplaintRegistrationScreenState();
 }
 
-class _ComplaintRegisterState extends State<ComplaintRegister> {
+class _ComplaintRegistrationScreenState extends State<ComplaintRegistrationScreen> {
   File? _image1;
   File? _image2;
   File? _image3;

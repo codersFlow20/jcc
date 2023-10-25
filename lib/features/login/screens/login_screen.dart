@@ -8,7 +8,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jcc/bloc/login/login_bloc.dart';
-import 'package:jcc/generated/assets.dart';
 import 'package:jcc/theme/colors.dart';
 import 'package:jcc/utils/validators.dart';
 
@@ -20,7 +19,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController _mobileNoController = TextEditingController();
+  final TextEditingController _mobileNoController = TextEditingController();
 
   late LogInBloc _loginBloc;
 
@@ -66,83 +65,81 @@ class _LoginScreenState extends State<LoginScreen> {
         child: BlocBuilder<LogInBloc, LogInState>(
           bloc: _loginBloc,
           builder: (context, state) {
-            return Stack(
-              children: [
-                SvgPicture.asset(
-                  "assets/backgrounds/login_background.svg",
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                  height: double.infinity,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 80.0),
-                  child: Image.asset(Assets.iconsLogo),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(18.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Login with your mobile no",
-                        style: GoogleFonts.poppins(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      TextFormField(
-                        cursorColor: Colors.black,
-                        controller: _mobileNoController,
-                        maxLength: 10,
-                        keyboardType: TextInputType.phone,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
+            return SafeArea(
+              child: Stack(
+                children: [
+                  SvgPicture.asset(
+                    "assets/backgrounds/login_background.svg",
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    height: double.infinity,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(18.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Login with your mobile no",
+                          style: GoogleFonts.poppins(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
                           ),
-                          filled: true,
-                          fillColor: Colors.white,
-                          prefixIcon: Text(
-                            "  +91 | ",
-                            style: GoogleFonts.poppins(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
+                        ),
+                        SizedBox(height: 10),
+                        TextFormField(
+                          cursorColor: Colors.black,
+                          controller: _mobileNoController,
+                          maxLength: 10,
+                          keyboardType: TextInputType.phone,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
                             ),
-                          ),
-                          prefixIconConstraints: BoxConstraints(
-                            minWidth: 0,
-                            minHeight: 0,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      //Container button with blue color and text as login with 70px height
-                      InkWell(
-                        onTap: _onLoginPressed,
-                        child: Container(
-                          height: 60,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: AppColors.darkMidnightBlue,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Center(
-                            child: Text(
-                              "Continue",
+                            filled: true,
+                            fillColor: Colors.white,
+                            prefixIcon: Text(
+                              "  +91 | ",
                               style: GoogleFonts.poppins(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w500,
-                                color: Colors.white,
+                              ),
+                            ),
+                            prefixIconConstraints: BoxConstraints(
+                              minWidth: 0,
+                              minHeight: 0,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        //Container button with blue color and text as login with 70px height
+                        InkWell(
+                          onTap: _onLoginPressed,
+                          child: Container(
+                            height: 60,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: AppColors.darkMidnightBlue,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Center(
+                              child: Text(
+                                "Continue",
+                                style: GoogleFonts.poppins(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                )
-              ],
+                ],
+              ),
             );
           },
         ),

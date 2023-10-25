@@ -20,8 +20,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       final isSignedIn = await _authRepository.isSignedIn();
       if (isSignedIn) {
-        final email = await _authRepository.getUser();
-        emit(Authenticated(email: email ?? 'Error'));
+        final phoneNo = await _authRepository.getUser();
+        emit(Authenticated(phoneNo: phoneNo ?? 'Error'));
       } else {
         emit(UnAuthenticated());
       }
@@ -31,7 +31,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> _onLoggedIn(LoggedIn event, Emitter<AuthState> emit) async {
-    emit(Authenticated(email: await _authRepository.getUser() ?? 'Error'));
+    emit(Authenticated(phoneNo: await _authRepository.getUser() ?? 'Error'));
   }
 
   void _onLoggedOut(LoggedOut event, Emitter<AuthState> emit) {

@@ -17,7 +17,7 @@ class _MyButtonState extends State<MyButton> {
     return InkWell(
       onTap: widget.onTap,
       child: Container(
-        height: 60,
+        height: 50,
         width: double.infinity,
         decoration: BoxDecoration(
           color: AppColors.darkMidnightBlue,
@@ -26,10 +26,8 @@ class _MyButtonState extends State<MyButton> {
         child: Center(
           child: Text(
             widget.title,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
-              color: Colors.white,
+            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+              color: AppColors.white,
             ),
           ),
         ),

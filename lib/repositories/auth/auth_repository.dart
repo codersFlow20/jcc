@@ -14,7 +14,7 @@ class AuthRepository {
     required Function(String) codeAutoRetrievalTimeout,
   }) async {
     await _firebaseAuth.verifyPhoneNumber(
-      phoneNumber: "+91"+ phoneNumber,
+      phoneNumber: "+91$phoneNumber",
       verificationCompleted: onVerificationCompleted,
       verificationFailed: onVerificationFailed,
       codeSent: onCodeSent,
@@ -23,7 +23,9 @@ class AuthRepository {
   }
 
   Future<UserCredential> signInWithOTP(
-      String verificationId, String smsCode) async {
+    String verificationId,
+    String smsCode,
+  ) async {
     try {
       final AuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verificationId,
@@ -47,6 +49,6 @@ class AuthRepository {
   }
 
   Future<String?> getUser() async {
-    return (_firebaseAuth.currentUser)?.email;
+    return (_firebaseAuth.currentUser)?.phoneNumber;
   }
 }

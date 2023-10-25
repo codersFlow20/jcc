@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:jcc/constants/assets_constants.dart';
 import 'package:jcc/features/complaint/widgets/complaint_widget.dart';
 import 'package:jcc/theme/colors.dart';
 import '../../../bloc/complaint/complaint_bloc.dart';
@@ -12,22 +13,28 @@ class ComplaintList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
-        label: Text(
-          "Register Complaint",
-          style: GoogleFonts.poppins(
-            fontSize: 14,
-            color: AppColors.white,
-            fontWeight: FontWeight.w600,
-          ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(
+          bottom: 85,
         ),
-        icon: Icon(Icons.edit, color: AppColors.white),
-        onPressed: () {
-          context.push('/complaintRegister');
-        },
-        backgroundColor: AppColors.brilliantAzure,
+        child: FloatingActionButton.extended(
+          label: Text(
+            "Register Complaint",
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+              fontFamily: 'Roboto',
+              fontWeight: FontWeight.w600,
+              color: AppColors.white,
+            ),
+          ),
+          icon: SvgPicture.asset(AssetsConstants.edit),
+          onPressed: () {
+            context.push('/complaint_register');
+          },
+          backgroundColor: AppColors.greenBlue,
+        ),
       ),
       appBar: AppBar(
+        centerTitle: true,
         leading: IconButton(
           onPressed: () {},
           icon: const Icon(Icons.menu),
