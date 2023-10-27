@@ -2,6 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:jcc/repositories/auth/auth_repository.dart';
 
+import 'dart:developer' as dev;
+
 part 'auth_event.dart';
 part 'auth_state.dart';
 
@@ -41,6 +43,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   @override
   void onTransition(Transition<AuthEvent, AuthState> transition) {
+    dev.log(transition.toString(), name: 'Auth');
     super.onTransition(transition);
   }
 }

@@ -34,7 +34,7 @@ class UserRegisterBloc extends Bloc<UserRegisterEvent, UserRegisterState> {
     if (user == null) {
       emit(const UserRegisterError('Some error occurred!'));
     }else {
-      emit(UserRegistered(user));
+      add(GetUser(event.user.phoneNo));
     }
   }
 
@@ -52,6 +52,7 @@ class UserRegisterBloc extends Bloc<UserRegisterEvent, UserRegisterState> {
               dev.log('User is null', name: 'User');
               add(UnRegisterUser());
             } else {
+              dev.log('User data: $event', name: 'User');
               add(UpdateUser(user: event));
             }
           });

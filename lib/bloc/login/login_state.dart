@@ -65,7 +65,7 @@ class LogInState{
   }
 
   factory LogInState.success(){
-    return LogInState(
+    return const LogInState(
       isPhoneValid: true,
       isSubmitting: false,
       isOtpSent: false,
