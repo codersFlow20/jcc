@@ -11,6 +11,9 @@ import 'package:jcc/bloc/login/login_bloc.dart';
 import 'package:jcc/theme/colors.dart';
 import 'package:jcc/utils/validators.dart';
 
+import '../../../bloc/auth/auth_bloc.dart';
+import '../../../bloc/user/register/user_register_bloc.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -37,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: BlocListener<LogInBloc, LogInState>(
         listener: (context, state) {
           if (state.isOtpSent) {
-            context.go('/otpScreen',extra: {'verificationId':state.verificationId ?? ""});
+            context.go('/otpScreen', extra: {'verificationId':state.verificationId ?? ""});
             print(state.verificationId);
           } else if (state.isOtpError) {
             Navigator.of(context).pop();
@@ -55,10 +58,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     CircularProgressIndicator(),
                     SizedBox(width: 20,),
-                    Text("Sending OTP")
+                    Text("Sending OTP"),
                   ],
                 ),
               );
+            },);
+          } else if (state.isOtpVerified) {
+            context.read<AuthBloc>().add(LoggedIn());
+            Future.delayed(const Duration(seconds: 0), () {
+              final phoneNo = (context.read<AuthBloc>().state as Authenticated).phoneNo;
+              context.read<UserRegisterBloc>().add(GetUser(phoneNo));
             },);
           }
         },
