@@ -11,6 +11,8 @@ import 'package:jcc/repositories/complaint_repository.dart';
 import 'package:jcc/theme/app_theme.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:jcc/config/onesignal_config.dart';
+import 'dart:developer' as dev;
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -21,6 +23,8 @@ Future<void> main() async {
   OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
   OneSignal.initialize(OneSignalConfig.oneSignalAppId);
   OneSignal.Notifications.requestPermission(true);
+  OneSignal.login('+918160639228');
+  dev.log("${OneSignal.Notifications.permission}" , name: 'Notification Users');
   runApp(const MyApp());
 }
 

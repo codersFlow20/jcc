@@ -31,8 +31,9 @@ dependencies:
   intl: ^0.18.1
   lottie: ^2.7.0
   firebase_storage: ^11.3.1
-# One Signal
   onesignal_flutter: ^5.0.3
+  http:
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

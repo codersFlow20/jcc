@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:jcc/constants/string_constants.dart';
 import 'package:jcc/features/complaint/widgets/complaint_widget.dart';
+import 'package:jcc/repositories/notification_repository.dart';
 import 'package:jcc/theme/colors.dart';
 import '../../../bloc/complaint/complaint_bloc.dart';
+import 'dart:developer' as dev;
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 class ComplaintList extends StatelessWidget {
   const ComplaintList({super.key});
@@ -23,7 +27,20 @@ class ComplaintList extends StatelessWidget {
         ),
         icon: Icon(Icons.edit, color: AppColors.white),
         onPressed: () {
-          context.push('/complaintRegister');
+          OneSignal.Notifications.requestPermission(true);
+          dev.log("${OneSignal.Notifications.permission}",
+              name: "Notification Users : ");
+          dev.log("${OneSignal.User.pushSubscription.token}",
+              name: "Notification Token : ");
+          dev.log("${OneSignal.User.pushSubscription.id}",
+              name: "Notification ID : ");
+
+          NotificationRepository().sendPushNotification(
+            "Nothing to say ",
+            "HI THERE",
+            DepartmentDataConstants.listOfToken,
+          );
+          // context.push('/complaintRegister');
         },
         backgroundColor: AppColors.brilliantAzure,
       ),
