@@ -51,6 +51,18 @@ class DepartmentDataConstants {
     "FLOOD CONTROL",
   ];
 
+  static final Map<String, List<String>> departmentComplaintsData = {
+    'Water Works': [
+      'No Water',
+      'Irregular Water',
+    ],
+    'Slum': ['Others'],
+    'Health': [
+      'Fogging Work',
+      'Food Checking',
+    ],
+  };
+
   static final List<String> departmentIconsAssetsName = [
     Assets.departmentIconsWaterDepartment,
     Assets.departmentIconsSlumDepartment,

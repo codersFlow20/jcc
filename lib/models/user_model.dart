@@ -1,4 +1,6 @@
-class UserModel {
+import 'package:equatable/equatable.dart';
+
+class UserModel extends Equatable {
   final String phoneNo;
   final String name;
   final String? profilePicUrl;
@@ -64,6 +66,9 @@ class UserModel {
       notificationToken: map['notificationToken'] as String,
     );
   }
+
+  @override
+  List<Object?> get props => [name, phoneNo, profilePicUrl, notificationToken];
 
 //</editor-fold>
 }

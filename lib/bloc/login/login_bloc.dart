@@ -1,11 +1,14 @@
 import 'dart:async';
+import 'dart:developer' as dev;
 
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:jcc/repositories/auth/auth_repository.dart';
 
 part 'login_event.dart';
+
 part 'login_state.dart';
 
 class LogInBloc extends Bloc<LogInEvent, LogInState> {
@@ -26,24 +29,25 @@ class LogInBloc extends Bloc<LogInEvent, LogInState> {
     try {
       emit(LogInState.loading());
       await _authRepository.loginWithPhone(
-          phoneNumber: event.phoneNumber,
-          onVerificationCompleted: (PhoneAuthCredential phoneAuthCredential) {
-            add(OnPhoneAuthSuccessEvent());
-          },
-          onVerificationFailed: (FirebaseAuthException firebaseAuthException) {
-            add(OnPhoneAuthErrorEvent(firebaseAuthException.message ?? ''));
-          },
-          onCodeSent: (String verificationId, int? forceResendingToken) {
-            add(OnPhoneOtpSent(
-                verificationId: verificationId,
-                forceResendingToken: forceResendingToken));
-          },
-          codeAutoRetrievalTimeout: (String verificationId) {
-            emit(state.copyWith(
-              isOtpSent: true,
+        phoneNumber: event.phoneNumber,
+        onVerificationCompleted: (PhoneAuthCredential phoneAuthCredential) {
+          add(OnPhoneAuthSuccessEvent());
+        },
+        onVerificationFailed: (FirebaseAuthException firebaseAuthException) {
+          add(OnPhoneAuthErrorEvent(firebaseAuthException.message ?? ''));
+        },
+        onCodeSent: (String verificationId, int? forceResendingToken) {
+          add(OnPhoneOtpSent(
               verificationId: verificationId,
-            ));
-          });
+              forceResendingToken: forceResendingToken));
+        },
+        codeAutoRetrievalTimeout: (String verificationId) {
+          // emit(state.copyWith(
+          //   isOtpSent: true,
+          //   verificationId: verificationId,
+          // ));
+        },
+      );
     } catch (_) {
       emit(LogInState.failure(_.toString()));
     }
@@ -63,7 +67,7 @@ class LogInBloc extends Bloc<LogInEvent, LogInState> {
     try {
       _authRepository.signInWithOTP(event.verificationId, event.smsCode);
       emit(LogInState.success());
-    } catch(e){
+    } catch (e) {
       emit(LogInState.failure(e.toString()));
     }
   }
@@ -76,5 +80,11 @@ class LogInBloc extends Bloc<LogInEvent, LogInState> {
   Future<void> _onPhoneAuthSuccessEvent(
       OnPhoneAuthSuccessEvent event, Emitter<LogInState> emit) async {
     emit(LogInState.success());
+  }
+
+  @override
+  void onTransition(Transition<LogInEvent, LogInState> transition) {
+    dev.log(transition.toString(), name: 'Login');
+    super.onTransition(transition);
   }
 }
