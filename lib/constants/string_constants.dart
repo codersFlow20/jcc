@@ -2,14 +2,34 @@ import 'dart:core';
 
 import 'package:jcc/generated/assets.dart';
 
-class UserDataConstants {
+class CommonDataConstants {
   static final List<String> bottomNavigation = [
     "Home",
     "Complaints",
     "Notifications",
   ];
+
+  static const String home = "Home";
 }
 
+class ScreensDataConstants{
+  static const String recentTitle = "Recent Complaints";
+}
+class ComplaintStateDataConstants {
+  static final List<String> complaintState = [
+    "Registered",
+    "On Hold",
+    "In Process",
+    "Solved"
+  ];
+
+  static final List<String> complaintStateStatement = [
+    "Complaints Registered",
+    "Complaints  Hold",
+    "Complaints In Process",
+    "Complaints Solved",
+  ];
+}
 class DepartmentDataConstants {
   static final List<String> departmentNameList = [
     "Water Works",
