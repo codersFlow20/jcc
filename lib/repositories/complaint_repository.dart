@@ -66,7 +66,7 @@ class ComplaintRepository {
           isLocked: false,
           assignedEmployeeId: '',
           registrationDate: DateTime.now(),
-          status: UserDataConstants.complaintStatuses[0],
+          status: CommonDataConstants.complaintStatuses[0],
           uniquePin: GeneratorUtils.generateSixDigitRandomPin(),
           userId: complaintData['userId'],
         );

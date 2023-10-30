@@ -15,10 +15,11 @@ class CommonDataConstants {
     'On Hold',
     'Solved',
   ];
+
+  static const String home = "Home";
 }
 
 class ScreensDataConstants{
-  static const String home = "Home";
   static const String recentTitle = "Recent Complaints";
 }
 
@@ -85,7 +86,7 @@ class DepartmentDataConstants {
   static final List<String> departmentIconsAssetsName = [
     Assets.departmentIconsWaterDepartment,
     Assets.departmentIconsSlumDepartment,
-    Assets.departmentIconsLightEESL,
+    Assets.departmentIconsLightEesl,
     Assets.departmentIconsCivil,
     Assets.departmentIconsHealth,
     Assets.departmentIconsSolidWaste,
@@ -93,8 +94,8 @@ class DepartmentDataConstants {
     Assets.departmentIconsTownPlanning,
     Assets.departmentIconsUndergroundSewers,
     Assets.departmentIconsHouseTax,
-    Assets.departmentIconsUCD,
-    Assets.departmentIconsICDS,
+    Assets.departmentIconsUcd,
+    Assets.departmentIconsIcds,
     Assets.departmentIconsGarden,
     Assets.departmentIconsProjectPlanning,
     Assets.departmentIconsESmartLight,

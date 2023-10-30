@@ -28,6 +28,4 @@ class AppColors {
   static const Color red = Color(0xFFFF2020);
   static const Color violet = Color(0xFF9E07A1);
   static const Color islamicGreen = Color(0xFF008905);
-
-  static const Color paleBlue = Color(0xFFBDF2E8);
 }
