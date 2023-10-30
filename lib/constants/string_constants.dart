@@ -2,7 +2,7 @@ import 'dart:core';
 
 import 'package:jcc/generated/assets.dart';
 
-class UserDataConstants {
+class CommonDataConstants {
   static final List<String> bottomNavigation = [
     "Home",
     "Complaints",
@@ -14,6 +14,27 @@ class UserDataConstants {
     'In Process',
     'On Hold',
     'Solved',
+  ];
+}
+
+class ScreensDataConstants{
+  static const String home = "Home";
+  static const String recentTitle = "Recent Complaints";
+}
+
+class ComplaintStateDataConstants {
+  static final List<String> complaintState = [
+    "Registered",
+    "On Hold",
+    "In Process",
+    "Solved"
+  ];
+
+  static final List<String> complaintStateStatement = [
+    "Complaints Registered",
+    "Complaints  Hold",
+    "Complaints In Process",
+    "Complaints Solved",
   ];
 }
 

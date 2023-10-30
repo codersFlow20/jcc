@@ -8,6 +8,8 @@ class AssetsConstants {
   static const String complaints = '$_iconsPath/complaints.svg';
   static const String notifications = '$_iconsPath/notifications.svg';
 
+  static const String menu = '$_iconsPath/menu.svg';
+
   static const String edit = '$_iconsPath/edit.svg';
   static const String addImage = '$_iconsPath/add_image.svg';
   static const String deleteBg = '$_iconsPath/delete_bg.svg';

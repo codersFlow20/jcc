@@ -37,6 +37,8 @@ dependencies:
   # Image libs
   flutter_image_compress: ^2.1.0
   image: ^4.1.3
+  syncfusion_flutter_gauges: ^23.1.42
+  syncfusion_flutter_charts: ^23.1.42
 
 dev_dependencies:
   flutter_test:

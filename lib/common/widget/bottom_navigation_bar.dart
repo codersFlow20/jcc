@@ -64,8 +64,8 @@ class AppBottomNavigationBar extends StatelessWidget {
           selectedItemColor: AppColors.blue,
           unselectedItemColor: AppColors.black60,
           showUnselectedLabels: true,
-          unselectedLabelStyle: AppTexts.titleLarge,
-          selectedLabelStyle: AppTexts.headlineSmall,
+          unselectedLabelStyle: Theme.of(context).textTheme.titleLarge,
+          selectedLabelStyle: Theme.of(context).textTheme.headlineSmall,
           currentIndex: _calculateSelectedIndex(context),
           onTap: (value) => onTap(value, context),
           items: [
@@ -82,7 +82,7 @@ class AppBottomNavigationBar extends StatelessWidget {
     return BottomNavigationBarItem(
       icon: outlinedIcon[index],
       activeIcon: filledIcons[index],
-      label: UserDataConstants.bottomNavigation[index],
+      label: CommonDataConstants.bottomNavigation[index],
     );
   }
 
