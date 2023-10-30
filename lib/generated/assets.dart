@@ -3,6 +3,7 @@ class Assets {
   Assets._();
 
   static const String artworksRegisterArtwork = 'assets/artworks/register_artwork.svg';
+  static const String assetsIconsSearch = 'assets/icons/search.svg';
   static const String backgroundsLoginBackground = 'assets/backgrounds/login_background.svg';
   static const String backgroundsOptBackground = 'assets/backgrounds/opt_background.svg';
   static const String backgroundsOtpBackground = 'assets/backgrounds/otp_background.svg';
@@ -15,14 +16,14 @@ class Assets {
   static const String departmentIconsGarden = 'assets/departmentIcons/garden.png';
   static const String departmentIconsHealth = 'assets/departmentIcons/health.png';
   static const String departmentIconsHouseTax = 'assets/departmentIcons/house_tax.png';
-  static const String departmentIconsICDS = 'assets/departmentIcons/lcds.png';
-  static const String departmentIconsLightEESL = 'assets/departmentIcons/light_eesl.png';
+  static const String departmentIconsIcds = 'assets/departmentIcons/icds.png';
+  static const String departmentIconsLightEesl = 'assets/departmentIcons/light_eesl.png';
   static const String departmentIconsProjectPlanning = 'assets/departmentIcons/project_planning.png';
   static const String departmentIconsSecurity = 'assets/departmentIcons/security.png';
   static const String departmentIconsSlumDepartment = 'assets/departmentIcons/slum_department.png';
   static const String departmentIconsSolidWaste = 'assets/departmentIcons/solid_waste.png';
   static const String departmentIconsTownPlanning = 'assets/departmentIcons/town_planning.png';
-  static const String departmentIconsUCD = 'assets/departmentIcons/ucd.png';
+  static const String departmentIconsUcd = 'assets/departmentIcons/ucd.png';
   static const String departmentIconsUndergroundSewers = 'assets/departmentIcons/underground_sewers.png';
   static const String departmentIconsWaterDepartment = 'assets/departmentIcons/water_department.png';
   static const String fontsPoppinsRegular = 'assets/fonts/Poppins-Regular.ttf';
@@ -30,11 +31,18 @@ class Assets {
   static const String fontsRobotoRegular = 'assets/fonts/Roboto-Regular.ttf';
   static const String fontsRobotoThin = 'assets/fonts/Roboto-Thin.ttf';
   static const String iconsAddImage = 'assets/icons/add_image.svg';
+  static const String iconsCameraBg = 'assets/icons/camera_bg.svg';
   static const String iconsComplaints = 'assets/icons/complaints.svg';
+  static const String iconsDeleteBg = 'assets/icons/delete_bg.svg';
+  static const String iconsEdge = 'assets/icons/edge.svg';
+  static const String iconsEdit = 'assets/icons/edit.svg';
+  static const String iconsGalleryBg = 'assets/icons/gallery_bg.svg';
   static const String iconsHome = 'assets/icons/home.svg';
   static const String iconsLogo = 'assets/icons/logo.png';
   static const String iconsMenu = 'assets/icons/menu.svg';
   static const String iconsNotifications = 'assets/icons/notifications.svg';
+  static const String iconsSearch = 'assets/icons/search.svg';
+  static const String lottieSearch = 'assets/lottie/search.json';
   static const String lottieSuccess = 'assets/lottie/success.json';
 
 }
