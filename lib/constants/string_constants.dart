@@ -8,6 +8,13 @@ class UserDataConstants {
     "Complaints",
     "Notifications",
   ];
+
+  static final List<String> complaintStatuses = [
+    'Registered',
+    'In Process',
+    'On Hold',
+    'Solved',
+  ];
 }
 
 class DepartmentDataConstants {
@@ -31,7 +38,7 @@ class DepartmentDataConstants {
     "FLOOD CONTROL",
   ];
 
-  static final Map<String, List<String>> departmentComplaintsData = {
+  static const Map<String, List<String>> departmentComplaintsData = {
     'Water Works': [
       'No Water',
       'Irregular Water',
@@ -40,6 +47,17 @@ class DepartmentDataConstants {
     'Health': [
       'Fogging Work',
       'Food Checking',
+    ],
+  };
+
+  static const Map<String, List<String>> wardNoAreas = {
+    '1' : [
+      'Area 1',
+      'Area 2',
+    ],
+    '2' : [
+      'Punitnagar',
+      'Rameshwarnagar',
     ],
   };
 

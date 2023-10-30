@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jcc/bloc/user/register/user_register_bloc.dart';
+import 'package:jcc/bloc/complaint/stats/complaint_stats_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,22 +16,31 @@ class _HomeScreenState extends State<HomeScreen> {
     //     .read<UserRegisterBloc>()
     //     .state as UserRegistered).user.name;
 
-    return BlocBuilder<UserRegisterBloc, UserRegisterState>(
-      builder: (context, state) {
-        if (state is UserRegistered) {
-          var name = state.user.name;
-
-          return Scaffold(
-            body: Text('Name: $name'),
-            backgroundColor: Colors.blue,
-          );
-        }
-
-        return Scaffold(
-          body: Text('Home Screen'),
-          backgroundColor: Colors.blue,
-        );
-      },
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Home Screen'),
+      ),
+      body: BlocBuilder<ComplaintStatsBloc, ComplaintStatsState>(
+        builder: (context, state) {
+          if (state is ComplaintStatsLoaded) {
+            return Column(
+              children: [
+                Text('Registered: ${state.stats.registered}'),
+                Text('In Process: ${state.stats.inProcess}'),
+                Text('On Hold: ${state.stats.onHold}'),
+                Text('Solved: ${state.stats.solved}'),
+                Text('Total: ${state.stats.total}'),
+              ],
+            );
+          }else if (state is ComplaintStatsLoading) {
+            return const CircularProgressIndicator();
+          }else if (state is ComplaintStatsError) {
+            return Text('Got error: ${state.message}');
+          }else {
+            return const Text('Unknown state');
+          }
+        },
+      ),
     );
   }
 }

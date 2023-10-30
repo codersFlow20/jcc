@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:jcc/constants/assets_constants.dart';
 import 'package:jcc/features/complaint/widgets/complaint_widget.dart';
 import 'package:jcc/theme/colors.dart';
+import 'package:lottie/lottie.dart';
 import '../../../bloc/complaint/complaint_bloc.dart';
 
 class ComplaintList extends StatelessWidget {
@@ -21,10 +22,10 @@ class ComplaintList extends StatelessWidget {
           label: Text(
             "Register Complaint",
             style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-              fontFamily: 'Roboto',
-              fontWeight: FontWeight.w600,
-              color: AppColors.white,
-            ),
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.white,
+                ),
           ),
           icon: SvgPicture.asset(AssetsConstants.edit),
           onPressed: () {
@@ -58,18 +59,43 @@ class ComplaintList extends StatelessWidget {
           if (state is ComplaintLoading || state is ComplaintInitial) {
             const CircularProgressIndicator();
           } else if (state is ComplaintLoaded) {
-            return Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: ListView.separated(
-                itemBuilder: (context, index) {
-                  return ComplaintWidget(complaint: state.complaintList[index]);
-                },
-                separatorBuilder: (context, index) => const SizedBox(
-                  height: 10,
+            if (state.complaintList.isEmpty) {
+              return Column(
+                children: [
+                  const SizedBox(
+                    height: 150,
+                  ),
+                  Lottie.asset(
+                    AssetsConstants.searchAnim,
+                    repeat: true,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    'Nothing to Show',
+                    style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
+                  ),
+                ],
+              );
+            } else {
+              return Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ListView.separated(
+                  itemBuilder: (context, index) {
+                    return ComplaintWidget(
+                      complaint: state.complaintList[index],
+                    );
+                  },
+                  separatorBuilder: (context, index) => const SizedBox(
+                    height: 10,
+                  ),
+                  itemCount: state.complaintList.length,
                 ),
-                itemCount: state.complaintList.length,
-              ),
-            );
+              );
+            }
           } else if (state is ComplaintError) {
             return Text(state.message);
           }

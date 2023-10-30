@@ -9,15 +9,14 @@ class ComplaintModel extends Equatable {
   final String subject;
   final String ward;
   final String area;
+  final String detailedAddress;
   final String userId;
   final String uniquePin;
   final List<String> imageUrls;
   final String status;
-  final String optionalNumber;
-  final String siteAddress;
   final bool isLocked;
   final bool isAssigned;
-  final String assignedId;
+  final String assignedEmployeeId;
 
   @override
   List<Object?> get props => [
@@ -32,11 +31,10 @@ class ComplaintModel extends Equatable {
         uniquePin,
         imageUrls,
         status,
-        optionalNumber,
-        siteAddress,
+        detailedAddress,
         isLocked,
         isAssigned,
-        assignedId,
+        assignedEmployeeId,
       ];
 
 //<editor-fold desc="Data Methods">
@@ -52,16 +50,15 @@ class ComplaintModel extends Equatable {
     required this.uniquePin,
     required this.imageUrls,
     required this.status,
-    required this.optionalNumber,
-    required this.siteAddress,
+    required this.detailedAddress,
     required this.isLocked,
     required this.isAssigned,
-    required this.assignedId,
+    required this.assignedEmployeeId,
   });
 
   @override
   String toString() {
-    return 'ComplaintModel{ id: $id, description: $description, registrationDate: $registrationDate, departmentName: $departmentName, subject: $subject, ward: $ward, area: $area, userId: $userId, uniquePin: $uniquePin, imageUrls: $imageUrls, status: $status, optionalNumber: $optionalNumber, siteAddress: $siteAddress, isLocked: $isLocked, isAssigned: $isAssigned, assignedId: $assignedId,}';
+    return 'ComplaintModel{ id: $id, description: $description, registrationDate: $registrationDate, departmentName: $departmentName, subject: $subject, ward: $ward, area: $area, userId: $userId, uniquePin: $uniquePin, imageUrls: $imageUrls, status: $status, siteAddress: $detailedAddress, isLocked: $isLocked, isAssigned: $isAssigned, assignedId: $assignedEmployeeId,}';
   }
 
   ComplaintModel copyWith({
@@ -76,7 +73,6 @@ class ComplaintModel extends Equatable {
     String? uniquePin,
     List<String>? imageUrls,
     String? status,
-    String? optionalNumber,
     String? siteAddress,
     bool? isLocked,
     bool? isAssigned,
@@ -94,11 +90,10 @@ class ComplaintModel extends Equatable {
       uniquePin: uniquePin ?? this.uniquePin,
       imageUrls: imageUrls ?? this.imageUrls,
       status: status ?? this.status,
-      optionalNumber: optionalNumber ?? this.optionalNumber,
-      siteAddress: siteAddress ?? this.siteAddress,
+      detailedAddress: siteAddress ?? detailedAddress,
       isLocked: isLocked ?? this.isLocked,
       isAssigned: isAssigned ?? this.isAssigned,
-      assignedId: assignedId ?? this.assignedId,
+      assignedEmployeeId: assignedId ?? assignedEmployeeId,
     );
   }
 
@@ -115,11 +110,10 @@ class ComplaintModel extends Equatable {
       'uniquePin': uniquePin,
       'imageUrls': imageUrls,
       'status': status,
-      'optionalNumber': optionalNumber,
-      'siteAddress': siteAddress,
+      'siteAddress': detailedAddress,
       'isLocked': isLocked,
       'isAssigned': isAssigned,
-      'assignedId': assignedId,
+      'assignedId': assignedEmployeeId,
     };
   }
 
@@ -137,11 +131,10 @@ class ComplaintModel extends Equatable {
       uniquePin: map['uniquePin'] as String,
       imageUrls:( map['imageUrls'] as List<dynamic>).map((e) => e.toString()).toList(),
       status: map['status'] as String,
-      optionalNumber: map['optionalNumber'] as String,
-      siteAddress: map['siteAddress'] as String,
+      detailedAddress: map['siteAddress'] as String,
       isLocked: map['isLocked'] as bool,
       isAssigned: map['isAssigned'] as bool,
-      assignedId: map['assignedId'] as String,
+      assignedEmployeeId: map['assignedId'] as String,
     );
   }
 }

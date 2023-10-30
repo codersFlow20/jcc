@@ -9,9 +9,13 @@ abstract class ComplaintRegisterState extends Equatable {
 
 class ComplaintRegisterInitial extends ComplaintRegisterState {}
 
-class ComplaintSubmitting extends ComplaintRegisterState {}
+class ComplaintRegistering extends ComplaintRegisterState {}
 
-class ComplaintRegisterSuccess extends ComplaintRegisterState {}
+class ComplaintRegisterSuccess extends ComplaintRegisterState {
+  const ComplaintRegisterSuccess(this.id);
+
+  final String id;
+}
 
 class ComplaintRegisterFailure extends ComplaintRegisterState {
   const ComplaintRegisterFailure(this.error);

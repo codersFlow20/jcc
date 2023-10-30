@@ -2,9 +2,11 @@
 class Assets {
   Assets._();
 
+  static const String artworksRegisterArtwork = 'assets/artworks/register_artwork.svg';
   static const String backgroundsLoginBackground = 'assets/backgrounds/login_background.svg';
   static const String backgroundsOptBackground = 'assets/backgrounds/opt_background.svg';
   static const String backgroundsOtpBackground = 'assets/backgrounds/otp_background.svg';
+  static const String backgroundsRegisterBackground = 'assets/backgrounds/register_background.svg';
   static const String complaintDataDepartment = 'assets/complaint_data/department.json';
   static const String departmentIconsCivil = 'assets/departmentIcons/Civil.png';
   static const String departmentIconsESmartLight = 'assets/departmentIcons/E_Smart_Light.png';
@@ -27,10 +29,15 @@ class Assets {
   static const String fontsRobotoCondensedRegular = 'assets/fonts/RobotoCondensed-Regular.ttf';
   static const String fontsRobotoRegular = 'assets/fonts/Roboto-Regular.ttf';
   static const String fontsRobotoThin = 'assets/fonts/Roboto-Thin.ttf';
+  static const String iconsAddImage = 'assets/icons/add_image.svg';
   static const String iconsComplaints = 'assets/icons/complaints.svg';
+  static const String iconsDeleteBg = 'assets/icons/delete_bg.svg';
+  static const String iconsEdit = 'assets/icons/edit.svg';
+  static const String iconsGalleryBg = 'assets/icons/gallery_bg.svg';
   static const String iconsHome = 'assets/icons/home.svg';
   static const String iconsLogo = 'assets/icons/logo.png';
   static const String iconsNotifications = 'assets/icons/notifications.svg';
+  static const String lottieSearch = 'assets/lottie/search.json';
   static const String lottieSuccess = 'assets/lottie/success.json';
 
 }
