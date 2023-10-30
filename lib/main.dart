@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jcc/bloc/auth/auth_bloc.dart';
 import 'package:jcc/bloc/complaint/complaint_bloc.dart';
+import 'package:jcc/bloc/complaint/register/complaint_register_bloc.dart';
+import 'package:jcc/bloc/complaint/stats/complaint_stats_bloc.dart';
 import 'package:jcc/bloc/login/login_bloc.dart';
 import 'package:jcc/bloc/user/register/user_register_bloc.dart';
 import 'package:jcc/config/router.dart';
@@ -45,9 +47,16 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => UserRegisterBloc(userRepository: userRepository),
         ),
+        BlocProvider(
+          create: (context) =>
+              ComplaintRegisterBloc(complaintRepository: complaintRepository),
+        ),
+        BlocProvider(
+          create: (context) =>
+              ComplaintStatsBloc(complaintRepository: complaintRepository)..add(GetComplaintStats()),
+        ),
       ],
       child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
         theme: AppTheme.getTheme(),
         routerConfig: router,
       ),

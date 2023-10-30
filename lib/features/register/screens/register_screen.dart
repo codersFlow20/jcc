@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jcc/bloc/user/register/user_register_bloc.dart';
-import 'package:jcc/common/widget/custom_button.dart';
+import 'package:jcc/common/widget/primary_button.dart';
 import 'package:jcc/constants/assets_constants.dart';
 import 'package:jcc/models/user_model.dart';
 import 'package:jcc/theme/colors.dart';
@@ -104,7 +104,7 @@ class _UserRegisterScreenState extends State<UserRegisterScreen> {
                       const SizedBox(
                         height: 10,
                       ),
-                      MyButton(
+                      PrimaryButton(
                         onTap: () {
                           if (_formKey.currentState!.validate()) {
                             final phoneNo =
