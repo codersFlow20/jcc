@@ -12,6 +12,7 @@ import 'package:jcc/features/login/screens/login_screen.dart';
 import 'package:jcc/features/login/screens/otp_screen.dart';
 import 'package:jcc/features/notification/screens/notification_screen.dart';
 import 'package:jcc/features/register/screens/register_screen.dart';
+import 'package:jcc/features/user_profile/screens/user_profile.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -53,6 +54,11 @@ final router = GoRouter(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/user_register',
       builder: (context, state) => const UserRegisterScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/user_profile',
+      builder: (context, state) => const UserProfile(),
     ),
     ShellRoute(
       navigatorKey: _shellNavigatorKey,

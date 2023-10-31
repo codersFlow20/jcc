@@ -1,7 +1,7 @@
-import 'dart:developer' as dev;
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:jcc/common/widget/menu_drawer.dart';
+import 'dart:developer' as dev;
 import 'package:jcc/config/router.dart';
 import 'package:jcc/constants/string_constants.dart';
 import 'package:jcc/features/home/widgets/data_card.dart';
@@ -35,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
         "98,23,54,898", 88.09, AppColors.mantis),
   ];
 
+
   @override
   Widget build(BuildContext context) {
     // var name = (context
@@ -42,10 +43,12 @@ class _HomeScreenState extends State<HomeScreen> {
     //     .state as UserRegistered).user.name;
 
     return Scaffold(
+      drawer:const MenuDrawer(),
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {},
-          icon: SvgPicture.asset(Assets.iconsMenu),
+        leading:Builder(
+          builder:(context) => IconButton(
+              onPressed: () => Scaffold.of(context).openDrawer(),
+              icon: SvgPicture.asset(Assets.iconsMenu,fit: BoxFit.cover,)),
         ),
         title: Text(CommonDataConstants.home,
             style: Theme.of(context)

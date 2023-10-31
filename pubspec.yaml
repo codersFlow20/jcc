@@ -71,6 +71,7 @@ flutter:
     - assets/backgrounds/
     - assets/departmentIcons/
     - assets/fonts/
+    - assets/image/
     - assets/artworks/
     - assets/lottie/
     - assets/icons/search.svg
