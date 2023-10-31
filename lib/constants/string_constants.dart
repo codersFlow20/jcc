@@ -27,6 +27,9 @@ class CommonDataConstants {
 
 class ScreensDataConstants{
   static const String recentTitle = "Recent Complaints";
+  static const String fullName = "Full Name";
+  static const String mobileNo = "Mobile No";
+  static const String email = "Email";
 }
 
 class ComplaintStateDataConstants {
