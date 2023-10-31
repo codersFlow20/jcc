@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:jcc/constants/string_constants.dart';
-import 'package:jcc/features/complaint/widgets/complaint_widget.dart';
-import 'package:jcc/repositories/notification_repository.dart';
 import 'package:jcc/theme/colors.dart';
 import '../../../bloc/complaint/complaint_bloc.dart';
-import 'dart:developer' as dev;
-import 'package:onesignal_flutter/onesignal_flutter.dart';
+import '../../../constants/assets_constants.dart';
+import '../widgets/complaint_widget.dart';
 
 class ComplaintList extends StatelessWidget {
   const ComplaintList({super.key});
@@ -16,35 +13,28 @@ class ComplaintList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
-        label: Text(
-          "Register Complaint",
-          style: GoogleFonts.poppins(
-            fontSize: 14,
-            color: AppColors.white,
-            fontWeight: FontWeight.w600,
-          ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(
+          bottom: 85,
         ),
-        icon: Icon(Icons.edit, color: AppColors.white),
-        onPressed: () {
-          OneSignal.Notifications.requestPermission(true);
-          dev.log("${OneSignal.Notifications.permission}",
-              name: "Notification Users : ");
-          dev.log("${OneSignal.User.pushSubscription.token}",
-              name: "Notification Token : ");
-          dev.log("${OneSignal.User.pushSubscription.id}",
-              name: "Notification ID : ");
-
-          NotificationRepository().sendPushNotification(
-            "Nothing to say ",
-            "HI THERE",
-            DepartmentDataConstants.listOfToken,
-          );
-          // context.push('/complaintRegister');
-        },
-        backgroundColor: AppColors.brilliantAzure,
+        child: FloatingActionButton.extended(
+          label: Text(
+            "Register Complaint",
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.white,
+                ),
+          ),
+          icon: SvgPicture.asset(AssetsConstants.edit),
+          onPressed: () {
+            context.push('/complaint_register');
+          },
+          backgroundColor: AppColors.greenBlue,
+        ),
       ),
       appBar: AppBar(
+        centerTitle: true,
         leading: IconButton(
           onPressed: () {},
           icon: const Icon(Icons.menu),

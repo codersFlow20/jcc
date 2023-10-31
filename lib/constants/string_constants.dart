@@ -31,6 +31,18 @@ class DepartmentDataConstants {
     "FLOOD CONTROL",
   ];
 
+  static final Map<String, List<String>> departmentComplaintsData = {
+    'Water Works': [
+      'No Water',
+      'Irregular Water',
+    ],
+    'Slum': ['Others'],
+    'Health': [
+      'Fogging Work',
+      'Food Checking',
+    ],
+  };
+
   static final List<String> departmentIconsAssetsName = [
     Assets.departmentIconsWaterDepartment,
     Assets.departmentIconsSlumDepartment,
@@ -58,5 +70,6 @@ class DepartmentDataConstants {
     // "fGCEAr7jSZy_MB-4f0whkI:APA91bEniBfPdyZ_lCUHo1jyaF5CGMraRdhSBcxXxF8D8mtxJEpNsZYhweyvTXNnG7PXBKRhWYeYYFairru87aZfa1KOUbfLhhoWBVZAb2VWeRtBduhJ_zxNm_T4ndB_d1aZKy1Eaj2K",
     // "175f1eb0-24bf-4bdb-afc1-72454f8eb85a",
    "+918160639228",
+
   ];
 }

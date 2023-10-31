@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 class AuthRepository {
   AuthRepository({FirebaseAuth? firebaseAuth})
@@ -14,16 +15,19 @@ class AuthRepository {
     required Function(String) codeAutoRetrievalTimeout,
   }) async {
     await _firebaseAuth.verifyPhoneNumber(
-      phoneNumber: "+91"+ phoneNumber,
+      phoneNumber: "+91$phoneNumber",
       verificationCompleted: onVerificationCompleted,
       verificationFailed: onVerificationFailed,
       codeSent: onCodeSent,
       codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
     );
+    OneSignal.login("+91$phoneNumber");
   }
 
   Future<UserCredential> signInWithOTP(
-      String verificationId, String smsCode) async {
+    String verificationId,
+    String smsCode,
+  ) async {
     try {
       final AuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verificationId,
@@ -39,6 +43,7 @@ class AuthRepository {
     Future.wait([
       _firebaseAuth.signOut(),
     ]);
+    OneSignal.logout();
   }
 
   Future<bool> isSignedIn() async {
@@ -47,6 +52,6 @@ class AuthRepository {
   }
 
   Future<String?> getUser() async {
-    return (_firebaseAuth.currentUser)?.email;
+    return (_firebaseAuth.currentUser)?.phoneNumber;
   }
 }

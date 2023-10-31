@@ -4,10 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jcc/bloc/auth/auth_bloc.dart';
 import 'package:jcc/bloc/complaint/complaint_bloc.dart';
 import 'package:jcc/bloc/login/login_bloc.dart';
+import 'package:jcc/bloc/notification/notification_bloc.dart';
+import 'package:jcc/bloc/user/register/user_register_bloc.dart';
 import 'package:jcc/config/router.dart';
 import 'package:jcc/firebase_options.dart';
 import 'package:jcc/repositories/auth/auth_repository.dart';
 import 'package:jcc/repositories/complaint_repository.dart';
+import 'package:jcc/repositories/notification_repository.dart';
+import 'package:jcc/repositories/user_repository.dart';
 import 'package:jcc/theme/app_theme.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:jcc/config/onesignal_config.dart';
@@ -23,8 +27,8 @@ Future<void> main() async {
   OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
   OneSignal.initialize(OneSignalConfig.oneSignalAppId);
   OneSignal.Notifications.requestPermission(true);
-  OneSignal.login('+918160639228');
-  dev.log("${OneSignal.Notifications.permission}" , name: 'Notification Users');
+  dev.log("${OneSignal.Notifications.permission}",
+      name: 'Notification Permissions ');
   runApp(const MyApp());
 }
 
@@ -34,6 +38,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final complaintRepository = ComplaintRepository();
+    final userRepository = UserRepository();
+    final notificationRepository = NotificationRepository();
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -45,7 +51,16 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) =>
-              ComplaintBloc(complaintRepository: complaintRepository)..add(LoadComplaint()),
+              ComplaintBloc(complaintRepository: complaintRepository)
+                ..add(LoadComplaint()),
+        ),
+        BlocProvider(
+          create: (context) => UserRegisterBloc(userRepository: userRepository),
+        ),
+        BlocProvider(
+          create: (context) =>
+              NotificationBloc(notificationRepository: notificationRepository)
+                ..add(LoadNotifications()),
         )
       ],
       child: MaterialApp.router(
