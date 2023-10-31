@@ -10,6 +10,7 @@ import '../widgets/complaint_widget.dart';
 import 'package:jcc/common/widget/menu_drawer.dart';
 import 'package:jcc/generated/assets.dart';
 import '../../../common/widget/scroll_to_hide_widget.dart';
+import 'dart:developer' as dev;
 
 class ComplaintList extends StatefulWidget {
   const ComplaintList({
@@ -26,9 +27,11 @@ class ComplaintList extends StatefulWidget {
 }
 
 class _ComplaintListState extends State<ComplaintList> {
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(
           bottom: 85,
@@ -50,12 +53,36 @@ class _ComplaintListState extends State<ComplaintList> {
         ),
       ),
       drawer: const MenuDrawer(),
+      onDrawerChanged: (isOpened) {
+        if (isOpened) {
+          if (widget.bottomNavKey.currentState != null) {
+            dev.log('State is not null', name: 'Home');
+            if (widget.bottomNavKey.currentState!.isVisible) {
+              widget.bottomNavKey.currentState!.hide();
+            }
+          } else {
+            dev.log('State is null', name: 'Home');
+          }
+        } else {
+          if (widget.bottomNavKey.currentState != null) {
+            dev.log('State is not null', name: 'Home');
+            if (!widget.bottomNavKey.currentState!.isVisible) {
+              widget.bottomNavKey.currentState!.show();
+            }
+          } else {
+            dev.log('State is null', name: 'Home');
+          }
+        }
+      },
       appBar: AppBar(
         centerTitle: true,
         leading: Builder(
           builder: (context) => IconButton(
             onPressed: () => Scaffold.of(context).openDrawer(),
-            icon: SvgPicture.asset(Assets.iconsMenu,fit: BoxFit.cover,),
+            icon: SvgPicture.asset(
+              Assets.iconsMenu,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
         title: const Text(
@@ -68,7 +95,10 @@ class _ComplaintListState extends State<ComplaintList> {
         actions: [
           IconButton(
             onPressed: () {},
-            icon: const Icon(Icons.sort),
+            icon: SvgPicture.asset(
+              Assets.iconsFilter,
+              fit: BoxFit.cover,
+            ),
           )
         ],
       ),

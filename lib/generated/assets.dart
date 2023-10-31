@@ -41,6 +41,7 @@ class Assets {
   static const String iconsDeleteBg = 'assets/icons/delete_bg.svg';
   static const String iconsEdge = 'assets/icons/edge.svg';
   static const String iconsEdit = 'assets/icons/edit.svg';
+  static const String iconsFilter = 'assets/icons/filter.svg';
   static const String iconsGalleryBg = 'assets/icons/gallery_bg.svg';
   static const String iconsHelp = 'assets/icons/help.svg';
   static const String iconsHome = 'assets/icons/home.svg';

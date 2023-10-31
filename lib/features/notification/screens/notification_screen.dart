@@ -1,9 +1,13 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last
 
 import 'package:flutter/material.dart';
-
+import 'dart:developer' as dev;
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:jcc/common/widget/menu_drawer.dart';
+import 'package:jcc/constants/string_constants.dart';
+import 'package:jcc/generated/assets.dart';
 import 'package:jcc/theme/colors.dart';
 import '../../../bloc/notification/notification_bloc.dart';
 import '../../../models/notification_model.dart';
@@ -13,7 +17,7 @@ import 'package:jcc/common/widget/primary_button.dart';
 
 import '../../../common/widget/scroll_to_hide_widget.dart';
 
-class NotificationScreen extends StatelessWidget {
+class NotificationScreen extends StatefulWidget {
   const NotificationScreen({
     super.key,
     required this.controller,
@@ -24,16 +28,58 @@ class NotificationScreen extends StatelessWidget {
   final GlobalKey<ScrollToHideWidgetState> bottomNavKey;
 
   @override
+  State<NotificationScreen> createState() => _NotificationScreenState();
+}
+
+class _NotificationScreenState extends State<NotificationScreen> {
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
   Widget build(BuildContext context) {
     List<NotificationModel> list = [];
 
     return Scaffold(
+      key: scaffoldKey,
+      drawer: const MenuDrawer(),
+      onDrawerChanged: (isOpened) {
+        if (isOpened) {
+          if (widget.bottomNavKey.currentState != null) {
+            dev.log('State is not null', name: 'Home');
+            if (widget.bottomNavKey.currentState!.isVisible) {
+              widget.bottomNavKey.currentState!.hide();
+            }
+          } else {
+            dev.log('State is null', name: 'Home');
+          }
+        } else {
+          if (widget.bottomNavKey.currentState != null) {
+            dev.log('State is not null', name: 'Home');
+            if (!widget.bottomNavKey.currentState!.isVisible) {
+              widget.bottomNavKey.currentState!.show();
+            }
+          } else {
+            dev.log('State is null', name: 'Home');
+          }
+        }
+      },
       appBar: AppBar(
-        title: Text(
-          "Notifications",
-          style:
-              Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 22),
+        leading: Builder(
+          builder: (context) => IconButton(
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              icon: SvgPicture.asset(
+                Assets.iconsMenu,
+                fit: BoxFit.cover,
+              )),
         ),
+        title: Text(
+          CommonDataConstants.notifications,
+          style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                fontSize: 22,
+              ),
+        ),
+        centerTitle: true,
         actions: [
           IconButton(
             onPressed: () {
@@ -44,11 +90,10 @@ class NotificationScreen extends StatelessWidget {
                 },
               );
             },
-            icon: Icon(Icons.filter_alt_outlined),
+            icon: SvgPicture.asset(Assets.iconsFilter),
           ),
         ],
       ),
-
       body: BlocConsumer<NotificationBloc, NotificationState>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -57,6 +102,7 @@ class NotificationScreen extends StatelessWidget {
           } else if (state is NotificationLoaded) {
             list = state.notificationList;
             return ListView.separated(
+              controller: widget.controller,
               padding: const EdgeInsets.all(10),
               itemCount: state.notificationList.length,
               itemBuilder: (context, index) {
@@ -76,7 +122,6 @@ class NotificationScreen extends StatelessWidget {
           }
 
           return Center(child: CircularProgressIndicator());
-
         },
       ),
     );
