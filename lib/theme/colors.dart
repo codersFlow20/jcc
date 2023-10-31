@@ -8,6 +8,8 @@ class AppColors {
   static const Color black50 = Color(0x80000000);
   static const Color black25 = Color(0x40000000);
 
+  static const Color darkMidnightBlue50 = Color(0x800C356A);
+
   static const Color platinum = Color(0xFFE2E2E2);
 
   static const Color darkMidnightBlue = Color(0xFF0C356A);

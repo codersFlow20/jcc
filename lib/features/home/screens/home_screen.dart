@@ -70,6 +70,8 @@ class _HomeScreenState extends State<HomeScreen> {
         leading: Builder(
           builder: (context) => IconButton(
               onPressed: () {
+                dev.log(MediaQuery.of(context).size.width.toString());
+                dev.log(MediaQuery.of(context).size.height.toString());
                 Scaffold.of(context).openDrawer();
               },
               icon: SvgPicture.asset(

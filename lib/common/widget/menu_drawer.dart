@@ -117,19 +117,25 @@ class MenuDrawer extends StatelessWidget {
                 GestureDetector(
                   child: Hero(
                     tag: 'profile',
+                    transitionOnUserGestures: true,
                     child: Container(
                       height: 75,
                       width: 75,
                       clipBehavior: Clip.hardEdge,
                       decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(25))),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(25),
+                        ),
+                      ),
                       child: Image.asset(
                         Assets.imageProfileImage,
                         fit: BoxFit.cover,
                       ),
                     ),
                   ),
-                  // onTap: () => context.push('/user_profile'),
+                  onTap: () => context.push(
+                    '/user_profile',
+                  ),
                 ),
                 const SizedBox(
                   width: 10,
@@ -138,8 +144,11 @@ class MenuDrawer extends StatelessWidget {
                   width: 2.5,
                   height: 45,
                   decoration: const BoxDecoration(
-                      color: AppColors.black50,
-                      borderRadius: BorderRadius.all(Radius.circular(5))),
+                    color: AppColors.black50,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(5),
+                    ),
+                  ),
                 ),
                 const SizedBox(
                   width: 5,
