@@ -13,8 +13,11 @@ import 'package:jcc/theme/colors.dart';
 import '../../../common/widget/scroll_to_hide_widget.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen(
-      {super.key, required this.controller, required this.bottomNavKey});
+  const HomeScreen({
+    super.key,
+    required this.controller,
+    required this.bottomNavKey,
+  });
 
   final ScrollController controller;
   final GlobalKey<ScrollToHideWidgetState> bottomNavKey;
@@ -24,6 +27,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
   List<ComplaintStateData> complaintStateData = [
     ComplaintStateData(ComplaintStateDataConstants.complaintState[0],
         "12,33,23,233", 39.43, AppColors.brightTurquoise),
@@ -35,20 +40,42 @@ class _HomeScreenState extends State<HomeScreen> {
         "98,23,54,898", 88.09, AppColors.mantis),
   ];
 
-
   @override
   Widget build(BuildContext context) {
-    // var name = (context
-    //     .read<UserRegisterBloc>()
-    //     .state as UserRegistered).user.name;
-
     return Scaffold(
-      drawer:const MenuDrawer(),
+      key: scaffoldKey,
+      drawer: const MenuDrawer(),
+      onDrawerChanged: (isOpened) {
+        if (isOpened) {
+          if (widget.bottomNavKey.currentState != null) {
+            dev.log('State is not null', name: 'Home');
+            if (widget.bottomNavKey.currentState!.isVisible) {
+              widget.bottomNavKey.currentState!.hide();
+            }
+          } else {
+            dev.log('State is null', name: 'Home');
+          }
+        }else {
+          if (widget.bottomNavKey.currentState != null) {
+            dev.log('State is not null', name: 'Home');
+            if (!widget.bottomNavKey.currentState!.isVisible) {
+              widget.bottomNavKey.currentState!.show();
+            }
+          } else {
+            dev.log('State is null', name: 'Home');
+          }
+        }
+      },
       appBar: AppBar(
-        leading:Builder(
-          builder:(context) => IconButton(
-              onPressed: () => Scaffold.of(context).openDrawer(),
-              icon: SvgPicture.asset(Assets.iconsMenu,fit: BoxFit.cover,)),
+        leading: Builder(
+          builder: (context) => IconButton(
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              icon: SvgPicture.asset(
+                Assets.iconsMenu,
+                fit: BoxFit.cover,
+              )),
         ),
         title: Text(CommonDataConstants.home,
             style: Theme.of(context)
@@ -58,19 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
         actions: [
           IconButton(
-            onPressed: () {
-              if (widget.bottomNavKey.currentState != null) {
-                dev.log('State is not null', name: 'Home');
-
-                if (widget.bottomNavKey.currentState!.isVisible) {
-                  widget.bottomNavKey.currentState!.hide();
-                }else {
-                  widget.bottomNavKey.currentState!.show();
-                }
-              }else {
-                dev.log('State is null', name: 'Home');
-              }
-            },
+            onPressed: () {},
             icon: SvgPicture.asset(Assets.iconsSearch),
           )
         ],

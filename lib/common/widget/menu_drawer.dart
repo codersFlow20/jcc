@@ -20,10 +20,11 @@ class MenuDrawer extends StatelessWidget {
               Assets.backgroundsMenuBackground,
               fit: BoxFit.cover,
             ),
-          SizedBox(
-              height: MediaQuery.of(context).size.width <= 450? MediaQuery.of(context).size.height : MediaQuery.of(context).size.width,
+            SizedBox(
+              height: MediaQuery.of(context).size.width <= 450
+                  ? MediaQuery.of(context).size.height
+                  : MediaQuery.of(context).size.width,
               child: Column(
-                // mainAxisSize: MainAxisSize.max,
                 children: [
                   Column(
                     children: [
@@ -32,7 +33,10 @@ class MenuDrawer extends StatelessWidget {
                         height: 115,
                       ),
                       ListTile(
-                        leading: SvgPicture.asset(Assets.iconsLanguage,fit: BoxFit.cover,),
+                        leading: SvgPicture.asset(
+                          Assets.iconsLanguage,
+                          fit: BoxFit.cover,
+                        ),
                         title: Text(
                           CommonDataConstants.language,
                           style: Theme.of(context).textTheme.headlineMedium,
@@ -40,18 +44,21 @@ class MenuDrawer extends StatelessWidget {
                         onTap: () {},
                       ),
                       ListTile(
-                        leading: SvgPicture.asset(Assets.iconsAboutUs,fit: BoxFit.cover,),
+                        leading: SvgPicture.asset(
+                          Assets.iconsAboutUs,
+                          fit: BoxFit.cover,
+                        ),
                         title: Text(
                           CommonDataConstants.aboutUs,
                           style: Theme.of(context).textTheme.headlineMedium,
                         ),
                         onTap: () {},
                       ),
-                      // SizedBox(
-                      //   height: 20,
-                      // ),
                       ListTile(
-                        leading: SvgPicture.asset(Assets.iconsHelp,fit: BoxFit.cover,),
+                        leading: SvgPicture.asset(
+                          Assets.iconsHelp,
+                          fit: BoxFit.cover,
+                        ),
                         title: Text(
                           CommonDataConstants.needAnyHelp,
                           style: Theme.of(context).textTheme.headlineMedium,
@@ -61,9 +68,11 @@ class MenuDrawer extends StatelessWidget {
                     ],
                   ),
                   const Spacer(),
-                  // Expanded(child: SizedBox()),
                   ListTile(
-                    leading: SvgPicture.asset(Assets.iconsLogOut,fit: BoxFit.cover,),
+                    leading: SvgPicture.asset(
+                      Assets.iconsLogOut,
+                      fit: BoxFit.cover,
+                    ),
                     title: Text(
                       CommonDataConstants.logOut,
                       style: Theme.of(context).textTheme.headlineMedium,
@@ -100,9 +109,7 @@ class MenuDrawer extends StatelessWidget {
               )
             ],
           ),
-          const SizedBox(
-            height: 15
-          ),
+          const SizedBox(height: 15),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Row(
@@ -142,12 +149,11 @@ class MenuDrawer extends StatelessWidget {
                   children: [
                     Text(
                       "Jay Pedhadiya",
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayMedium
-                          ?.copyWith(
-                              color: AppColors.white,
-                              fontWeight: FontWeight.w600),
+                      style:
+                          Theme.of(context).textTheme.displayMedium?.copyWith(
+                                color: AppColors.white,
+                                fontWeight: FontWeight.w600,
+                              ),
                     ),
                     const SizedBox(
                       height: 5,
