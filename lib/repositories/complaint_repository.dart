@@ -4,8 +4,11 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:jcc/constants/string_constants.dart';
+import 'package:jcc/utils/generators.dart';
 
 import '../models/complaint_model.dart';
+import '../models/complaint_stats_model.dart';
 
 class ComplaintRepository {
   ComplaintRepository({
@@ -24,32 +27,96 @@ class ComplaintRepository {
     dev.log("Current User : ${_firebaseAuth.currentUser!.phoneNumber}");
     return _firestore
         .collection('complaints')
-        .where('userId',
-            isEqualTo: _firebaseAuth.currentUser!.phoneNumber.toString())
+        .where(
+          'userId',
+          isEqualTo: _firebaseAuth.currentUser!.phoneNumber.toString(),
+        )
         .snapshots()
         .map((event) {
-      return event.docs.map((e) => ComplaintModel.fromMap(e.data())).toList();
+      return event.docs
+          .map(
+            (e) => ComplaintModel.fromMap(
+              e.data(),
+            ),
+          )
+          .toList();
     });
   }
 
-  Future<ComplaintModel> registerComplaint(Map<String, dynamic> data) {
-    ComplaintModel _complaintModel = ComplaintModel.fromMap(data);
-    return _firestore.collection('complaints').add(data).then((value) {
-      _complaintModel.copyWith(id: value.id);
-      return _complaintModel;
-    });
+  Future<ComplaintModel?> registerComplaint(
+      Map<String, dynamic> complaintData) async {
+    try {
+      final List<File> images = complaintData['images'];
+      final String id = complaintData['id'];
+      final urls = await uploadFiles(id, images);
+
+      if (urls.length != images.length) {
+        return null;
+      } else {
+        final complaint = ComplaintModel(
+          id: id,
+          departmentName: complaintData['department'],
+          subject: complaintData['subject'],
+          description: complaintData['description'],
+          ward: complaintData['wardNo'],
+          area: complaintData['area'],
+          detailedAddress: complaintData['detailedAddress'],
+          imageUrls: urls,
+          isAssigned: false,
+          isLocked: false,
+          assignedEmployeeId: '',
+          registrationDate: DateTime.now(),
+          status: CommonDataConstants.complaintStatuses[0],
+          uniquePin: GeneratorUtils.generateSixDigitRandomPin(),
+          userId: complaintData['userId'],
+        );
+
+        await _firestore
+            .collection('complaints')
+            .doc(id)
+            .set(complaint.toMap());
+
+        await _firestore.collection('complaint_stats').doc('stats').update({
+          'registered': id,
+        });
+        return complaint;
+      }
+    } catch (e) {
+      dev.log('Got error in complaint registration: $e', name: 'Complaint');
+      return null;
+    }
   }
 
-  Future<List<String>> uploadFiles(List<File> files) async {
-    List<String> _urls = [];
+  Future<List<String>> uploadFiles(String id, List<File> files) async {
+    List<String> urls = [];
+    int count = 1;
     for (var file in files) {
-      final ref = _firebaseStorage.ref().child('complaints/${file.path}');
+      final ref = _firebaseStorage.ref().child(
+            'complaint_photographs/cid_${id}_img_$count',
+          );
       await ref.putFile(file).then((value) async {
         await value.ref.getDownloadURL().then((value) {
-          _urls.add(value);
+          urls.add(value);
         });
       });
+      count++;
     }
-    return _urls;
+    return urls;
+  }
+
+  Stream<ComplaintStatsModel?> getComplaintStats() {
+    return _firestore
+        .collection('complaint_stats')
+        .doc('stats')
+        .snapshots()
+        .map((event) {
+      try {
+        final data = event.data();
+        return ComplaintStatsModel.fromMap(data!);
+      } catch (e) {
+        dev.log('Got complaint stats error: $e', name: 'Stats');
+        return null;
+      }
+    });
   }
 }

@@ -1,21 +1,22 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last
 
 import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jcc/common/widget/custom_button.dart';
 import 'package:jcc/theme/colors.dart';
 import '../../../bloc/notification/notification_bloc.dart';
 import '../../../models/notification_model.dart';
 import '../../../utils/conversion.dart';
 import '../../../utils/ui_utils.dart';
+import 'package:jcc/common/widget/primary_button.dart';
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-     List<NotificationModel> list = [];
+    List<NotificationModel> list = [];
 
     return Scaffold(
       appBar: AppBar(
@@ -30,7 +31,7 @@ class NotificationScreen extends StatelessWidget {
               showModalBottomSheet(
                 context: context,
                 builder: (context) {
-                  return _buildBottomSheet(context,list);
+                  return _buildBottomSheet(context, list);
                 },
               );
             },
@@ -39,8 +40,7 @@ class NotificationScreen extends StatelessWidget {
         ],
       ),
       body: BlocConsumer<NotificationBloc, NotificationState>(
-        listener: (context, state) {
-        },
+        listener: (context, state) {},
         builder: (context, state) {
           if (state is NotificationLoading || state is NotificationInitial) {
             return Center(child: CircularProgressIndicator());
@@ -72,7 +72,7 @@ class NotificationScreen extends StatelessWidget {
   }
 
   Widget _buildBottomSheet(BuildContext context, List<NotificationModel> list) {
-    String values = "" ;
+    String values = "";
     return Container(
       height: 350,
       padding: EdgeInsets.all(20),
@@ -117,17 +117,23 @@ class NotificationScreen extends StatelessWidget {
             },
           ),
           SizedBox(height: 20),
-          MyButton(onTap: () {
-            if (values == "Newest") {
-              context.read<NotificationBloc>().add(UpdateNotification(list.toList()));
-            } else if(values == 'Oldest'){
-              context.read<NotificationBloc>().add(UpdateNotification(list.reversed.toList()));
-            }
-          list =   list.reversed.toList();
-            Navigator.pop(context);
+          PrimaryButton(
+              onTap: () {
+                if (values == "Newest") {
+                  context
+                      .read<NotificationBloc>()
+                      .add(UpdateNotification(list.toList()));
+                } else if (values == 'Oldest') {
+                  context
+                      .read<NotificationBloc>()
+                      .add(UpdateNotification(list.reversed.toList()));
+                }
+                list = list.reversed.toList();
+                Navigator.pop(context);
 
-            // context.read<NotificationBloc>().add(ToggleOrderOfNotification());
-          }, title: "Apply Filters"),
+                // context.read<NotificationBloc>().add(ToggleOrderOfNotification());
+              },
+              title: "Apply Filters"),
           SizedBox(
             height: 72,
           )
@@ -150,7 +156,7 @@ Widget _buildNotificationItem(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Image.asset(
-          UiUtils.getIconName(
+          UIUtils.getIconName(
             notification.departmentName,
           ),
           width: 50,

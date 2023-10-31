@@ -2,11 +2,40 @@ import 'dart:core';
 
 import 'package:jcc/generated/assets.dart';
 
-class UserDataConstants {
+class CommonDataConstants {
   static final List<String> bottomNavigation = [
     "Home",
     "Complaints",
     "Notifications",
+  ];
+
+  static final List<String> complaintStatuses = [
+    'Registered',
+    'In Process',
+    'On Hold',
+    'Solved',
+  ];
+
+  static const String home = "Home";
+}
+
+class ScreensDataConstants{
+  static const String recentTitle = "Recent Complaints";
+}
+
+class ComplaintStateDataConstants {
+  static final List<String> complaintState = [
+    "Registered",
+    "On Hold",
+    "In Process",
+    "Solved"
+  ];
+
+  static final List<String> complaintStateStatement = [
+    "Complaints Registered",
+    "Complaints  Hold",
+    "Complaints In Process",
+    "Complaints Solved",
   ];
 }
 
@@ -31,7 +60,7 @@ class DepartmentDataConstants {
     "FLOOD CONTROL",
   ];
 
-  static final Map<String, List<String>> departmentComplaintsData = {
+  static const Map<String, List<String>> departmentComplaintsData = {
     'Water Works': [
       'No Water',
       'Irregular Water',
@@ -43,10 +72,21 @@ class DepartmentDataConstants {
     ],
   };
 
+  static const Map<String, List<String>> wardNoAreas = {
+    '1' : [
+      'Area 1',
+      'Area 2',
+    ],
+    '2' : [
+      'Punitnagar',
+      'Rameshwarnagar',
+    ],
+  };
+
   static final List<String> departmentIconsAssetsName = [
     Assets.departmentIconsWaterDepartment,
     Assets.departmentIconsSlumDepartment,
-    Assets.departmentIconsLightEESL,
+    Assets.departmentIconsLightEesl,
     Assets.departmentIconsCivil,
     Assets.departmentIconsHealth,
     Assets.departmentIconsSolidWaste,
@@ -54,8 +94,8 @@ class DepartmentDataConstants {
     Assets.departmentIconsTownPlanning,
     Assets.departmentIconsUndergroundSewers,
     Assets.departmentIconsHouseTax,
-    Assets.departmentIconsUCD,
-    Assets.departmentIconsICDS,
+    Assets.departmentIconsUcd,
+    Assets.departmentIconsIcds,
     Assets.departmentIconsGarden,
     Assets.departmentIconsProjectPlanning,
     Assets.departmentIconsESmartLight,

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jcc/common/widget/app_scaffold.dart';
 import 'package:jcc/features/auth/screens/auth_screen.dart';
+import 'package:jcc/features/complaint/screens/complaint_details.dart';
 import 'package:jcc/features/complaint/screens/complaint_list.dart';
 import 'package:jcc/features/complaint/screens/complaint_register.dart';
+import 'package:jcc/features/complaint/screens/complaint_sucessful.dart';
 import 'package:jcc/features/home/screens/home_screen.dart';
 import 'package:jcc/features/login/screens/login_screen.dart';
 import 'package:jcc/features/login/screens/otp_screen.dart';
@@ -36,6 +38,13 @@ final router = GoRouter(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/complaint_register',
       builder: (context, state) => const ComplaintRegistrationScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/complaint_successful/:id',
+      builder: (context, state) => ComplaintSuccess(
+        id: state.pathParameters['id']!,
+      ),
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
@@ -73,6 +82,13 @@ final router = GoRouter(
               },
             );
           },
+          routes: [
+            GoRoute(
+              parentNavigatorKey: _rootNavigatorKey,
+              path: 'complaint_details',
+              builder: (context, state) => const ComplaintDetails(),
+            ),
+          ],
         ),
         GoRoute(
           parentNavigatorKey: _shellNavigatorKey,

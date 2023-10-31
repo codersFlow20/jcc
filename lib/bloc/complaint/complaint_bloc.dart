@@ -22,7 +22,9 @@ class ComplaintBloc extends Bloc<ComplaintEvent, ComplaintState> {
   StreamSubscription? _complaintSubscription;
 
   FutureOr<void> _onLoadComplaint(
-      LoadComplaint event, Emitter<ComplaintState> emit) {
+    LoadComplaint event,
+    Emitter<ComplaintState> emit,
+  ) {
     _complaintSubscription?.cancel();
 
     try {
@@ -36,7 +38,9 @@ class ComplaintBloc extends Bloc<ComplaintEvent, ComplaintState> {
   }
 
   FutureOr<void> _onUpdateComplaint(
-      UpdateComplaint event, Emitter<ComplaintState> emit) {
+    UpdateComplaint event,
+    Emitter<ComplaintState> emit,
+  ) {
     emit(ComplaintLoaded(event.complaintList));
   }
 
@@ -44,6 +48,5 @@ class ComplaintBloc extends Bloc<ComplaintEvent, ComplaintState> {
   void onTransition(Transition<ComplaintEvent, ComplaintState> transition) {
     super.onTransition(transition);
     dev.log(transition.toString(), name: "Complaint List Screen");
-
   }
 }

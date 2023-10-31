@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jcc/bloc/auth/auth_bloc.dart';
 import 'package:jcc/bloc/complaint/complaint_bloc.dart';
+import 'package:jcc/bloc/complaint/register/complaint_register_bloc.dart';
+import 'package:jcc/bloc/complaint/stats/complaint_stats_bloc.dart';
 import 'package:jcc/bloc/login/login_bloc.dart';
 import 'package:jcc/bloc/notification/notification_bloc.dart';
 import 'package:jcc/bloc/user/register/user_register_bloc.dart';
@@ -44,27 +46,38 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) =>
-              AuthBloc(authRepository: AuthRepository())..add(AppStarted()),
+          AuthBloc(authRepository: AuthRepository())
+            ..add(AppStarted()),
         ),
         BlocProvider(
           create: (context) => LogInBloc(authRepository: AuthRepository()),
         ),
         BlocProvider(
           create: (context) =>
-              ComplaintBloc(complaintRepository: complaintRepository)
-                ..add(LoadComplaint()),
+          ComplaintBloc(complaintRepository: complaintRepository)
+            ..add(LoadComplaint()),
         ),
         BlocProvider(
           create: (context) => UserRegisterBloc(userRepository: userRepository),
         ),
         BlocProvider(
           create: (context) =>
-              NotificationBloc(notificationRepository: notificationRepository)
-                ..add(LoadNotifications()),
-        )
+
+          NotificationBloc(notificationRepository: notificationRepository)
+            ..add(LoadNotifications()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              ComplaintRegisterBloc(complaintRepository: complaintRepository),
+        ),
+        BlocProvider(
+          create: (context) =>
+          ComplaintStatsBloc(complaintRepository: complaintRepository)
+            ..add(GetComplaintStats()),
+        ),
+
       ],
       child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
         theme: AppTheme.getTheme(),
         routerConfig: router,
       ),
