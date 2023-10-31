@@ -61,6 +61,8 @@ class _HomeScreenState extends State<HomeScreen> {
         leading: Builder(
           builder: (context) => IconButton(
               onPressed: () {
+                dev.log(MediaQuery.of(context).size.width.toString());
+                dev.log(MediaQuery.of(context).size.height.toString());
                 Scaffold.of(context).openDrawer();
               },
               icon: SvgPicture.asset(
@@ -191,7 +193,7 @@ class _HomeScreenState extends State<HomeScreen> {
               margin: const EdgeInsets.symmetric(horizontal: 10),
               clipBehavior: Clip.hardEdge,
               decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(15)),
+              BoxDecoration(borderRadius: BorderRadius.circular(15)),
               //   // child: Column(
               //   //   children: List.generate(10, (index) => RecentComplaintsCard(index: index)),
               //   // ),
