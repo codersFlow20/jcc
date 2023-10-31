@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
+
 import '../models/user_model.dart';
 
 import 'dart:developer' as dev;
@@ -18,6 +19,7 @@ class UserRepository {
   Future<UserModel?> registerUser(UserModel user) async {
     try {
       await _firestore.collection('users').doc(user.phoneNo).set(user.toMap());
+
       return user;
     }catch(e) {
       dev.log('Got registration error: $e', name: 'User');

@@ -122,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                 child: Container(
                   height: 360,
                   width: MediaQuery.of(context).size.width - 20,
@@ -147,7 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
               margin: const EdgeInsets.symmetric(horizontal: 10),
               clipBehavior: Clip.hardEdge,
               decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(15)),
+              BoxDecoration(borderRadius: BorderRadius.circular(15)),
               //   // child: Column(
               //   //   children: List.generate(10, (index) => RecentComplaintsCard(index: index)),
               //   // ),

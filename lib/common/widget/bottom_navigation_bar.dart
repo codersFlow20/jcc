@@ -59,6 +59,7 @@ class AppBottomNavigationBar extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
         child: BottomNavigationBar(
+          
           backgroundColor: AppColors.antiFlashWhite,
           type: BottomNavigationBarType.fixed,
           selectedItemColor: AppColors.blue,

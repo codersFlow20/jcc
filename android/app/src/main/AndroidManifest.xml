@@ -23,6 +23,9 @@
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+            <!-- name doesn't change, value = your class fully name spaced-->
+            <meta-data android:name="com.onesignal.NotificationServiceExtension"
+                android:value="com.onesignal.example.NotificationServiceExtension" />
         </activity>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
