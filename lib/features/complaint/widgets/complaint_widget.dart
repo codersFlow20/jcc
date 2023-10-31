@@ -18,6 +18,9 @@ class ComplaintWidget extends StatelessWidget {
         context.go('/complaints/complaint_details');
       },
       child: Container(
+        margin: const EdgeInsets.only(
+          bottom: 10,
+        ),
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: AppColors.paleBlue,

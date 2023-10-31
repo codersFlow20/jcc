@@ -99,18 +99,17 @@ class _ComplaintListState extends State<ComplaintList> {
                 ],
               );
             } else {
-              return Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: ListView.separated(
+              return Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                ),
+                child: ListView.builder(
                   controller: widget.controller,
                   itemBuilder: (context, index) {
                     return ComplaintWidget(
                       complaint: state.complaintList[index],
                     );
                   },
-                  separatorBuilder: (context, index) => const SizedBox(
-                    height: 10,
-                  ),
                   itemCount: state.complaintList.length,
                 ),
               );
