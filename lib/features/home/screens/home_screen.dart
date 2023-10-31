@@ -10,10 +10,14 @@ import 'package:jcc/features/home/widgets/recent_complaints_card.dart';
 import 'package:jcc/generated/assets.dart';
 import 'package:jcc/theme/colors.dart';
 
-// import '../../../common/widget/scroll_to_hide_widget.dart';
+import '../../../common/widget/scroll_to_hide_widget.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen(
+      {super.key, required this.controller, required this.bottomNavKey});
+
+  final ScrollController controller;
+  final GlobalKey<ScrollToHideWidgetState> bottomNavKey;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -31,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
         "98,23,54,898", 88.09, AppColors.mantis),
   ];
 
+
   @override
   Widget build(BuildContext context) {
     // var name = (context
@@ -38,14 +43,12 @@ class _HomeScreenState extends State<HomeScreen> {
     //     .state as UserRegistered).user.name;
 
     return Scaffold(
+      drawer:const MenuDrawer(),
       appBar: AppBar(
-        leading: Builder(
-          builder: (context) => IconButton(
+        leading:Builder(
+          builder:(context) => IconButton(
               onPressed: () => Scaffold.of(context).openDrawer(),
-              icon: SvgPicture.asset(
-                Assets.iconsMenu,
-                fit: BoxFit.cover,
-              )),
+              icon: SvgPicture.asset(Assets.iconsMenu,fit: BoxFit.cover,)),
         ),
         title: Text(CommonDataConstants.home,
             style: Theme.of(context)
@@ -61,10 +64,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 if (widget.bottomNavKey.currentState!.isVisible) {
                   widget.bottomNavKey.currentState!.hide();
-                } else {
+                }else {
                   widget.bottomNavKey.currentState!.show();
                 }
-              } else {
+              }else {
                 dev.log('State is null', name: 'Home');
               }
             },
@@ -73,6 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: SingleChildScrollView(
+        controller: controller,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -101,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                 child: Container(
                   height: 360,
                   width: MediaQuery.of(context).size.width - 20,
@@ -126,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
               margin: const EdgeInsets.symmetric(horizontal: 10),
               clipBehavior: Clip.hardEdge,
               decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(15)),
+              BoxDecoration(borderRadius: BorderRadius.circular(15)),
               //   // child: Column(
               //   //   children: List.generate(10, (index) => RecentComplaintsCard(index: index)),
               //   // ),

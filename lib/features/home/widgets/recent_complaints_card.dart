@@ -23,7 +23,7 @@ class RecentComplaintsCard extends StatelessWidget {
             SizedBox(
               height: 70,
               width: 70,
-              child: Image.asset(Assets.departmentIconsWaterDepartment,fit: BoxFit.cover),
+              child: Image.asset(Assets.departmentIconsWaterDepartment, fit: BoxFit.cover),
             ),
             const SizedBox(
               width: 5,

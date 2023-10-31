@@ -17,6 +17,12 @@ class CommonDataConstants {
   ];
 
   static const String home = "Home";
+  static const String userProfile = "Profile";
+
+  static const String language = "Language";
+  static const String aboutUs = "About us";
+  static const String needAnyHelp = "Need any help?";
+  static const String logOut = "Log out";
 }
 
 class ScreensDataConstants{

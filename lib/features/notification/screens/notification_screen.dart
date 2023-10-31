@@ -11,8 +11,17 @@ import '../../../utils/conversion.dart';
 import '../../../utils/ui_utils.dart';
 import 'package:jcc/common/widget/primary_button.dart';
 
+import '../../../common/widget/scroll_to_hide_widget.dart';
+
 class NotificationScreen extends StatelessWidget {
-  const NotificationScreen({super.key});
+  const NotificationScreen({
+    super.key,
+    required this.controller,
+    required this.bottomNavKey,
+  });
+
+  final ScrollController controller;
+  final GlobalKey<ScrollToHideWidgetState> bottomNavKey;
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +48,7 @@ class NotificationScreen extends StatelessWidget {
           ),
         ],
       ),
+
       body: BlocConsumer<NotificationBloc, NotificationState>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -66,6 +76,7 @@ class NotificationScreen extends StatelessWidget {
           }
 
           return Center(child: CircularProgressIndicator());
+
         },
       ),
     );
