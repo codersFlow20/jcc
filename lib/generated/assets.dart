@@ -2,9 +2,13 @@
 class Assets {
   Assets._();
 
+  static const String artworksRegisterArtwork = 'assets/artworks/register_artwork.svg';
   static const String backgroundsLoginBackground = 'assets/backgrounds/login_background.svg';
+  static const String backgroundsMenuBackground = 'assets/backgrounds/menu_background.svg';
   static const String backgroundsOptBackground = 'assets/backgrounds/opt_background.svg';
   static const String backgroundsOtpBackground = 'assets/backgrounds/otp_background.svg';
+  static const String backgroundsRegisterBackground = 'assets/backgrounds/register_background.svg';
+  static const String backgroundsUserProfileBackground = 'assets/backgrounds/user_profile_background.svg';
   static const String complaintDataDepartment = 'assets/complaint_data/department.json';
   static const String departmentIconsCivil = 'assets/departmentIcons/civil.png';
   static const String departmentIconsESmartLight = 'assets/departmentIcons/e_smart_light.png';
@@ -13,27 +17,34 @@ class Assets {
   static const String departmentIconsGarden = 'assets/departmentIcons/garden.png';
   static const String departmentIconsHealth = 'assets/departmentIcons/health.png';
   static const String departmentIconsHouseTax = 'assets/departmentIcons/house_tax.png';
-  static const String departmentIconsICDS = 'assets/departmentIcons/lcds.png';
-  static const String departmentIconsLightEESL = 'assets/departmentIcons/light_eesl.png';
+  static const String departmentIconsIcds = 'assets/departmentIcons/icds.png';
+  static const String departmentIconsLightEesl = 'assets/departmentIcons/light_eesl.png';
   static const String departmentIconsProjectPlanning = 'assets/departmentIcons/project_planning.png';
   static const String departmentIconsSecurity = 'assets/departmentIcons/security.png';
   static const String departmentIconsSlumDepartment = 'assets/departmentIcons/slum_department.png';
   static const String departmentIconsSolidWaste = 'assets/departmentIcons/solid_waste.png';
   static const String departmentIconsTownPlanning = 'assets/departmentIcons/town_planning.png';
-  static const String departmentIconsUCD = 'assets/departmentIcons/ucd.png';
+  static const String departmentIconsUcd = 'assets/departmentIcons/ucd.png';
   static const String departmentIconsUndergroundSewers = 'assets/departmentIcons/underground_sewers.png';
   static const String departmentIconsWaterDepartment = 'assets/departmentIcons/water_department.png';
   static const String fontsPoppinsRegular = 'assets/fonts/Poppins-Regular.ttf';
   static const String fontsRobotoCondensedRegular = 'assets/fonts/RobotoCondensed-Regular.ttf';
   static const String fontsRobotoRegular = 'assets/fonts/Roboto-Regular.ttf';
   static const String fontsRobotoThin = 'assets/fonts/Roboto-Thin.ttf';
+  static const String iconsAboutUs = 'assets/icons/about_us.svg';
+  static const String iconsBackArrow = 'assets/icons/back_arrow.svg';
+  static const String iconsClose = 'assets/icons/close.svg';
   static const String iconsComplaints = 'assets/icons/complaints.svg';
   static const String iconsEdit = 'assets/icons/edit.svg';
+  static const String iconsHelp = 'assets/icons/help.svg';
   static const String iconsHome = 'assets/icons/home.svg';
+  static const String iconsLanguage = 'assets/icons/language.svg';
+  static const String iconsLogOut = 'assets/icons/log_out.svg';
   static const String iconsLogo = 'assets/icons/logo.png';
   static const String iconsMenu = 'assets/icons/menu.svg';
   static const String iconsNotifications = 'assets/icons/notifications.svg';
   static const String iconsSearch = 'assets/icons/search.svg';
+  static const String imageProfileImage = 'assets/image/profile_image.png';
   static const String lottieSuccess = 'assets/lottie/success.json';
 
 }

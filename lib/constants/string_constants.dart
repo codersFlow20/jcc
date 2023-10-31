@@ -10,6 +10,12 @@ class CommonDataConstants {
   ];
 
   static const String home = "Home";
+  static const String userProfile = "Profile";
+
+  static const String language = "Language";
+  static const String aboutUs = "About us";
+  static const String needAnyHelp = "Need any help?";
+  static const String logOut = "Log out";
 }
 
 class ScreensDataConstants{
@@ -66,7 +72,7 @@ class DepartmentDataConstants {
   static final List<String> departmentIconsAssetsName = [
     Assets.departmentIconsWaterDepartment,
     Assets.departmentIconsSlumDepartment,
-    Assets.departmentIconsLightEESL,
+    Assets.departmentIconsLightEesl,
     Assets.departmentIconsCivil,
     Assets.departmentIconsHealth,
     Assets.departmentIconsSolidWaste,
@@ -74,8 +80,8 @@ class DepartmentDataConstants {
     Assets.departmentIconsTownPlanning,
     Assets.departmentIconsUndergroundSewers,
     Assets.departmentIconsHouseTax,
-    Assets.departmentIconsUCD,
-    Assets.departmentIconsICDS,
+    Assets.departmentIconsUcd,
+    Assets.departmentIconsIcds,
     Assets.departmentIconsGarden,
     Assets.departmentIconsProjectPlanning,
     Assets.departmentIconsESmartLight,
