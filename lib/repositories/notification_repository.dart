@@ -50,6 +50,13 @@ class NotificationRepository {
     }
   }
 
+  Future<void> addNotification(NotificationModel notification) async {
+    return await _firestore
+        .collection('notifications')
+        .doc(notification.timeStamp.toString())
+        .set(notification.toMap());
+  }
+
   Stream<List<NotificationModel>> getNotification(bool descending) {
     // for (String e in DepartmentDataConstants.departmentNameList) {
     //   final notification = NotificationModel(
@@ -72,7 +79,10 @@ class NotificationRepository {
         .collection('users')
         .doc(_firebaseAuth.currentUser!.phoneNumber.toString())
         .collection('notifications')
-        .orderBy('timeStamp',descending: descending,)
+        .orderBy(
+          'timeStamp',
+          descending: descending,
+        )
         .snapshots()
         .map((event) {
       return event.docs

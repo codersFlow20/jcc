@@ -85,7 +85,7 @@ class _ComplaintRegistrationScreenState
                       },
                     );
                   } else if (state is ComplaintRegisterSuccess) {
-                    context.go('/complaint_successful/${state.id}');
+                    context.push('/complaint_successful/${state.id}');
                   } else if (state is ComplaintRegisterFailure) {
                     UIUtils.showSnackBar(
                       context: context,
