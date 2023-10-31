@@ -56,5 +56,4 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     dev.log(transition.toString(), name: "Notification Screen");
   }
 
-
 }

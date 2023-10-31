@@ -46,36 +46,35 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) =>
-          AuthBloc(authRepository: AuthRepository())
-            ..add(AppStarted()),
+              AuthBloc(authRepository: AuthRepository())..add(AppStarted()),
         ),
         BlocProvider(
           create: (context) => LogInBloc(authRepository: AuthRepository()),
         ),
         BlocProvider(
           create: (context) =>
-          ComplaintBloc(complaintRepository: complaintRepository)
-            ..add(LoadComplaint()),
+              ComplaintBloc(complaintRepository: complaintRepository)
+                ..add(LoadComplaint()),
         ),
         BlocProvider(
           create: (context) => UserRegisterBloc(userRepository: userRepository),
         ),
         BlocProvider(
           create: (context) =>
-
-          NotificationBloc(notificationRepository: notificationRepository)
-            ..add(LoadNotifications()),
+              NotificationBloc(notificationRepository: notificationRepository)
+                ..add(LoadNotifications()),
+        ),
+        BlocProvider(
+          create: (context) => ComplaintRegisterBloc(
+            complaintRepository: complaintRepository,
+            notificationRepository: notificationRepository,
+          ),
         ),
         BlocProvider(
           create: (context) =>
-              ComplaintRegisterBloc(complaintRepository: complaintRepository),
+              ComplaintStatsBloc(complaintRepository: complaintRepository)
+                ..add(GetComplaintStats()),
         ),
-        BlocProvider(
-          create: (context) =>
-          ComplaintStatsBloc(complaintRepository: complaintRepository)
-            ..add(GetComplaintStats()),
-        ),
-
       ],
       child: MaterialApp.router(
         theme: AppTheme.getTheme(),

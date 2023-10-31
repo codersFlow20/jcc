@@ -50,6 +50,13 @@ class NotificationRepository {
     }
   }
 
+  Future<void> addNotification(NotificationModel notification) async {
+    return await _firestore
+        .collection('notifications')
+        .doc(notification.timeStamp.toString())
+        .set(notification.toMap());
+  }
+
   Stream<List<NotificationModel>> getNotification() {
     return _firestore
         .collection('users')
