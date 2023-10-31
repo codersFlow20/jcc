@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'colors.dart';
 
 class ContainerTheme{
 
@@ -19,7 +16,8 @@ class ContainerTheme{
       vertical: 5,
     ),
     border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(15),
+      borderSide: BorderSide(width: 1.5),
+      borderRadius: BorderRadius.circular(10),
     ),
   );
 

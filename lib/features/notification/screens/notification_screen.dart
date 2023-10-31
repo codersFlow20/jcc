@@ -1,10 +1,19 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last
 
 import 'package:flutter/material.dart';
-import 'package:jcc/common/widget/custom_button.dart';
+import 'package:jcc/common/widget/primary_button.dart';
+
+import '../../../common/widget/scroll_to_hide_widget.dart';
 
 class NotificationScreen extends StatelessWidget {
-  const NotificationScreen({super.key});
+  const NotificationScreen({
+    super.key,
+    required this.controller,
+    required this.bottomNavKey,
+  });
+
+  final ScrollController controller;
+  final GlobalKey<ScrollToHideWidgetState> bottomNavKey;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +66,7 @@ class NotificationScreen extends StatelessWidget {
                           },
                         ),
                         SizedBox(height: 20),
-                        MyButton(onTap: () {}, title: "Apply Filters")
+                        PrimaryButton(onTap: () {}, title: "Apply Filters")
                       ],
                     ),
                   );
@@ -69,6 +78,7 @@ class NotificationScreen extends StatelessWidget {
         ],
       ),
       body: ListView.builder(
+        controller: controller,
         itemCount: 10,
         itemBuilder: (context, index) {
           return _buildNotificationItem(

@@ -1,8 +1,8 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jcc/common/widget/menu_drawer.dart';
+import 'dart:developer' as dev;
+import 'package:jcc/config/router.dart';
 import 'package:jcc/constants/string_constants.dart';
 import 'package:jcc/features/home/widgets/data_card.dart';
 import 'package:jcc/features/home/widgets/data_chart.dart';
@@ -10,8 +10,14 @@ import 'package:jcc/features/home/widgets/recent_complaints_card.dart';
 import 'package:jcc/generated/assets.dart';
 import 'package:jcc/theme/colors.dart';
 
+import '../../../common/widget/scroll_to_hide_widget.dart';
+
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen(
+      {super.key, required this.controller, required this.bottomNavKey});
+
+  final ScrollController controller;
+  final GlobalKey<ScrollToHideWidgetState> bottomNavKey;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -45,14 +51,32 @@ class _HomeScreenState extends State<HomeScreen> {
               icon: SvgPicture.asset(Assets.iconsMenu,fit: BoxFit.cover,)),
         ),
         title: Text(CommonDataConstants.home,
-            style: Theme.of(context).textTheme.displayLarge?.copyWith(fontSize: 22)),
+            style: Theme.of(context)
+                .textTheme
+                .displayLarge
+                ?.copyWith(fontSize: 22)),
         centerTitle: true,
         actions: [
           IconButton(
-              onPressed: () {}, icon: SvgPicture.asset(Assets.iconsSearch))
+            onPressed: () {
+              if (widget.bottomNavKey.currentState != null) {
+                dev.log('State is not null', name: 'Home');
+
+                if (widget.bottomNavKey.currentState!.isVisible) {
+                  widget.bottomNavKey.currentState!.hide();
+                }else {
+                  widget.bottomNavKey.currentState!.show();
+                }
+              }else {
+                dev.log('State is null', name: 'Home');
+              }
+            },
+            icon: SvgPicture.asset(Assets.iconsSearch),
+          )
         ],
       ),
       body: SingleChildScrollView(
+        controller: controller,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -96,7 +120,10 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               child: Text(
                 ScreensDataConstants.recentTitle,
-                style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.w400),
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineMedium
+                    ?.copyWith(fontWeight: FontWeight.w400),
               ),
             ),
             Container(
@@ -134,6 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
 class ComplaintStateData {
   ComplaintStateData(this.complaintState, this.complaintDataInNumber,
       this.complaintsDataInPercentage, this.color);
+
   final String complaintState;
   final String complaintDataInNumber;
   final double complaintsDataInPercentage;

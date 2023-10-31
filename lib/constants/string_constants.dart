@@ -9,6 +9,13 @@ class CommonDataConstants {
     "Notifications",
   ];
 
+  static final List<String> complaintStatuses = [
+    'Registered',
+    'In Process',
+    'On Hold',
+    'Solved',
+  ];
+
   static const String home = "Home";
   static const String userProfile = "Profile";
 
@@ -21,6 +28,7 @@ class CommonDataConstants {
 class ScreensDataConstants{
   static const String recentTitle = "Recent Complaints";
 }
+
 class ComplaintStateDataConstants {
   static final List<String> complaintState = [
     "Registered",
@@ -36,6 +44,7 @@ class ComplaintStateDataConstants {
     "Complaints Solved",
   ];
 }
+
 class DepartmentDataConstants {
   static final List<String> departmentNameList = [
     "Water Works",
@@ -57,7 +66,7 @@ class DepartmentDataConstants {
     "FLOOD CONTROL",
   ];
 
-  static final Map<String, List<String>> departmentComplaintsData = {
+  static const Map<String, List<String>> departmentComplaintsData = {
     'Water Works': [
       'No Water',
       'Irregular Water',
@@ -66,6 +75,17 @@ class DepartmentDataConstants {
     'Health': [
       'Fogging Work',
       'Food Checking',
+    ],
+  };
+
+  static const Map<String, List<String>> wardNoAreas = {
+    '1' : [
+      'Area 1',
+      'Area 2',
+    ],
+    '2' : [
+      'Punitnagar',
+      'Rameshwarnagar',
     ],
   };
 

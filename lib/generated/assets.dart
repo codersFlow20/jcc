@@ -3,6 +3,7 @@ class Assets {
   Assets._();
 
   static const String artworksRegisterArtwork = 'assets/artworks/register_artwork.svg';
+  static const String assetsIconsSearch = 'assets/icons/search.svg';
   static const String backgroundsLoginBackground = 'assets/backgrounds/login_background.svg';
   static const String backgroundsMenuBackground = 'assets/backgrounds/menu_background.svg';
   static const String backgroundsOptBackground = 'assets/backgrounds/opt_background.svg';
@@ -34,9 +35,14 @@ class Assets {
   static const String iconsAboutUs = 'assets/icons/about_us.svg';
   static const String iconsBackArrow = 'assets/icons/back_arrow.svg';
   static const String iconsClose = 'assets/icons/close.svg';
+  static const String iconsAddImage = 'assets/icons/add_image.svg';
+  static const String iconsCameraBg = 'assets/icons/camera_bg.svg';
   static const String iconsComplaints = 'assets/icons/complaints.svg';
+  static const String iconsDeleteBg = 'assets/icons/delete_bg.svg';
+  static const String iconsEdge = 'assets/icons/edge.svg';
   static const String iconsEdit = 'assets/icons/edit.svg';
   static const String iconsHelp = 'assets/icons/help.svg';
+  static const String iconsGalleryBg = 'assets/icons/gallery_bg.svg';
   static const String iconsHome = 'assets/icons/home.svg';
   static const String iconsLanguage = 'assets/icons/language.svg';
   static const String iconsLogOut = 'assets/icons/log_out.svg';
@@ -45,6 +51,7 @@ class Assets {
   static const String iconsNotifications = 'assets/icons/notifications.svg';
   static const String iconsSearch = 'assets/icons/search.svg';
   static const String imageProfileImage = 'assets/image/profile_image.png';
+  static const String lottieSearch = 'assets/lottie/search.json';
   static const String lottieSuccess = 'assets/lottie/success.json';
 
 }

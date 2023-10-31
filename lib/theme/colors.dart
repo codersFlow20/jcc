@@ -18,6 +18,7 @@ class AppColors {
   static const Color antiFlashWhite = Color(0xFFF0F0F0);
   static const Color mintTulip = Color(0xFFBDF2E8);
   static const Color greenBlue = Color(0xFF1E5CAC);
+  static const Color paleBlue = Color(0xFFBDF2E8);
 
   static const Color brightTurquoise = Color(0xFF15DCE9);
   static const Color monaLisa = Color(0xFFFF9999);
@@ -28,6 +29,4 @@ class AppColors {
   static const Color red = Color(0xFFFF2020);
   static const Color violet = Color(0xFF9E07A1);
   static const Color islamicGreen = Color(0xFF008905);
-
-  static const Color paleBlue = Color(0xFFBDF2E8);
 }
