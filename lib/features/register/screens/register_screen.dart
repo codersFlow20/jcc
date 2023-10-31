@@ -113,12 +113,11 @@ class _UserRegisterScreenState extends State<UserRegisterScreen> {
                             final name =
                                 '${_firstnameController.text} ${_lastnameController.text}';
 
-                            // TODO: Add one signal notification token
                             var user = UserModel(
                               phoneNo: phoneNo,
                               name: name,
                               profilePicUrl: '',
-                              notificationToken: '',
+                              notificationToken: phoneNo,
                             );
 
                             context

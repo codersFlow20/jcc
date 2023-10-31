@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:jcc/bloc/complaint/stats/complaint_stats_bloc.dart';
 import 'package:jcc/common/widget/menu_drawer.dart';
 import 'dart:developer' as dev;
 import 'package:jcc/config/router.dart';
@@ -29,17 +31,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  List<ComplaintStateData> complaintStateData = [
-    ComplaintStateData(ComplaintStateDataConstants.complaintState[0],
-        "12,33,23,233", 39.43, AppColors.brightTurquoise),
-    ComplaintStateData(ComplaintStateDataConstants.complaintState[1],
-        "32,44,89,329", 40.60, AppColors.monaLisa),
-    ComplaintStateData(ComplaintStateDataConstants.complaintState[2],
-        "22,53,88,984", 28.88, AppColors.heliotrope),
-    ComplaintStateData(ComplaintStateDataConstants.complaintState[3],
-        "98,23,54,898", 88.09, AppColors.mantis),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
           } else {
             dev.log('State is null', name: 'Home');
           }
-        }else {
+        } else {
           if (widget.bottomNavKey.currentState != null) {
             dev.log('State is not null', name: 'Home');
             if (!widget.bottomNavKey.currentState!.isVisible) {
@@ -95,50 +86,105 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      DataCard(
-                          index: 0, complaintStateData: complaintStateData),
-                      DataCard(
-                          index: 1, complaintStateData: complaintStateData),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      DataCard(
-                          index: 2, complaintStateData: complaintStateData),
-                      DataCard(
-                          index: 3, complaintStateData: complaintStateData),
-                    ],
-                  )
-                ],
-              ),
+            BlocBuilder<ComplaintStatsBloc, ComplaintStatsState>(
+              builder: (context, state) {
+                if (state is ComplaintStatsLoading) {
+                  return const CircularProgressIndicator();
+                } else if (state is ComplaintStatsError) {
+                  return Text(state.message);
+                } else if (state is ComplaintStatsLoaded) {
+                  final data = state.stats;
+
+                  List<ComplaintStateData> complaintStateData = [
+                    ComplaintStateData(
+                      ComplaintStateDataConstants.complaintState[0],
+                      data.registered.toString(),
+                      (data.registered / data.total) * 100,
+                      AppColors.brightTurquoise,
+                    ),
+                    ComplaintStateData(
+                      ComplaintStateDataConstants.complaintState[1],
+                      data.onHold.toString(),
+                      (data.onHold / data.total) * 100,
+                      AppColors.monaLisa,
+                    ),
+                    ComplaintStateData(
+                      ComplaintStateDataConstants.complaintState[2],
+                      data.inProcess.toString(),
+                      (data.inProcess / data.total) * 100,
+                      AppColors.heliotrope,
+                    ),
+                    ComplaintStateData(
+                      ComplaintStateDataConstants.complaintState[3],
+                      data.solved.toString(),
+                      (data.solved / data.total) * 100,
+                      AppColors.mantis,
+                    ),
+                  ];
+
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            DataCard(
+                              index: 0,
+                              complaintStateData: complaintStateData,
+                            ),
+                            DataCard(
+                              index: 1,
+                              complaintStateData: complaintStateData,
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            DataCard(
+                              index: 2,
+                              complaintStateData: complaintStateData,
+                            ),
+                            DataCard(
+                              index: 3,
+                              complaintStateData: complaintStateData,
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 15,
+                          ),
+                          child: Container(
+                            height: 360,
+                            width: MediaQuery.of(context).size.width - 20,
+                            decoration: const BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              color: AppColors.platinum,
+                            ),
+                            child: Center(
+                              child: DataChart(
+                                complaintStateData: complaintStateData,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                } else {
+                  return const Text('Unknown state');
+                }
+              },
             ),
-            Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                child: Container(
-                  height: 360,
-                  width: MediaQuery.of(context).size.width - 20,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    color: AppColors.platinum,
-                  ),
-                  child: Center(
-                      child: DataChart(complaintStateData: complaintStateData)),
-                )),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               child: Text(
                 ScreensDataConstants.recentTitle,
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineMedium
-                    ?.copyWith(fontWeight: FontWeight.w400),
+                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                      fontWeight: FontWeight.w400,
+                    ),
               ),
             ),
             Container(

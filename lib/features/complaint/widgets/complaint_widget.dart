@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:jcc/constants/string_constants.dart';
-
 import 'package:jcc/models/complaint_model.dart';
 import 'package:jcc/theme/colors.dart';
 import 'package:jcc/utils/conversion.dart';
+
+import '../../../utils/ui_utils.dart';
 
 class ComplaintWidget extends StatelessWidget {
   final ComplaintModel complaint;
@@ -18,6 +18,9 @@ class ComplaintWidget extends StatelessWidget {
         context.go('/complaints/complaint_details');
       },
       child: Container(
+        margin: const EdgeInsets.only(
+          bottom: 10,
+        ),
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: AppColors.paleBlue,
@@ -37,7 +40,7 @@ class ComplaintWidget extends StatelessWidget {
           children: [
             const SizedBox(width: 5),
             Image.asset(
-             getIconName(complaint.departmentName),
+              UIUtils.getIconName(complaint.departmentName),
               height: 60,
               width: 60,
             ),
@@ -133,8 +136,4 @@ class ComplaintWidget extends StatelessWidget {
     );
   }
 
-  String getIconName(String departmentName){
-        int index = DepartmentDataConstants.departmentNameList.indexOf(departmentName);
-        return DepartmentDataConstants.departmentIconsAssetsName.elementAt(index);
-  }
 }
