@@ -130,7 +130,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
   Widget _buildBottomSheet(BuildContext context, List<NotificationModel> list) {
     String values = "";
     return Container(
-      height: 350,
+      height: 270,
       padding: EdgeInsets.all(20),
       constraints: BoxConstraints(
         minWidth: 400,
@@ -139,10 +139,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
         children: [
           Text(
             "Sort",
-            style: GoogleFonts.robotoCondensed(fontSize: 14),
-          ),
-          SizedBox(height: 15),
+            style: GoogleFonts.robotoCondensed(fontSize: 14),),
           DropdownButtonFormField(
+            padding: const EdgeInsets.only(left: 15),
             style: TextStyle(
               fontFamily: 'Poppins',
               fontWeight: FontWeight.w100,
@@ -150,8 +149,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
               color: Colors.black,
             ),
             decoration: InputDecoration(
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+              border: InputBorder.none,
             ),
             hint: Text(
               "Sort By",

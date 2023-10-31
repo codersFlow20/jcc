@@ -70,6 +70,7 @@ class DepartmentDataConstants {
     "FLOOD CONTROL",
   ];
 
+
   static const Map<String, List<String>> departmentComplaintsData = {
     'Water Works': [
       'No Water',
