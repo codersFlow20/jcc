@@ -61,8 +61,6 @@ class _HomeScreenState extends State<HomeScreen> {
         leading: Builder(
           builder: (context) => IconButton(
               onPressed: () {
-                dev.log(MediaQuery.of(context).size.width.toString());
-                dev.log(MediaQuery.of(context).size.height.toString());
                 Scaffold.of(context).openDrawer();
               },
               icon: SvgPicture.asset(
@@ -70,11 +68,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 fit: BoxFit.cover,
               )),
         ),
-        title: Text(CommonDataConstants.home,
-            style: Theme.of(context)
-                .textTheme
-                .displayLarge
-                ?.copyWith(fontSize: 22)),
+        title: Text(
+          CommonDataConstants.home,
+          style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                fontSize: 22,
+              ),
+        ),
         centerTitle: true,
         actions: [
           IconButton(
@@ -132,11 +131,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             DataCard(
                               index: 0,
-                              complaintStateData: complaintStateData,
+                              complaintStateData: complaintStateData[0],
                             ),
                             DataCard(
                               index: 1,
-                              complaintStateData: complaintStateData,
+                              complaintStateData: complaintStateData[1],
                             ),
                           ],
                         ),
@@ -144,11 +143,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             DataCard(
                               index: 2,
-                              complaintStateData: complaintStateData,
+                              complaintStateData: complaintStateData[2],
                             ),
                             DataCard(
                               index: 3,
-                              complaintStateData: complaintStateData,
+                              complaintStateData: complaintStateData[3],
                             ),
                           ],
                         ),
@@ -161,8 +160,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             height: 360,
                             width: MediaQuery.of(context).size.width - 20,
                             decoration: const BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(20),
+                              ),
                               color: AppColors.platinum,
                             ),
                             child: Center(
@@ -193,7 +193,7 @@ class _HomeScreenState extends State<HomeScreen> {
               margin: const EdgeInsets.symmetric(horizontal: 10),
               clipBehavior: Clip.hardEdge,
               decoration:
-              BoxDecoration(borderRadius: BorderRadius.circular(15)),
+                  BoxDecoration(borderRadius: BorderRadius.circular(15)),
               //   // child: Column(
               //   //   children: List.generate(10, (index) => RecentComplaintsCard(index: index)),
               //   // ),

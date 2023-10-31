@@ -20,7 +20,7 @@ class DataCard extends StatelessWidget {
     AppColors.violet,
     AppColors.islamicGreen,
   ];
-  final List<ComplaintStateData> complaintStateData;
+  final ComplaintStateData complaintStateData;
   final int index;
 
   @override
@@ -64,7 +64,7 @@ class DataCard extends StatelessWidget {
               ),
               Center(
                 child: Text(
-                  complaintStateData[index].complaintDataInNumber,
+                  complaintStateData.complaintDataInNumber,
                   style: Theme.of(context)
                       .textTheme
                       .headlineLarge
@@ -122,7 +122,7 @@ class DataCard extends StatelessWidget {
           axisLineStyle: const AxisLineStyle(thickness: 0),
           pointers: <GaugePointer>[
             RangePointer(
-              value: complaintStateData[index].complaintsDataInPercentage,
+              value: complaintStateData.complaintsDataInPercentage,
               color: cardLoadingColors[index],
               width: 6,
               enableAnimation: true,
@@ -133,7 +133,7 @@ class DataCard extends StatelessWidget {
             GaugeAnnotation(
                 widget: Center(
               child: Text(
-                "${complaintStateData[index].complaintsDataInPercentage.toInt()}%",
+                "${complaintStateData.complaintsDataInPercentage.toInt()}%",
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w500,
                       color: AppColors.white,

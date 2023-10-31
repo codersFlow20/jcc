@@ -18,6 +18,7 @@ class CommonDataConstants {
 
   static const String home = "Home";
   static const String userProfile = "Profile";
+  static const String notifications = "Notifications";
 
   static const String language = "Language";
   static const String aboutUs = "About us";
