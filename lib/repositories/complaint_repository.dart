@@ -92,9 +92,14 @@ class ComplaintRepository {
     int count = 1;
     for (var file in files) {
       final ref = _firebaseStorage.ref().child(
-            'complaint_photographs/cid_${id}_img_$count',
+            'complaint_photographs/cid_${id}_img_$count.jpg',
           );
-      await ref.putFile(file).then((value) async {
+      await ref
+          .putFile(
+        file,
+        SettableMetadata(contentType: 'image/jpeg'),
+      )
+          .then((value) async {
         await value.ref.getDownloadURL().then((value) {
           urls.add(value);
         });

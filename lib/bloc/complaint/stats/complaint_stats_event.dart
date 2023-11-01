@@ -7,6 +7,8 @@ abstract class ComplaintStatsEvent extends Equatable {
   List<Object?> get props => [];
 }
 
+class InitializeComplaintStats extends ComplaintStatsEvent {}
+
 class GetComplaintStats extends ComplaintStatsEvent {}
 
 class UpdateStats extends ComplaintStatsEvent {

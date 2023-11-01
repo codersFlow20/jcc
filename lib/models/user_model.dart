@@ -5,34 +5,19 @@ class UserModel extends Equatable {
   final String name;
   final String? profilePicUrl;
   final String notificationToken;
+  final String? email;
 
   const UserModel({
     required this.phoneNo,
     required this.name,
-    required this.profilePicUrl,
+    this.profilePicUrl,
     required this.notificationToken,
+    this.email,
   });
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is UserModel &&
-          runtimeType == other.runtimeType &&
-          phoneNo == other.phoneNo &&
-          name == other.name &&
-          profilePicUrl == other.profilePicUrl &&
-          notificationToken == other.notificationToken);
-
-  @override
-  int get hashCode =>
-      phoneNo.hashCode ^
-      name.hashCode ^
-      profilePicUrl.hashCode ^
-      notificationToken.hashCode;
-
-  @override
   String toString() {
-    return 'UserModel{ phoneNo: $phoneNo, name: $name, profilePicUrl: $profilePicUrl, notificationToken: $notificationToken,}';
+    return 'UserModel{ phoneNo: $phoneNo, name: $name, profilePicUrl: $profilePicUrl, notificationToken: $notificationToken, email: $email}';
   }
 
   UserModel copyWith({
@@ -40,12 +25,14 @@ class UserModel extends Equatable {
     String? name,
     String? profilePicUrl,
     String? notificationToken,
+    String? email,
   }) {
     return UserModel(
       phoneNo: phoneNo ?? this.phoneNo,
       name: name ?? this.name,
       profilePicUrl: profilePicUrl ?? this.profilePicUrl,
       notificationToken: notificationToken ?? this.notificationToken,
+      email: email ?? this.email,
     );
   }
 
@@ -55,20 +42,31 @@ class UserModel extends Equatable {
       'name': name,
       'profilePicUrl': profilePicUrl ?? '',
       'notificationToken': notificationToken,
+      'email': email ?? '',
     };
   }
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
+    final profilePicUrl = map['profilePicUrl'] as String;
+    final email = map['email'] as String;
+
     return UserModel(
       phoneNo: map['phoneNo'] as String,
       name: map['name'] as String,
-      profilePicUrl: map['profilePicUrl'] as String,
+      profilePicUrl: profilePicUrl == '' ? null : profilePicUrl,
       notificationToken: map['notificationToken'] as String,
+      email: email == '' ? null : email,
     );
   }
 
   @override
-  List<Object?> get props => [name, phoneNo, profilePicUrl, notificationToken];
+  List<Object?> get props => [
+        name,
+        phoneNo,
+        profilePicUrl,
+        notificationToken,
+        email,
+      ];
 
 //</editor-fold>
 }
