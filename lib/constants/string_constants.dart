@@ -18,17 +18,21 @@ class CommonDataConstants {
 
   static const String home = "Home";
   static const String userProfile = "Profile";
+  static const String editUserProfile = "Edit Profile";
   static const String notifications = "Notifications";
 
   static const String language = "Language";
   static const String aboutUs = "About us";
   static const String needAnyHelp = "Need any help?";
   static const String logOut = "Log out";
+  static const String save = "Save";
 }
 
 class ScreensDataConstants{
   static const String recentTitle = "Recent Complaints";
   static const String fullName = "Full Name";
+  static const String firstName = "First Name";
+  static const String lastName = "Last Name";
   static const String mobileNo = "Mobile No";
   static const String email = "Email";
 }

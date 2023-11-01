@@ -30,7 +30,9 @@ class UserProfile extends StatelessWidget {
         centerTitle: true,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              context.pushNamed('edit_user_profile', pathParameters: {'fullName' : "Jay pedhadiya", 'email' : 'jaypedhadiya@gmail.com'});
+            },
             icon: SvgPicture.asset(
               Assets.iconsEdit,
               colorFilter:
