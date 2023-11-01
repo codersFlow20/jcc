@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:jcc/constants/string_constants.dart';
 import 'package:jcc/theme/colors.dart';
 import 'package:lottie/lottie.dart';
 import '../../../bloc/complaint/complaint_bloc.dart';
+import '../../../common/widget/primary_button.dart';
 import '../../../constants/assets_constants.dart';
 import '../widgets/complaint_widget.dart';
 import 'package:jcc/common/widget/menu_drawer.dart';
@@ -28,6 +31,7 @@ class ComplaintList extends StatefulWidget {
 
 class _ComplaintListState extends State<ComplaintList> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,7 +98,14 @@ class _ComplaintListState extends State<ComplaintList> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (context) {
+                  return _buildBottomSheet(context);
+                },
+              );
+            },
             icon: SvgPicture.asset(
               Assets.iconsFilter,
               fit: BoxFit.cover,
@@ -150,6 +161,112 @@ class _ComplaintListState extends State<ComplaintList> {
 
           return const CircularProgressIndicator();
         },
+      ),
+    );
+  }
+
+  Widget _buildBottomSheet(BuildContext context) {
+    String values = "";
+    return Container(
+      height: 350,
+      padding: const EdgeInsets.all(20),
+      constraints: const BoxConstraints(
+        minWidth: 400,
+      ),
+      child: ListView(
+        children: [
+          Text(
+            "Sort",
+            style: GoogleFonts.robotoCondensed(fontSize: 14),
+          ),
+          DropdownButtonFormField(
+            padding: const EdgeInsets.only(left:15),
+            style: const TextStyle(
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.w100,
+              fontSize: 14,
+              color: Colors.black,
+            ),
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+            ),
+            hint: const Text(
+              "Sort By",
+            ),
+            items: const [
+              DropdownMenuItem(
+                value: "Newest",
+                child: Text(
+                  "Newest",
+                ),
+              ),
+              DropdownMenuItem(
+                value: "Oldest",
+                child: Text("Oldest"),
+              ),
+            ],
+            onChanged: (value) {
+              values = value!;
+            },
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Text(
+            "Department",
+            style: GoogleFonts.robotoCondensed(fontSize: 14),
+          ),
+          DropdownButtonFormField(
+            padding: const EdgeInsets.only(left:15),
+            style: const TextStyle(
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.w100,
+              fontSize: 14,
+              color: Colors.black,
+            ),
+            hint: const Text('All'),
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+            ),
+            items: DepartmentDataConstants.departmentNameList
+                .map((e) => DropdownMenuItem(
+                      value: e,
+                      child: Text(e),
+                    ))
+                .toList(),
+            onChanged: (value) {},
+          ),
+          const SizedBox(height: 15),
+          Text(
+            "Status",
+            style: GoogleFonts.robotoCondensed(fontSize: 14),
+          ),
+          DropdownButtonFormField(
+            padding: const EdgeInsets.only(left:15),
+            style: const TextStyle(
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.w100,
+              fontSize: 14,
+              color: Colors.black,
+            ),
+            hint: const Text('All'),
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+            ),
+            items: ComplaintStateDataConstants.complaintState
+                .map((e) => DropdownMenuItem(
+              value: e,
+              child: Text(e),
+            ))
+                .toList(),
+            onChanged: (value) {},
+          ),
+          const SizedBox(height: 20),
+          PrimaryButton(onTap: () {}, title: "Apply Filters"),
+          const SizedBox(
+            height: 72,
+          )
+        ],
       ),
     );
   }

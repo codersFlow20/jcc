@@ -50,29 +50,19 @@ class NotificationRepository {
     }
   }
 
-  Stream<List<NotificationModel>> getNotification(bool descending) {
-    // for (String e in DepartmentDataConstants.departmentNameList) {
-    //   final notification = NotificationModel(
-    //     timeStamp: DateTime.now(),
-    //     departmentName: e,
-    //     description:
-    //         'Wake up to reality! Nothing ever goes as planned in this accursed world. The longer you live, the more you realize that the only things that truly exist in this reality are merely pain, suffering and futility. Listen, everywhere you look in this world, wherever there is light, there will always be shadows to be found as well. As long as there is a concept of victors, the vanquished will also exist. The selfish intent of wanting to preserve peace, initiates war and hatred is born in order to protect love. There are nexuses causal relationships that cannot be separated.',
-    //     complaintId: '45',
-    //     userId: '+919313127921',
-    //   );
-    //
-    //   _firestore
-    //       .collection('users')
-    //       .doc(_firebaseAuth.currentUser!.phoneNumber.toString())
-    //       .collection('notifications')
-    //       .doc(notification.timeStamp.toString())
-    //       .set(notification.toMap());
-    // }
+  Future<void> addNotification(NotificationModel notification) async {
+    return await _firestore
+        .collection('notifications')
+        .doc(notification.timeStamp.toString())
+        .set(notification.toMap());
+  }
+
+  Stream<List<NotificationModel>> getNotification() {
     return _firestore
         .collection('users')
         .doc(_firebaseAuth.currentUser!.phoneNumber.toString())
         .collection('notifications')
-        .orderBy('timeStamp',descending: descending,)
+        .orderBy('timeStamp',descending: true,)
         .snapshots()
         .map((event) {
       return event.docs

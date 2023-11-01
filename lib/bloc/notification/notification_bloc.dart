@@ -39,7 +39,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     try {
       dev.log('state is  $descending');
       _notificationSubscription =
-          _notificationRepository.getNotification(true).listen((list) {
+          _notificationRepository.getNotification().listen((list) {
         add(UpdateNotification(list));
       });
     } catch (e) {
@@ -55,6 +55,5 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     super.onTransition(transition);
     dev.log(transition.toString(), name: "Notification Screen");
   }
-
 
 }
