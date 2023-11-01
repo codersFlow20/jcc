@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:jcc/constants/string_constants.dart';
 import 'package:jcc/models/notification_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
@@ -58,6 +59,23 @@ class NotificationRepository {
   }
 
   Stream<List<NotificationModel>> getNotification() {
+    for(String e in  DepartmentDataConstants.departmentNameList) {
+      final notification = NotificationModel(
+        timeStamp: DateTime.now(),
+        departmentName: e,
+        description:
+        'Wake up to reality! Nothing ever goes as planned in this accursed world. The longer you live, the more you realize that the only things that truly exist in this reality are merely pain, suffering and futility. Listen, everywhere you look in this world, wherever there is light, there will always be shadows to be found as well. As long as there is a concept of victors, the vanquished will also exist. The selfish intent of wanting to preserve peace, initiates war and hatred is born in order to protect love. There are nexuses causal relationships that cannot be separated.',
+        complaintId: '45',
+        userId: '+919313127921',
+      );
+
+      _firestore
+          .collection('users')
+          .doc('+916355303321')
+          .collection('notifications')
+          .doc(notification.timeStamp.toString())
+          .set(notification.toMap());
+    }
     return _firestore
         .collection('users')
         .doc(_firebaseAuth.currentUser!.phoneNumber.toString())

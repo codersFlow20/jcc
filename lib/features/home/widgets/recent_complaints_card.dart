@@ -79,9 +79,9 @@ class RecentComplaintsCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("registered by ",style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w600,),),
+                      Text("registered by ",style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w500,),),
                       const Expanded(child: SizedBox()),
-                      Text("Yash Parmar",style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w600),)
+                      Text("Yash Parmar",style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w500),)
                     ],
                   )
                 ],

@@ -44,21 +44,21 @@ class _NotificationScreenState extends State<NotificationScreen> {
       onDrawerChanged: (isOpened) {
         if (isOpened) {
           if (widget.bottomNavKey.currentState != null) {
-            dev.log('State is not null', name: 'Home');
+            dev.log('State is not null', name: 'Notification');
             if (widget.bottomNavKey.currentState!.isVisible) {
               widget.bottomNavKey.currentState!.hide();
             }
           } else {
-            dev.log('State is null', name: 'Home');
+            dev.log('State is null', name: 'Notification');
           }
         } else {
           if (widget.bottomNavKey.currentState != null) {
-            dev.log('State is not null', name: 'Home');
+            dev.log('State is not null', name: 'Notification');
             if (!widget.bottomNavKey.currentState!.isVisible) {
               widget.bottomNavKey.currentState!.show();
             }
           } else {
-            dev.log('State is null', name: 'Home');
+            dev.log('State is null', name: 'Notification');
           }
         }
       },
@@ -83,12 +83,30 @@ class _NotificationScreenState extends State<NotificationScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              showModalBottomSheet(
+              if (widget.bottomNavKey.currentState != null) {
+                dev.log('State is not null', name: 'Notification');
+                if (widget.bottomNavKey.currentState!.isVisible) {
+                  widget.bottomNavKey.currentState!.hide();
+                }
+              } else {
+                dev.log('State is null', name: 'Notification');
+              }
+              var bottomSheetController = showModalBottomSheet(
                 context: context,
                 builder: (context) {
                   return _buildBottomSheet(context, list);
                 },
               );
+              bottomSheetController.whenComplete(() {
+                if (widget.bottomNavKey.currentState != null) {
+                  dev.log('State is not null', name: 'Notification');
+                  if (!widget.bottomNavKey.currentState!.isVisible) {
+                    widget.bottomNavKey.currentState!.show();
+                  }
+                } else {
+                  dev.log('State is null', name: 'Notification');
+                }
+              });
             },
             icon: SvgPicture.asset(Assets.iconsFilter),
           ),
@@ -130,7 +148,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
   Widget _buildBottomSheet(BuildContext context, List<NotificationModel> list) {
     String values = "";
     return Container(
-      height: 270,
+      height: 200,
       padding: EdgeInsets.all(20),
       constraints: BoxConstraints(
         minWidth: 400,
@@ -188,9 +206,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 // context.read<NotificationBloc>().add(ToggleOrderOfNotification());
               },
               title: "Apply Filters"),
-          SizedBox(
-            height: 72,
-          )
         ],
       ),
     );
