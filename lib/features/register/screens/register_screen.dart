@@ -32,7 +32,7 @@ class _UserRegisterScreenState extends State<UserRegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
 
     return BlocListener<UserRegisterBloc, UserRegisterState>(
       listener: (context, state) {
@@ -78,7 +78,7 @@ class _UserRegisterScreenState extends State<UserRegisterScreen> {
               Padding(
                 padding: const EdgeInsets.all(18.0),
                 child: Form(
-                  key: _formKey,
+                  key: formKey,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,7 +106,7 @@ class _UserRegisterScreenState extends State<UserRegisterScreen> {
                       ),
                       PrimaryButton(
                         onTap: () {
-                          if (_formKey.currentState!.validate()) {
+                          if (formKey.currentState!.validate()) {
                             final phoneNo =
                                 (context.read<AuthBloc>().state as Authenticated)
                                     .phoneNo;
