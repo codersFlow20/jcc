@@ -16,10 +16,16 @@ class ComplaintBloc extends Bloc<ComplaintEvent, ComplaintState> {
         super(ComplaintInitial()) {
     on<LoadComplaint>(_onLoadComplaint);
     on<UpdateComplaint>(_onUpdateComplaint);
+    on<InitializeComplaint>(_onInitializeComplaint);
   }
 
   final ComplaintRepository _complaintRepository;
   StreamSubscription? _complaintSubscription;
+
+  void _onInitializeComplaint(InitializeComplaint event, Emitter<ComplaintState> emit,) {
+    _complaintSubscription?.cancel();
+    emit(ComplaintInitial());
+  }
 
   FutureOr<void> _onLoadComplaint(
     LoadComplaint event,
