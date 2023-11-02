@@ -13,10 +13,12 @@ class RegisterComplaint extends ComplaintRegisterEvent {
     required this.complaintData,
     required this.images,
     required this.userId,
+    required this.userName,
   });
 
   final String id;
   final String userId;
+  final String userName;
   final Map<String, dynamic> complaintData;
   final List<File> images;
 }
