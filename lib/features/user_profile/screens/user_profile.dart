@@ -29,15 +29,33 @@ class UserProfile extends StatelessWidget {
         ),
         centerTitle: true,
         actions: [
-          IconButton(
-            onPressed: () {
-              context.pushNamed('edit_user_profile', pathParameters: {'fullName' : "Jay pedhadiya", 'email' : 'jaypedhadiya@gmail.com'});
+          BlocBuilder<UserRegisterBloc, UserRegisterState>(
+            builder: (context, state) {
+              if (state is UserNotRegistered) {
+                return const Text('You need to register yourself!');
+              } else if (state is UserRegistered) {
+                return IconButton(
+                  onPressed: () {
+                    context.pushNamed(
+                      'edit_user_profile',
+                      pathParameters: {
+                        'fullName': state.user.name,
+                        'email': state.user.email!,
+                      },
+                    );
+                  },
+                  icon: SvgPicture.asset(
+                    Assets.iconsEdit,
+                    colorFilter: const ColorFilter.mode(
+                      AppColors.black,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                );
+              } else {
+                return const Text('Unknown state');
+              }
             },
-            icon: SvgPicture.asset(
-              Assets.iconsEdit,
-              colorFilter:
-                  const ColorFilter.mode(AppColors.black, BlendMode.srcIn),
-            ),
           ),
         ],
       ),

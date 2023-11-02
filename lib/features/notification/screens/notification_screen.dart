@@ -9,6 +9,7 @@ import 'package:jcc/common/widget/menu_drawer.dart';
 import 'package:jcc/constants/string_constants.dart';
 import 'package:jcc/generated/assets.dart';
 import 'package:jcc/theme/colors.dart';
+import 'package:lottie/lottie.dart';
 import '../../../bloc/notification/notification_bloc.dart';
 import '../../../models/notification_model.dart';
 import '../../../utils/conversion.dart';
@@ -119,20 +120,43 @@ class _NotificationScreenState extends State<NotificationScreen> {
             return Center(child: CircularProgressIndicator());
           } else if (state is NotificationLoaded) {
             list = state.notificationList;
-            return ListView.separated(
-              controller: widget.controller,
-              padding: const EdgeInsets.all(10),
-              itemCount: state.notificationList.length,
-              itemBuilder: (context, index) {
-                return _buildNotificationItem(
-                  notification: state.notificationList[index],
-                  context: context,
-                );
-              },
-              separatorBuilder: (context, index) => const SizedBox(
-                height: 5,
-              ),
-            );
+            if (list.isEmpty) {
+              return Column(
+                children: [
+                  const SizedBox(
+                    height: 150,
+                  ),
+                  Lottie.asset(
+                    Assets.lottieSearch,
+                    repeat: true,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    'Nothing to Show',
+                    style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
+                  ),
+                ],
+              );
+            } else {
+              return ListView.separated(
+                controller: widget.controller,
+                padding: const EdgeInsets.all(10),
+                itemCount: state.notificationList.length,
+                itemBuilder: (context, index) {
+                  return _buildNotificationItem(
+                    notification: state.notificationList[index],
+                    context: context,
+                  );
+                },
+                separatorBuilder: (context, index) => const SizedBox(
+                  height: 5,
+                ),
+              );
+            }
           } else if (state is NotificationError) {
             return Center(
               child: Text(state.message),
@@ -157,7 +181,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
         children: [
           Text(
             "Sort",
-            style: GoogleFonts.robotoCondensed(fontSize: 14),),
+            style: GoogleFonts.robotoCondensed(fontSize: 14),
+          ),
           DropdownButtonFormField(
             padding: const EdgeInsets.only(left: 15),
             style: TextStyle(
@@ -260,7 +285,7 @@ Widget _buildNotificationItem(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    Conversion.formatDate(notification.timeStamp),
+                    Conversion.formatDateTime(notification.timeStamp),
                     style: TextStyle(
                       fontSize: 8,
                       fontFamily: 'Poppins',

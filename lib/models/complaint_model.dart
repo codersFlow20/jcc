@@ -14,7 +14,7 @@ class ComplaintModel extends Equatable {
   final String detailedAddress;
   final String userId;
   final String applicantName;
-  final Map<String, dynamic> trackData;
+  final List<TimeLine> trackData;
   final String uniquePin;
   final List<String> imageUrls;
   final String status;
@@ -33,6 +33,7 @@ class ComplaintModel extends Equatable {
         area,
         userId,
         uniquePin,
+        trackData,
         imageUrls,
         status,
         detailedAddress,
@@ -88,7 +89,7 @@ class ComplaintModel extends Equatable {
     int? noOfHours,
     String? applicantName,
     String? remarks,
-    Map<String, String>? trackData,
+    List<TimeLine>? trackData,
   }) {
     return ComplaintModel(
       id: id ?? this.id,
@@ -133,7 +134,7 @@ class ComplaintModel extends Equatable {
       'noOfHours': noOfHours,
       'applicantName': applicantName,
       'remarks': remarks,
-      'trackData': trackData,
+      'trackData': trackData.map((e) => e.toMap()),
     };
   }
 
@@ -159,7 +160,33 @@ class ComplaintModel extends Equatable {
       applicantName: map['applicantName'] as String,
       remarks: map['remarks'] as String,
       noOfHours: map['noOfHours'] as int,
-      trackData: map['trackData'] as Map<String, dynamic>,
+      trackData: (map['trackData'] as List<dynamic>)
+          .map((e) => TimeLine.fromMap(e))
+          .toList(),
+    );
+  }
+}
+
+class TimeLine extends Equatable {
+  final String date;
+  final String status;
+
+  @override
+  List<Object?> get props => [date, status];
+
+  const TimeLine({required this.date, required this.status});
+
+  Map<String, dynamic> toMap() {
+    return {
+      'date': date,
+      'status': status,
+    };
+  }
+
+  factory TimeLine.fromMap(Map<String, dynamic> map) {
+    return TimeLine(
+      date: map['date'] as String,
+      status: map['status'] as String,
     );
   }
 }
