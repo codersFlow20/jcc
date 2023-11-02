@@ -5,13 +5,13 @@ import 'package:jcc/constants/string_constants.dart';
 import 'package:jcc/generated/assets.dart';
 import 'package:jcc/theme/colors.dart';
 import 'package:jcc/utils/conversion.dart';
+import 'package:timeline_tile/timeline_tile.dart';
 
 import '../../../models/complaint_model.dart';
 
 class ComplaintDetails extends StatelessWidget {
   final ComplaintModel complaint;
   const ComplaintDetails({super.key, required this.complaint});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,7 +65,8 @@ class ComplaintDetails extends StatelessWidget {
                               height: 16,
                               width: 16,
                               decoration: BoxDecoration(
-                                color: _buildSelectColor(status: complaint.status),
+                                color:
+                                    _buildSelectColor(status: complaint.status),
                                 shape: BoxShape.circle,
                               ),
                             ),
@@ -100,7 +101,8 @@ class ComplaintDetails extends StatelessWidget {
                     child: _buildDataFiled(
                       context: context,
                       title: ScreensDataConstants.registrationDate,
-                      text: Conversion.formatDate(complaint.registrationDate),
+                      text:
+                          Conversion.formatDateTime(complaint.registrationDate),
                     ),
                   ),
                   SizedBox(
@@ -108,7 +110,7 @@ class ComplaintDetails extends StatelessWidget {
                     child: _buildDataFiled(
                       context: context,
                       title: ScreensDataConstants.durationOfCompletion,
-                      text: "120 Hours",
+                      text: "${complaint.noOfHours} Hours",
                     ),
                   ),
                 ],
@@ -165,7 +167,7 @@ class ComplaintDetails extends StatelessWidget {
               const SizedBox(
                 height: 15,
               ),
-              _buildDataFiled(
+              _buildDataFiled2(
                 context: context,
                 title: ScreensDataConstants.description,
                 text: complaint.description,
@@ -174,10 +176,29 @@ class ComplaintDetails extends StatelessWidget {
                 height: 15,
               ),
               Container(
-                height: 100,
+                width: MediaQuery.of(context).size.width - 20,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20.0),
-                    color: Colors.grey),
+                  borderRadius: BorderRadius.circular(20.0),
+                  color: AppColors.platinum,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(40.0),
+                  child: ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return _buildTimeLineItem(
+                        context: context,
+                        index: index,
+                        time: Conversion.formatDate(
+                            complaint.trackData[index].date.toString()),
+                        status: complaint.trackData[index].status.toString(),
+                        length: complaint.trackData.length,
+                      );
+                    },
+                    itemCount: complaint.trackData.length,
+                  ),
+                ),
               ),
               const SizedBox(
                 height: 15,
@@ -185,7 +206,7 @@ class ComplaintDetails extends StatelessWidget {
               _buildDataFiled(
                 context: context,
                 title: ScreensDataConstants.applicantName,
-                text: complaint.assignedEmployeeId,
+                text: complaint.applicantName,
               ),
               const SizedBox(
                 height: 15,
@@ -193,16 +214,15 @@ class ComplaintDetails extends StatelessWidget {
               _buildDataFiled(
                 context: context,
                 title: ScreensDataConstants.applicantMobileNo,
-                text: "+91 9662430978",
+                text: complaint.userId,
               ),
               const SizedBox(
                 height: 15,
               ),
-              _buildDataFiled(
+              _buildDataFiled2(
                 context: context,
                 title: ScreensDataConstants.remarks,
-                text:
-                    "New pipe line was installed in the area and complaint solved successfully within time!",
+                text: complaint.remarks,
               ),
               const SizedBox(
                 height: 15,
@@ -226,14 +246,23 @@ class ComplaintDetails extends StatelessWidget {
                       clipBehavior: Clip.hardEdge,
                       decoration: const BoxDecoration(
                         color: AppColors.black50,
-                        // image: DecorationImage(
-                        //     image: AssetImage(Assets.imageProfileImage),
-                        // fit: BoxFit.fill,),
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColors.black25,
+                            blurRadius: 4.0,
+                            spreadRadius: 0.5,
+                            offset: Offset(
+                                0.0, 0.0), // shadow direction: bottom right
+                          ),
+                        ],
                         borderRadius: BorderRadius.all(
                           Radius.circular(10),
                         ),
                       ),
-                      child: NetworkImage(complaint.imageUrls[index]),
+                      child: Image.network(
+                        complaint.imageUrls[index],
+                        fit: BoxFit.cover,
+                      ),
                     );
                   },
                   separatorBuilder: (context, index) {
@@ -264,8 +293,8 @@ class ComplaintDetails extends StatelessWidget {
 
   Widget _buildDataFiled(
       {required BuildContext context,
-        required String title,
-        required String text}) {
+      required String title,
+      required String text}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -279,14 +308,98 @@ class ComplaintDetails extends StatelessWidget {
         Text(
           text,
           style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-            fontWeight: FontWeight.w600,
-          ),
+                fontWeight: FontWeight.w600,
+              ),
         )
       ],
     );
   }
 
-  Color _buildSelectColor({required String status}){
+  Widget _buildDataFiled2(
+      {required BuildContext context,
+      required String title,
+      required String text}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+        ),
+        const SizedBox(
+          height: 5,
+        ),
+        Text(
+          text,
+          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                fontWeight: FontWeight.w500,
+              ),
+        )
+      ],
+    );
+  }
+
+  Widget _buildTimeLineItem({
+    required BuildContext context,
+    required int index,
+    required String time,
+    required String status,
+    required int length,
+  }) {
+    return SizedBox(
+      height: 100,
+      child: TimelineTile(
+        isFirst: index == 0 ? true : false,
+        isLast: index == length - 1 ? true : false,
+        alignment: TimelineAlign.center,
+        axis: TimelineAxis.vertical,
+        indicatorStyle: IndicatorStyle(
+            iconStyle: IconStyle(
+                iconData: Icons.circle,
+                color: _buildSelectColor(status: status),
+                fontSize: 24),
+            width: 24,
+            height: 24,
+            drawGap: true,
+            color: AppColors.brilliantAzure),
+        beforeLineStyle: const LineStyle(
+          color: AppColors.darkMidnightBlue,
+          thickness: 3,
+        ),
+        startChild: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text(
+              time,
+              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+            ),
+            const SizedBox(
+              width: 20,
+            ),
+          ],
+        ),
+        endChild: Row(
+          children: [
+            const SizedBox(
+              width: 20,
+            ),
+            Text(
+              status,
+              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Color _buildSelectColor({required String status}) {
     switch (status) {
       case 'Registered':
         return AppColors.brightTurquoise;
@@ -298,7 +411,4 @@ class ComplaintDetails extends StatelessWidget {
         return AppColors.mantis;
     }
   }
-
 }
-
-

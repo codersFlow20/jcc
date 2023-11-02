@@ -53,6 +53,8 @@ class ComplaintRepository {
       if (urls.length != images.length) {
         return null;
       } else {
+        final time = DateTime.now();
+
         final complaint = ComplaintModel(
           id: id,
           departmentName: complaintData['department'],
@@ -65,10 +67,22 @@ class ComplaintRepository {
           isAssigned: false,
           isLocked: false,
           assignedEmployeeId: '',
-          registrationDate: DateTime.now(),
+          registrationDate: time,
           status: CommonDataConstants.complaintStatuses[0],
           uniquePin: GeneratorUtils.generateSixDigitRandomPin(),
           userId: complaintData['userId'],
+          trackData: [
+            TimeLine(
+              date: time.toString(),
+              status: 'Registered',
+            ),
+          ],
+          // trackData: {
+          //   'Registered' : time.toString(),
+          // },
+          noOfHours: 40,
+          remarks: '',
+          applicantName: complaintData['userName'],
         );
 
         await _firestore

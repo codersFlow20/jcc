@@ -31,7 +31,8 @@ Future<void> main() async {
   OneSignal.Notifications.requestPermission(true);
   dev.log("${OneSignal.Notifications.permission}",
       name: 'Notification Permissions ');
-  // dev.log(OneSignal.User.pushSubscription.token!git);
+
+  // dev.log(OneSignal.User.pushSubscription.token);
   runApp(const MyApp());
 }
 

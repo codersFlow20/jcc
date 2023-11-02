@@ -15,7 +15,10 @@ class ComplaintWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context.go('/complaints/complaint_details',extra: complaint);
+        context.go(
+          '/complaints/complaint_details',
+          extra: complaint,
+        );
       },
       child: Container(
         margin: const EdgeInsets.only(
@@ -51,7 +54,7 @@ class ComplaintWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  Conversion.formatDate(complaint.registrationDate),
+                  Conversion.formatDateTime(complaint.registrationDate),
                   style: const TextStyle(
                     fontFamily: 'Poppins',
                     fontSize: 10,
@@ -115,7 +118,7 @@ class ComplaintWidget extends StatelessWidget {
     );
   }
 
-  Color _buildSelectColor({required String status}){
+  Color _buildSelectColor({required String status}) {
     switch (status) {
       case 'Registered':
         return AppColors.brightTurquoise;
@@ -134,7 +137,10 @@ class ComplaintWidget extends StatelessWidget {
         Container(
           width: 13,
           height: 13,
-          decoration: BoxDecoration(color: _buildSelectColor(status: status), shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: _buildSelectColor(status: status),
+            shape: BoxShape.circle,
+          ),
         ),
         const SizedBox(
           width: 5,
@@ -142,10 +148,12 @@ class ComplaintWidget extends StatelessWidget {
         Text(
           status,
           style: const TextStyle(
-              fontFamily: 'Poppins', fontSize: 10, fontWeight: FontWeight.w100),
+            fontFamily: 'Poppins',
+            fontSize: 10,
+            fontWeight: FontWeight.w100,
+          ),
         )
       ],
     );
   }
-
 }

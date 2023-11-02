@@ -285,7 +285,7 @@ Widget _buildNotificationItem(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    Conversion.formatDate(notification.timeStamp),
+                    Conversion.formatDateTime(notification.timeStamp),
                     style: TextStyle(
                       fontSize: 8,
                       fontFamily: 'Poppins',
