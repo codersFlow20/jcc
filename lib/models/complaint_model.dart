@@ -5,12 +5,16 @@ class ComplaintModel extends Equatable {
   final String id;
   final String description;
   final DateTime registrationDate;
+  final int noOfHours;
+  final String remarks;
   final String departmentName;
   final String subject;
   final String ward;
   final String area;
   final String detailedAddress;
   final String userId;
+  final String applicantName;
+  final Map<String, dynamic> trackData;
   final String uniquePin;
   final List<String> imageUrls;
   final String status;
@@ -54,6 +58,10 @@ class ComplaintModel extends Equatable {
     required this.isLocked,
     required this.isAssigned,
     required this.assignedEmployeeId,
+    required this.noOfHours,
+    required this.applicantName,
+    required this.remarks,
+    required this.trackData,
   });
 
   @override
@@ -76,7 +84,11 @@ class ComplaintModel extends Equatable {
     String? siteAddress,
     bool? isLocked,
     bool? isAssigned,
-    String? assignedId,
+    String? assignedEmployeeId,
+    int? noOfHours,
+    String? applicantName,
+    String? remarks,
+    Map<String, String>? trackData,
   }) {
     return ComplaintModel(
       id: id ?? this.id,
@@ -93,7 +105,11 @@ class ComplaintModel extends Equatable {
       detailedAddress: siteAddress ?? detailedAddress,
       isLocked: isLocked ?? this.isLocked,
       isAssigned: isAssigned ?? this.isAssigned,
-      assignedEmployeeId: assignedId ?? assignedEmployeeId,
+      assignedEmployeeId: assignedEmployeeId ?? this.assignedEmployeeId,
+      noOfHours: noOfHours ?? this.noOfHours,
+      remarks: remarks ?? this.remarks,
+      trackData: trackData ?? this.trackData,
+      applicantName: applicantName ?? this.applicantName,
     );
   }
 
@@ -114,11 +130,15 @@ class ComplaintModel extends Equatable {
       'isLocked': isLocked,
       'isAssigned': isAssigned,
       'assignedId': assignedEmployeeId,
+      'noOfHours': noOfHours,
+      'applicantName': applicantName,
+      'remarks': remarks,
+      'trackData': trackData,
     };
   }
 
   factory ComplaintModel.fromMap(Map<String, dynamic> map) {
-    final date =  (map['registrationDate'] as Timestamp).toDate();
+    final date = (map['registrationDate'] as Timestamp).toDate();
     return ComplaintModel(
       id: map['id'] as String,
       description: map['description'] as String,
@@ -129,12 +149,17 @@ class ComplaintModel extends Equatable {
       area: map['area'] as String,
       userId: map['userId'] as String,
       uniquePin: map['uniquePin'] as String,
-      imageUrls:( map['imageUrls'] as List<dynamic>).map((e) => e.toString()).toList(),
+      imageUrls:
+          (map['imageUrls'] as List<dynamic>).map((e) => e.toString()).toList(),
       status: map['status'] as String,
       detailedAddress: map['siteAddress'] as String,
       isLocked: map['isLocked'] as bool,
       isAssigned: map['isAssigned'] as bool,
       assignedEmployeeId: map['assignedId'] as String,
+      applicantName: map['applicantName'] as String,
+      remarks: map['remarks'] as String,
+      noOfHours: map['noOfHours'] as int,
+      trackData: map['trackData'] as Map<String, dynamic>,
     );
   }
 }

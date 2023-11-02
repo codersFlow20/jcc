@@ -2,14 +2,13 @@ import 'dart:io';
 import 'dart:developer' as dev;
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:jcc/bloc/auth/auth_bloc.dart';
 import 'package:jcc/bloc/complaint/complaint_register_form/complaint_register_form_bloc.dart';
 import 'package:jcc/bloc/complaint/register/complaint_register_bloc.dart';
+import 'package:jcc/bloc/user/register/user_register_bloc.dart';
 import 'package:jcc/common/widget/primary_button.dart';
 import 'package:jcc/constants/assets_constants.dart';
 import 'package:jcc/theme/colors.dart';
@@ -61,15 +60,18 @@ class _ComplaintRegistrationScreenState
                 final statsState = context.read<ComplaintStatsBloc>().state;
                 if (statsState is ComplaintStatsLoaded) {
                   final id = (statsState.stats.total + 1).toString();
-                  final userId =
-                      (context.read<AuthBloc>().state as Authenticated).phoneNo;
+
+                  final user =
+                      (context.read<UserRegisterBloc>().state as UserRegistered)
+                          .user;
 
                   context.read<ComplaintRegisterBloc>().add(
                         RegisterComplaint(
                           id: id,
                           complaintData: complaintData,
                           images: images,
-                          userId: userId,
+                          userId: user.phoneNo,
+                          userName: user.name,
                         ),
                       );
                 } else {}
@@ -81,11 +83,13 @@ class _ComplaintRegistrationScreenState
                     showDialog(
                       context: context,
                       builder: (context) {
-                        return AlertDialog(
+                        return const AlertDialog(
                           content: Row(
                             children: [
                               CircularProgressIndicator(),
-                              SizedBox(width: 20,),
+                              SizedBox(
+                                width: 20,
+                              ),
                               Text("Registering complaint..."),
                             ],
                           ),

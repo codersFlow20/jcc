@@ -34,6 +34,7 @@ class ComplaintRegisterBloc
     complaintData['images'] = event.images;
     complaintData['id'] = event.id;
     complaintData['userId'] = event.userId;
+    complaintData['userName'] = event.userName;
 
     final response =
         await _complaintRepository.registerComplaint(complaintData);
