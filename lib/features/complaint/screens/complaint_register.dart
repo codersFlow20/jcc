@@ -81,7 +81,15 @@ class _ComplaintRegistrationScreenState
                     showDialog(
                       context: context,
                       builder: (context) {
-                        return const Center(child: CircularProgressIndicator());
+                        return AlertDialog(
+                          content: Row(
+                            children: [
+                              CircularProgressIndicator(),
+                              SizedBox(width: 20,),
+                              Text("Registering complaint..."),
+                            ],
+                          ),
+                        );
                       },
                     );
                   } else if (state is ComplaintRegisterSuccess) {

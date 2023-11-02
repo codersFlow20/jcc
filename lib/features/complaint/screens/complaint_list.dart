@@ -9,6 +9,7 @@ import 'package:lottie/lottie.dart';
 import '../../../bloc/complaint/complaint_bloc.dart';
 import '../../../common/widget/primary_button.dart';
 import '../../../constants/assets_constants.dart';
+import '../../../repositories/notification_repository.dart';
 import '../widgets/complaint_widget.dart';
 import 'package:jcc/common/widget/menu_drawer.dart';
 import 'package:jcc/generated/assets.dart';
@@ -51,6 +52,7 @@ class _ComplaintListState extends State<ComplaintList> {
           ),
           icon: SvgPicture.asset(AssetsConstants.edit),
           onPressed: () {
+            // NotificationRepository().sendPushNotification('You are gay ', 'Jaylo is gay ', ['+918160639228','+919313096952']);
             context.push('/complaint_register');
           },
           backgroundColor: AppColors.greenBlue,
@@ -60,21 +62,21 @@ class _ComplaintListState extends State<ComplaintList> {
       onDrawerChanged: (isOpened) {
         if (isOpened) {
           if (widget.bottomNavKey.currentState != null) {
-            dev.log('State is not null', name: 'Home');
+            dev.log('State is not null', name: 'Complaint');
             if (widget.bottomNavKey.currentState!.isVisible) {
               widget.bottomNavKey.currentState!.hide();
             }
           } else {
-            dev.log('State is null', name: 'Home');
+            dev.log('State is null', name: 'Complaint');
           }
         } else {
           if (widget.bottomNavKey.currentState != null) {
-            dev.log('State is not null', name: 'Home');
+            dev.log('State is not null', name: 'Complaint');
             if (!widget.bottomNavKey.currentState!.isVisible) {
               widget.bottomNavKey.currentState!.show();
             }
           } else {
-            dev.log('State is null', name: 'Home');
+            dev.log('State is null', name: 'Complaint');
           }
         }
       },
@@ -99,12 +101,31 @@ class _ComplaintListState extends State<ComplaintList> {
         actions: [
           IconButton(
             onPressed: () {
-              showModalBottomSheet(
+              if (widget.bottomNavKey.currentState != null) {
+                dev.log('State is not null', name: 'Complaint');
+                if (widget.bottomNavKey.currentState!.isVisible) {
+                  widget.bottomNavKey.currentState!.hide();
+                }
+              } else {
+                dev.log('State is null', name: 'Complaint');
+              }
+              var bottomSheetController = showModalBottomSheet(
                 context: context,
                 builder: (context) {
                   return _buildBottomSheet(context);
                 },
               );
+              bottomSheetController.whenComplete(() {
+                dev.log('bottom sheet is close', name: "Complaint");
+                if (widget.bottomNavKey.currentState != null) {
+                  dev.log('State is not null', name: 'Complaint');
+                  if (!widget.bottomNavKey.currentState!.isVisible) {
+                    widget.bottomNavKey.currentState!.show();
+                  }
+                } else {
+                  dev.log('State is null', name: 'Complaint');
+                }
+              });
             },
             icon: SvgPicture.asset(
               Assets.iconsFilter,
@@ -180,7 +201,7 @@ class _ComplaintListState extends State<ComplaintList> {
             style: GoogleFonts.robotoCondensed(fontSize: 14),
           ),
           DropdownButtonFormField(
-            padding: const EdgeInsets.only(left:15),
+            padding: const EdgeInsets.only(left: 15),
             style: const TextStyle(
               fontFamily: 'Poppins',
               fontWeight: FontWeight.w100,
@@ -217,7 +238,7 @@ class _ComplaintListState extends State<ComplaintList> {
             style: GoogleFonts.robotoCondensed(fontSize: 14),
           ),
           DropdownButtonFormField(
-            padding: const EdgeInsets.only(left:15),
+            padding: const EdgeInsets.only(left: 15),
             style: const TextStyle(
               fontFamily: 'Poppins',
               fontWeight: FontWeight.w100,
@@ -242,7 +263,7 @@ class _ComplaintListState extends State<ComplaintList> {
             style: GoogleFonts.robotoCondensed(fontSize: 14),
           ),
           DropdownButtonFormField(
-            padding: const EdgeInsets.only(left:15),
+            padding: const EdgeInsets.only(left: 15),
             style: const TextStyle(
               fontFamily: 'Poppins',
               fontWeight: FontWeight.w100,
@@ -255,17 +276,15 @@ class _ComplaintListState extends State<ComplaintList> {
             ),
             items: ComplaintStateDataConstants.complaintState
                 .map((e) => DropdownMenuItem(
-              value: e,
-              child: Text(e),
-            ))
+                      value: e,
+                      child: Text(e),
+                    ))
                 .toList(),
             onChanged: (value) {},
           ),
           const SizedBox(height: 20),
           PrimaryButton(onTap: () {}, title: "Apply Filters"),
-          const SizedBox(
-            height: 72,
-          )
+
         ],
       ),
     );

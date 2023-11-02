@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:jcc/bloc/user/register/user_register_bloc.dart';
 import 'package:jcc/constants/string_constants.dart';
 import 'package:jcc/generated/assets.dart';
 import 'package:jcc/theme/colors.dart';
 
 class UserProfile extends StatelessWidget {
   const UserProfile({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,9 +35,10 @@ class UserProfile extends StatelessWidget {
             },
             icon: SvgPicture.asset(
               Assets.iconsEdit,
-              colorFilter: const ColorFilter.mode(AppColors.black, BlendMode.srcIn),
+              colorFilter:
+                  const ColorFilter.mode(AppColors.black, BlendMode.srcIn),
             ),
-          )
+          ),
         ],
       ),
       body: SingleChildScrollView(
@@ -77,83 +81,118 @@ class UserProfile extends StatelessWidget {
                 const SizedBox(
                   height: 50,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 15,
-                  ),
-                  child: Text(
-                    ScreensDataConstants.fullName,
-                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                          color: AppColors.darkMidnightBlue50,
-                        ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Text(
-                    "Jay Pedhadiya",
-                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                          fontSize: 22,
-                          color: AppColors.darkMidnightBlue,
-                        ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 15,
-                  ),
-                  child: Text(
-                    ScreensDataConstants.mobileNo,
-                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                          color: AppColors.darkMidnightBlue50,
-                        ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Text(
-                    "+91 90923 33299",
-                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                          fontSize: 22,
-                          color: AppColors.darkMidnightBlue,
-                        ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 15,
-                  ),
-                  child: Text(
-                    ScreensDataConstants.email,
-                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                          color: AppColors.darkMidnightBlue50,
-                        ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Text(
-                    "codersflow20@gmail.com",
-                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                          fontSize: 22,
-                          color: AppColors.darkMidnightBlue,
-                        ),
-                  ),
+                BlocBuilder<UserRegisterBloc, UserRegisterState>(
+                  builder: (context, state) {
+                    if (state is UserNotRegistered) {
+                      return const Text('You need to register yourself!');
+                    } else if (state is UserRegistered) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 15,
+                            ),
+                            child: Text(
+                              ScreensDataConstants.fullName,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium
+                                  ?.copyWith(
+                                    color: AppColors.darkMidnightBlue50,
+                                  ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: Text(
+                              state.user.name,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium
+                                  ?.copyWith(
+                                    fontSize: 22,
+                                    color: AppColors.darkMidnightBlue,
+                                  ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 15,
+                            ),
+                            child: Text(
+                              ScreensDataConstants.mobileNo,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium
+                                  ?.copyWith(
+                                    color: AppColors.darkMidnightBlue50,
+                                  ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: Text(
+                              state.user.phoneNo,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium
+                                  ?.copyWith(
+                                    fontSize: 22,
+                                    color: AppColors.darkMidnightBlue,
+                                  ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 15,
+                            ),
+                            child: Text(
+                              ScreensDataConstants.email,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium
+                                  ?.copyWith(
+                                    color: AppColors.darkMidnightBlue50,
+                                  ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: Text(
+                              state.user.email == null
+                                  ? 'No email specified'
+                                  : state.user.email!,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium
+                                  ?.copyWith(
+                                    fontSize: 22,
+                                    color: AppColors.darkMidnightBlue,
+                                  ),
+                            ),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return const Text('Unknown state');
+                    }
+                  },
                 ),
               ],
             )

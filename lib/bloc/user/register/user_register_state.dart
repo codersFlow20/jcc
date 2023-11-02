@@ -18,10 +18,7 @@ class UserRegistered extends UserRegisterState {
 
   @override
   List<Object> get props => [
-        user.name,
-        user.phoneNo,
-        user.profilePicUrl.toString(),
-        user.notificationToken,
+        user,
       ];
 }
 

@@ -17,10 +17,19 @@ class ComplaintStatsBloc
         super(ComplaintStatsInitial()) {
     on<GetComplaintStats>(_onGetComplaintStats);
     on<UpdateStats>(_onUpdateStats);
+    on<InitializeComplaintStats>(_onInitializeComplaintStats);
   }
 
   final ComplaintRepository _complaintRepository;
   StreamSubscription? _complaintStatsSubscription;
+
+  void _onInitializeComplaintStats(
+    InitializeComplaintStats event,
+    Emitter<ComplaintStatsState> emit,
+  ) {
+    _complaintStatsSubscription?.cancel();
+    emit(ComplaintStatsInitial());
+  }
 
   void _onGetComplaintStats(
     GetComplaintStats event,
@@ -29,14 +38,15 @@ class ComplaintStatsBloc
     emit(ComplaintStatsLoading());
     try {
       _complaintStatsSubscription?.cancel();
-      _complaintStatsSubscription = _complaintRepository.getComplaintStats().listen((event) {
+      _complaintStatsSubscription =
+          _complaintRepository.getComplaintStats().listen((event) {
         if (event == null) {
           emit(const ComplaintStatsError('Something went wrong!'));
-        }else {
+        } else {
           add(UpdateStats(event));
         }
       });
-    }catch(e) {
+    } catch (e) {
       dev.log('Got error in stats: $e', name: 'Stats');
       emit(ComplaintStatsError(e.toString()));
     }
@@ -47,7 +57,8 @@ class ComplaintStatsBloc
   }
 
   @override
-  void onTransition(Transition<ComplaintStatsEvent, ComplaintStatsState> transition) {
+  void onTransition(
+      Transition<ComplaintStatsEvent, ComplaintStatsState> transition) {
     dev.log(transition.toString(), name: 'Stats');
     super.onTransition(transition);
   }
