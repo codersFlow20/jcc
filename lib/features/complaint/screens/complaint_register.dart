@@ -81,7 +81,7 @@ class _ComplaintRegistrationScreenState
                     showDialog(
                       context: context,
                       builder: (context) {
-                        return AlertDialog(
+                        return const AlertDialog(
                           content: Row(
                             children: [
                               CircularProgressIndicator(),
@@ -227,13 +227,14 @@ class _ComplaintRegistrationScreenState
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
               return Container(
-                width: 187,
+                width: 187.5,
                 height: 250,
+                clipBehavior: Clip.hardEdge,
                 margin: const EdgeInsets.only(
                   right: 10,
                 ),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
                   color: AppColors.antiFlashWhite,
                   image: (index < images.length)
                       ? DecorationImage(

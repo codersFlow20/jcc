@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:jcc/constants/string_constants.dart';
 import 'package:jcc/generated/assets.dart';
 import 'package:jcc/theme/colors.dart';
+import 'package:jcc/utils/conversion.dart';
+
+import '../../../models/complaint_model.dart';
 
 class ComplaintDetails extends StatelessWidget {
-  // final ComplaintModel complaint;
-  const ComplaintDetails({super.key});
+  final ComplaintModel complaint;
+  const ComplaintDetails({super.key, required this.complaint});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            context.pop();
+          },
           icon: SvgPicture.asset(
             Assets.iconsBackArrow,
             fit: BoxFit.cover,
@@ -28,7 +34,7 @@ class ComplaintDetails extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -41,7 +47,7 @@ class ComplaintDetails extends StatelessWidget {
                     child: _buildDataFiled(
                       context: context,
                       title: ScreensDataConstants.complaintNo,
-                      text: "45",
+                      text: complaint.id,
                     ),
                   ),
                   SizedBox(
@@ -58,8 +64,8 @@ class ComplaintDetails extends StatelessWidget {
                             Container(
                               height: 16,
                               width: 16,
-                              decoration: const BoxDecoration(
-                                color: AppColors.brightTurquoise,
+                              decoration: BoxDecoration(
+                                color: _buildSelectColor(status: complaint.status),
                                 shape: BoxShape.circle,
                               ),
                             ),
@@ -67,7 +73,7 @@ class ComplaintDetails extends StatelessWidget {
                               width: 5,
                             ),
                             Text(
-                              "Registered",
+                              complaint.status,
                               style: Theme.of(context)
                                   .textTheme
                                   .headlineMedium!
@@ -94,7 +100,7 @@ class ComplaintDetails extends StatelessWidget {
                     child: _buildDataFiled(
                       context: context,
                       title: ScreensDataConstants.registrationDate,
-                      text: "24th August, 2004 Friday, 10:00 PM",
+                      text: Conversion.formatDate(complaint.registrationDate),
                     ),
                   ),
                   SizedBox(
@@ -113,7 +119,7 @@ class ComplaintDetails extends StatelessWidget {
               _buildDataFiled(
                 context: context,
                 title: ScreensDataConstants.department,
-                text: "Water Works",
+                text: complaint.departmentName,
               ),
               const SizedBox(
                 height: 15,
@@ -121,7 +127,7 @@ class ComplaintDetails extends StatelessWidget {
               _buildDataFiled(
                 context: context,
                 title: ScreensDataConstants.subject,
-                text: "Low Pressure of water",
+                text: complaint.subject,
               ),
               const SizedBox(
                 height: 15,
@@ -135,7 +141,7 @@ class ComplaintDetails extends StatelessWidget {
                     child: _buildDataFiled(
                       context: context,
                       title: ScreensDataConstants.areaName,
-                      text: "Community Hall",
+                      text: complaint.area,
                     ),
                   ),
                   SizedBox(
@@ -143,7 +149,7 @@ class ComplaintDetails extends StatelessWidget {
                     child: _buildDataFiled(
                       context: context,
                       title: ScreensDataConstants.wardNo,
-                      text: "1",
+                      text: complaint.ward,
                     ),
                   ),
                 ],
@@ -154,7 +160,7 @@ class ComplaintDetails extends StatelessWidget {
               _buildDataFiled(
                 context: context,
                 title: ScreensDataConstants.address,
-                text: "Near swaminarayan temple, Unknown Planet - 404",
+                text: complaint.detailedAddress,
               ),
               const SizedBox(
                 height: 15,
@@ -162,8 +168,7 @@ class ComplaintDetails extends StatelessWidget {
               _buildDataFiled(
                 context: context,
                 title: ScreensDataConstants.description,
-                text:
-                    "There's a low pressure of water in our area due to some reasons, fix it within 34 hours",
+                text: complaint.description,
               ),
               const SizedBox(
                 height: 15,
@@ -180,7 +185,7 @@ class ComplaintDetails extends StatelessWidget {
               _buildDataFiled(
                 context: context,
                 title: ScreensDataConstants.applicantName,
-                text: "Parshottambhai Patidar",
+                text: complaint.assignedEmployeeId,
               ),
               const SizedBox(
                 height: 15,
@@ -209,31 +214,35 @@ class ComplaintDetails extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              ListView.separated(
-                scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return Container(
-                    height: 250,
-                    width: 187.5,
-                    clipBehavior: Clip.hardEdge,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
+              SizedBox(
+                height: 250,
+                child: ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      height: 250,
+                      width: 187.5,
+                      clipBehavior: Clip.hardEdge,
+                      decoration: const BoxDecoration(
+                        color: AppColors.black50,
+                        // image: DecorationImage(
+                        //     image: AssetImage(Assets.imageProfileImage),
+                        // fit: BoxFit.fill,),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
                       ),
-                    ),
-                    child: Image.asset(
-                      Assets.imageProfileImage,
-                      fit: BoxFit.cover,
-                    ),
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return const SizedBox(
-                    width: 10,
-                  );
-                },
-                itemCount: 3,
+                      child: NetworkImage(complaint.imageUrls[index]),
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return const SizedBox(
+                      width: 10,
+                    );
+                  },
+                  itemCount: complaint.imageUrls.length,
+                ),
               ),
               const SizedBox(
                 height: 15,
@@ -241,7 +250,7 @@ class ComplaintDetails extends StatelessWidget {
               _buildDataFiled(
                 context: context,
                 title: ScreensDataConstants.completionCode,
-                text: "123 456",
+                text: complaint.uniquePin,
               ),
               const SizedBox(
                 height: 15,
@@ -252,28 +261,44 @@ class ComplaintDetails extends StatelessWidget {
       ),
     );
   }
+
+  Widget _buildDataFiled(
+      {required BuildContext context,
+        required String title,
+        required String text}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
+        const SizedBox(
+          height: 5,
+        ),
+        Text(
+          text,
+          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+            fontWeight: FontWeight.w600,
+          ),
+        )
+      ],
+    );
+  }
+
+  Color _buildSelectColor({required String status}){
+    switch (status) {
+      case 'Registered':
+        return AppColors.brightTurquoise;
+      case 'In Process':
+        return AppColors.heliotrope;
+      case 'On Hold':
+        return AppColors.monaLisa;
+      default:
+        return AppColors.mantis;
+    }
+  }
+
 }
 
-Widget _buildDataFiled(
-    {required BuildContext context,
-    required String title,
-    required String text}) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        title,
-        style: Theme.of(context).textTheme.headlineSmall,
-      ),
-      const SizedBox(
-        height: 5,
-      ),
-      Text(
-        text,
-        style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
-      )
-    ],
-  );
-}
+
