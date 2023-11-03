@@ -36,6 +36,7 @@ class Assets {
   static const String iconsAddImage = 'assets/icons/add_image.svg';
   static const String iconsBackArrow = 'assets/icons/back_arrow.svg';
   static const String iconsCameraBg = 'assets/icons/camera_bg.svg';
+  static const String iconsCircleAdd = 'assets/icons/circle_add.svg';
   static const String iconsClose = 'assets/icons/close.svg';
   static const String iconsComplaints = 'assets/icons/complaints.svg';
   static const String iconsDeleteBg = 'assets/icons/delete_bg.svg';

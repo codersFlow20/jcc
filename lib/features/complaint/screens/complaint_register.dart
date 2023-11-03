@@ -11,6 +11,7 @@ import 'package:jcc/bloc/complaint/register/complaint_register_bloc.dart';
 import 'package:jcc/bloc/user/register/user_register_bloc.dart';
 import 'package:jcc/common/widget/primary_button.dart';
 import 'package:jcc/constants/assets_constants.dart';
+import 'package:jcc/generated/assets.dart';
 import 'package:jcc/theme/colors.dart';
 import 'package:jcc/utils/ui_utils.dart';
 
@@ -193,6 +194,61 @@ class _ComplaintRegistrationScreenState
                         ),
                         PrimaryButton(
                           onTap: registerBloc.submit,
+
+                          // onTap: images.isNotEmpty
+                          //     ? registerBloc.submit
+                          //     : showDialog(
+                          //         context: context,
+                          //         builder: (BuildContext context) {
+                          //           return Dialog(
+                          //             backgroundColor: AppColors.white,
+                          //             child: SizedBox(
+                          //               height: 141,
+                          //               child: Padding(
+                          //                 padding: const EdgeInsets.all(20.0),
+                          //                 child: Column(
+                          //                   children: [
+                          //                     Text(
+                          //                       "You have to at least add one Image in order to Register Complaint",
+                          //                       style: Theme.of(context)
+                          //                           .textTheme
+                          //                           .headlineSmall
+                          //                           ?.copyWith(
+                          //                             color: AppColors.red,
+                          //                           ),
+                          //                     ),
+                          //                     const SizedBox(
+                          //                       height: 15,
+                          //                     ),
+                          //                     ElevatedButton(
+                          //                       onPressed: () {
+                          //                         context.pop();
+                          //                       },
+                          //                       child: SizedBox(
+                          //                         width: double.infinity,
+                          //                         child: Center(
+                          //                           child: Text(
+                          //                             "Ok",
+                          //                             style: Theme.of(context)
+                          //                                 .textTheme
+                          //                                 .headlineLarge
+                          //                                 ?.copyWith(
+                          //                                   fontWeight:
+                          //                                       FontWeight.w600,
+                          //                                   color: AppColors
+                          //                                       .darkMidnightBlue,
+                          //                                 ),
+                          //                           ),
+                          //                         ),
+                          //                       ),
+                          //                     ),
+                          //                   ],
+                          //                 ),
+                          //               ),
+                          //             ),
+                          //           );
+                          //         },
+                          //       ),
                           title: "Register Complaint",
                         ),
                         const SizedBox(
@@ -238,7 +294,18 @@ class _ComplaintRegistrationScreenState
                   right: 10,
                 ),
                 decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: AppColors.black25,
+                      blurRadius: 1.0,
+                      spreadRadius: 0.0,
+                      offset:
+                          Offset(0.0, 0.0), // shadow direction: bottom right
+                    ),
+                  ],
                   color: AppColors.antiFlashWhite,
                   image: (index < images.length)
                       ? DecorationImage(
@@ -262,24 +329,39 @@ class _ComplaintRegistrationScreenState
                                 images.removeAt(index);
                               });
                             },
-                            child: SvgPicture.asset(AssetsConstants.deleteBg),
+                            child: Container(
+                              padding: const EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: AppColors.black25),
+                              child: SvgPicture.asset(
+                                AssetsConstants.deleteBg,
+                                fit: BoxFit.cover,
+                                colorFilter: const ColorFilter.mode(
+                                  AppColors.white,
+                                  BlendMode.srcIn,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
-                      Positioned(
-                        top: 65,
-                        bottom: 65,
-                        left: 65,
-                        right: 65,
-                        child: InkWell(
-                          onTap: () {
-                            getImage(
-                              scaffoldContext: scaffoldContext,
-                              index: index < images.length ? index : null,
-                            );
-                          },
-                          child: SvgPicture.asset(AssetsConstants.addImage),
-                        ),
-                      ),
+                      if (index == images.length)
+                        Center(
+                          child: IconButton(
+                            onPressed: () {
+                              getImage(
+                                scaffoldContext: scaffoldContext,
+                                index: index < images.length ? index : null,
+                              );
+                            },
+                            icon: SvgPicture.asset(
+                              width: 40,
+                              height: 40,
+                              Assets.iconsCircleAdd,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        )
                     ],
                   ),
                 ),
