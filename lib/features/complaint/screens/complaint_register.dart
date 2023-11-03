@@ -554,7 +554,8 @@ class _ComplaintRegistrationScreenState
         } else {
           images.add(file);
         }
-      });
+      },
+      );
     } else {
       UIUtils.showSnackBar(context: context, message: 'Nothing is selected');
     }
