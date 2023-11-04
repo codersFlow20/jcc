@@ -11,7 +11,9 @@ import '../../../models/complaint_model.dart';
 
 class ComplaintDetails extends StatelessWidget {
   final ComplaintModel complaint;
+
   const ComplaintDetails({super.key, required this.complaint});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -250,7 +252,9 @@ class ComplaintDetails extends StatelessWidget {
                             blurRadius: 1.0,
                             spreadRadius: 0.0,
                             offset: Offset(
-                                0.0, 0.0), // shadow direction: bottom right
+                              0.0,
+                              0.0,
+                            ), // shadow direction: bottom right
                           ),
                         ],
                         borderRadius: BorderRadius.all(
