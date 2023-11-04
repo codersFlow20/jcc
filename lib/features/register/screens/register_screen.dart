@@ -8,7 +8,7 @@ import 'package:jcc/common/widget/primary_button.dart';
 import 'package:jcc/constants/assets_constants.dart';
 import 'package:jcc/models/user_model.dart';
 import 'package:jcc/theme/colors.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import '../../../bloc/auth/auth_bloc.dart';
 
 class UserRegisterScreen extends StatefulWidget {
@@ -85,8 +85,8 @@ class _UserRegisterScreenState extends State<UserRegisterScreen> {
                     children: [
                       _buildUserInput(
                         context: context,
-                        title: AppLocalizations.of(context)!.firstName,
-                        hint: AppLocalizations.of(context)!.firstNameHint,
+                        title: "First name",
+                        hint: "Enter your first name",
                         controller: _firstnameController,
                       ),
                       const SizedBox(
@@ -94,8 +94,8 @@ class _UserRegisterScreenState extends State<UserRegisterScreen> {
                       ),
                       _buildUserInput(
                         context: context,
-                        title: AppLocalizations.of(context)!.lastName,
-                        hint: AppLocalizations.of(context)!.lastNameHint,
+                        title: "Last name",
+                        hint: "Enter your last name",
                         controller: _lastnameController,
                       ),
                       const SizedBox(
@@ -127,7 +127,7 @@ class _UserRegisterScreenState extends State<UserRegisterScreen> {
                             print('Validation not passed!');
                           }
                         },
-                        title: AppLocalizations.of(context)!.register,
+                       title: "Register",
                       ),
                       const SizedBox(
                         height: 30,
