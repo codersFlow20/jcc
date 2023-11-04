@@ -43,6 +43,10 @@ class ComplaintRepository {
     });
   }
 
+  Future<void> updateComplaintToTaken(String id, Map<String, dynamic> data) async {
+    return await _firestore.collection('complaints').doc(id).update(data);
+  }
+
   Future<ComplaintModel?> registerComplaint(
       Map<String, dynamic> complaintData) async {
     try {

@@ -11,6 +11,12 @@ class InitializeComplaint extends ComplaintEvent {}
 
 class LoadComplaint extends ComplaintEvent {}
 
+class SolveComplaint extends ComplaintEvent {
+  const SolveComplaint(this.complaint);
+
+  final ComplaintModel complaint;
+}
+
 class UpdateComplaint extends ComplaintEvent {
   const UpdateComplaint(this.complaintList);
 

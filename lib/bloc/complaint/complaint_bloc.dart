@@ -17,6 +17,7 @@ class ComplaintBloc extends Bloc<ComplaintEvent, ComplaintState> {
     on<LoadComplaint>(_onLoadComplaint);
     on<UpdateComplaint>(_onUpdateComplaint);
     on<InitializeComplaint>(_onInitializeComplaint);
+    on<SolveComplaint>(_onSolveComplaint);
   }
 
   final ComplaintRepository _complaintRepository;
@@ -41,6 +42,29 @@ class ComplaintBloc extends Bloc<ComplaintEvent, ComplaintState> {
     } catch (e) {
       emit(ComplaintError(e.toString()));
     }
+  }
+
+  Future<void> _onSolveComplaint(
+      SolveComplaint event,
+      Emitter<ComplaintState> emit,
+      ) async {
+    final time = DateTime.now();
+    final complaint = event.complaint;
+
+    final updatedTrackData = complaint.trackData
+      ..add(
+        TimeLine(
+          date: time.toString(),
+          status: 'Solved',
+        ),
+      );
+
+    final updateData = {
+      'status': 'Solved',
+      'trackData': updatedTrackData.map((e) => e.toMap()),
+    };
+
+    await _complaintRepository.updateComplaintToTaken(complaint.id, updateData);
   }
 
   FutureOr<void> _onUpdateComplaint(

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:jcc/bloc/complaint/complaint_bloc.dart';
+import 'package:jcc/common/widget/primary_button.dart';
 import 'package:jcc/constants/string_constants.dart';
 import 'package:jcc/generated/assets.dart';
 import 'package:jcc/theme/colors.dart';
@@ -275,14 +278,22 @@ class ComplaintDetails extends StatelessWidget {
                   itemCount: complaint.imageUrls.length,
                 ),
               ),
-              const SizedBox(
-                height: 15,
-              ),
-              _buildDataFiled(
-                context: context,
-                title: ScreensDataConstants.completionCode,
-                text: complaint.uniquePin,
-              ),
+              if (complaint.isLocked)
+                const SizedBox(
+                  height: 15,
+                ),
+              if (complaint.isLocked && complaint.status != "Solved")
+                PrimaryButton(
+                  onTap: () {
+                    context.read<ComplaintBloc>().add(SolveComplaint(complaint));
+                  },
+                  title: 'Grant Approval',
+                ),
+              // _buildDataFiled(
+              //   context: context,
+              //   title: ScreensDataConstants.completionCode,
+              //   text: complaint.uniquePin,
+              // ),
               const SizedBox(
                 height: 25,
               ),
@@ -388,11 +399,14 @@ class ComplaintDetails extends StatelessWidget {
             const SizedBox(
               width: 20,
             ),
-            Text(
-              timeLine.status.toString(),
-              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
+            SizedBox(
+              width: 100,
+              child: Text(
+                timeLine.status.toString(),
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+              ),
             ),
           ],
         ),
