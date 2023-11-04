@@ -11,7 +11,9 @@ import '../../../models/complaint_model.dart';
 
 class ComplaintDetails extends StatelessWidget {
   final ComplaintModel complaint;
+
   const ComplaintDetails({super.key, required this.complaint});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -190,9 +192,7 @@ class ComplaintDetails extends StatelessWidget {
                       return _buildTimeLineItem(
                         context: context,
                         index: index,
-                        time: Conversion.formatDate(
-                            complaint.trackData[index].date.toString()),
-                        status: complaint.trackData[index].status.toString(),
+                        timeLine: complaint.trackData[index],
                         length: complaint.trackData.length,
                       );
                     },
@@ -249,10 +249,12 @@ class ComplaintDetails extends StatelessWidget {
                         boxShadow: [
                           BoxShadow(
                             color: AppColors.black25,
-                            blurRadius: 4.0,
-                            spreadRadius: 0.5,
+                            blurRadius: 1.0,
+                            spreadRadius: 0.0,
                             offset: Offset(
-                                0.0, 0.0), // shadow direction: bottom right
+                              0.0,
+                              0.0,
+                            ), // shadow direction: bottom right
                           ),
                         ],
                         borderRadius: BorderRadius.all(
@@ -282,7 +284,7 @@ class ComplaintDetails extends StatelessWidget {
                 text: complaint.uniquePin,
               ),
               const SizedBox(
-                height: 15,
+                height: 25,
               ),
             ],
           ),
@@ -344,8 +346,7 @@ class ComplaintDetails extends StatelessWidget {
   Widget _buildTimeLineItem({
     required BuildContext context,
     required int index,
-    required String time,
-    required String status,
+    required TimeLine timeLine,
     required int length,
   }) {
     return SizedBox(
@@ -358,7 +359,7 @@ class ComplaintDetails extends StatelessWidget {
         indicatorStyle: IndicatorStyle(
             iconStyle: IconStyle(
                 iconData: Icons.circle,
-                color: _buildSelectColor(status: status),
+                color: _buildSelectColor(status: timeLine.status.toString()),
                 fontSize: 24),
             width: 24,
             height: 24,
@@ -372,7 +373,7 @@ class ComplaintDetails extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Text(
-              time,
+              Conversion.formatDate(timeLine.date.toString()),
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
@@ -388,7 +389,7 @@ class ComplaintDetails extends StatelessWidget {
               width: 20,
             ),
             Text(
-              status,
+              timeLine.status.toString(),
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
