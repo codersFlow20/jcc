@@ -14,6 +14,7 @@ import 'package:jcc/features/notification/screens/notification_screen.dart';
 import 'package:jcc/features/register/screens/register_screen.dart';
 import 'package:jcc/features/user_profile/screens/edit_user_profile.dart';
 import 'package:jcc/features/user_profile/screens/user_profile.dart';
+import 'package:jcc/models/complaint_model.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -115,7 +116,11 @@ final router = GoRouter(
             GoRoute(
               parentNavigatorKey: _rootNavigatorKey,
               path: 'complaint_details',
-              builder: (context, state) => const ComplaintDetails(),
+              name: 'complaint_details',
+              builder: (context, state) {
+                ComplaintModel complaint = state.extra as ComplaintModel;
+                return ComplaintDetails(complaint: complaint);
+              },
             ),
           ],
         ),

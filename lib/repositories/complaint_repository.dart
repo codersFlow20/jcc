@@ -71,9 +71,15 @@ class ComplaintRepository {
           status: CommonDataConstants.complaintStatuses[0],
           uniquePin: GeneratorUtils.generateSixDigitRandomPin(),
           userId: complaintData['userId'],
-          trackData: {
-            'registered' : time.toString(),
-          },
+          trackData: [
+            TimeLine(
+              date: time.toString(),
+              status: 'Registered',
+            ),
+          ],
+          // trackData: {
+          //   'Registered' : time.toString(),
+          // },
           noOfHours: 40,
           remarks: '',
           applicantName: complaintData['userName'],

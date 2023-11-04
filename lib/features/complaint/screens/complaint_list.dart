@@ -9,7 +9,6 @@ import 'package:lottie/lottie.dart';
 import '../../../bloc/complaint/complaint_bloc.dart';
 import '../../../common/widget/primary_button.dart';
 import '../../../constants/assets_constants.dart';
-import '../../../repositories/notification_repository.dart';
 import '../widgets/complaint_widget.dart';
 import 'package:jcc/common/widget/menu_drawer.dart';
 import 'package:jcc/generated/assets.dart';
@@ -146,7 +145,7 @@ class _ComplaintListState extends State<ComplaintList> {
                     height: 150,
                   ),
                   Lottie.asset(
-                    AssetsConstants.searchAnim,
+                    Assets.lottieSearch,
                     repeat: true,
                   ),
                   const SizedBox(
@@ -180,7 +179,12 @@ class _ComplaintListState extends State<ComplaintList> {
             return Text(state.message);
           }
 
-          return const CircularProgressIndicator();
+          return const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(),
+            ],
+          );
         },
       ),
     );
