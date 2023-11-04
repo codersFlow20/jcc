@@ -90,6 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         Text(
                           "Login with your mobile no",
+                          AppLocalizations.of(context)!.loginLable,
                           style: GoogleFonts.poppins(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
