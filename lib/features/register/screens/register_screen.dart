@@ -127,7 +127,7 @@ class _UserRegisterScreenState extends State<UserRegisterScreen> {
                             print('Validation not passed!');
                           }
                         },
-                        title: "Register",
+                       title: "Register",
                       ),
                       const SizedBox(
                         height: 30,

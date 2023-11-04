@@ -10,7 +10,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:jcc/bloc/login/login_bloc.dart';
 import 'package:jcc/theme/colors.dart';
 import 'package:jcc/utils/validators.dart';
-
 import '../../../bloc/auth/auth_bloc.dart';
 import '../../../bloc/user/register/user_register_bloc.dart';
 
