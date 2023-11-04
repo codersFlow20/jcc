@@ -12,7 +12,6 @@ import 'package:jcc/theme/colors.dart';
 import 'package:jcc/utils/validators.dart';
 import '../../../bloc/auth/auth_bloc.dart';
 import '../../../bloc/user/register/user_register_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -90,6 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
+                          "Login with your mobile no",
                           AppLocalizations.of(context)!.loginLable,
                           style: GoogleFonts.poppins(
                             fontSize: 16,
