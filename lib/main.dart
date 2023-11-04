@@ -17,6 +17,7 @@ import 'package:jcc/repositories/user_repository.dart';
 import 'package:jcc/theme/app_theme.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:jcc/config/onesignal_config.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'dart:developer' as dev;
 
 Future<void> main() async {
@@ -81,6 +82,13 @@ class MyApp extends StatelessWidget {
       child: MaterialApp.router(
         theme: AppTheme.getTheme(),
         routerConfig: router,
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        locale: const Locale('gu'),
+        supportedLocales: const  [
+          Locale('en'), // English
+          Locale('hi'), // Spanish
+          Locale('gu'), // Spanish
+        ],
       ),
     );
   }

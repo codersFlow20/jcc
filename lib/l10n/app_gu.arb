@@ -1,0 +1,10 @@
+{
+  "loginLable": "તમારા મોબાઇલ નંબરથી લૉગઇન કરો",
+  "loginButton": "લૉગઇન",
+  "firstName": "તમારું નામ",
+  "lastName": "તમારી અટક",
+  "firstNameHint": "તમારું નામ દાખલ કરો",
+  "lastNameHint": "તમારી અટક દાખલ કરો",
+  "register": "નોંધણી કરો",
+  "registerd" : "રજિસ્ટર થયેલ",
+}

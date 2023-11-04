@@ -1,0 +1,10 @@
+{
+  "loginLable": "Login with your mobile no",
+  "loginButton": "Login",
+  "firstName": "First Name",
+  "lastName": "Last Name",
+  "firstNameHint" : "Enter your first name",
+  "lastNameHint" : "Enter your last name",
+  "register" : "Register",
+
+}
