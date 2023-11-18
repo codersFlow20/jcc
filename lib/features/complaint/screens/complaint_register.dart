@@ -61,6 +61,7 @@ class _ComplaintRegistrationScreenState
                 final statsState = context.read<ComplaintStatsBloc>().state;
                 if (statsState is ComplaintStatsLoaded) {
                   final id = (statsState.stats.total + 1).toString();
+                  complaintData['registerCount'] = statsState.stats.registered + 1;
 
                   final user =
                       (context.read<UserRegisterBloc>().state as UserRegistered)
