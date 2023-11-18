@@ -12,9 +12,10 @@ class InitializeComplaint extends ComplaintEvent {}
 class LoadComplaint extends ComplaintEvent {}
 
 class SolveComplaint extends ComplaintEvent {
-  const SolveComplaint(this.complaint);
+  const SolveComplaint({required this.complaint, required this.stats});
 
   final ComplaintModel complaint;
+  final ComplaintStatsModel stats;
 }
 
 class UpdateComplaint extends ComplaintEvent {
