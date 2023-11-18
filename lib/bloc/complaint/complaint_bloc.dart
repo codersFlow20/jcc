@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer' as dev;
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:jcc/models/complaint_stats_model.dart';
 
 import '../../models/complaint_model.dart';
 import '../../repositories/complaint_repository.dart';
@@ -64,7 +65,11 @@ class ComplaintBloc extends Bloc<ComplaintEvent, ComplaintState> {
       'trackData': updatedTrackData.map((e) => e.toMap()),
     };
 
-    await _complaintRepository.updateComplaintToTaken(complaint.id, updateData);
+    await _complaintRepository.updateComplaint(complaint.id, updateData);
+    await _complaintRepository.updateComplaintStats({
+      'in_process': (event.stats.inProcess - 1).toString(),
+      'solved': (event.stats.solved + 1).toString(),
+    });
   }
 
   FutureOr<void> _onUpdateComplaint(

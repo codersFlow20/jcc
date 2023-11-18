@@ -10,6 +10,7 @@ import 'package:jcc/theme/colors.dart';
 import 'package:jcc/utils/conversion.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
+import '../../../bloc/complaint/stats/complaint_stats_bloc.dart';
 import '../../../models/complaint_model.dart';
 
 class ComplaintDetails extends StatelessWidget {
@@ -19,6 +20,10 @@ class ComplaintDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final stats =
+        (context.read<ComplaintStatsBloc>().state as ComplaintStatsLoaded)
+            .stats;
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -285,7 +290,10 @@ class ComplaintDetails extends StatelessWidget {
               if (complaint.isLocked && complaint.status != "Solved")
                 PrimaryButton(
                   onTap: () {
-                    context.read<ComplaintBloc>().add(SolveComplaint(complaint));
+                    context.read<ComplaintBloc>().add(SolveComplaint(
+                          complaint: complaint,
+                          stats: stats,
+                        ));
                   },
                   title: 'Grant Approval',
                 ),
