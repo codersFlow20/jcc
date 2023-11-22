@@ -56,6 +56,13 @@ class ScreensDataConstants {
 }
 
 class ComplaintStateDataConstants {
+  static final List<String> complaintStatesForFilter = [
+    "All",
+    "Registered",
+    "On Hold",
+    "In Process",
+    "Solved"
+  ];
   static final List<String> complaintState = [
     "Registered",
     "On Hold",
@@ -73,6 +80,7 @@ class ComplaintStateDataConstants {
 
 class DepartmentDataConstants {
   static final List<String> departmentNameList = [
+    "All",
     "Water Works",
     "Slum",
     "Light eSMART CITY AREA",
@@ -90,6 +98,7 @@ class DepartmentDataConstants {
     "Light EESL NAGAR SIm AREA",
     "Security",
     "FLOOD CONTROL",
+
   ];
 
   static const Map<String, List<String>> departmentComplaintsData = {
@@ -116,6 +125,7 @@ class DepartmentDataConstants {
   };
 
   static final List<String> departmentIconsAssetsName = [
+    "All",
     Assets.departmentIconsWaterDepartment,
     Assets.departmentIconsSlumDepartment,
     Assets.departmentIconsLightEesl,

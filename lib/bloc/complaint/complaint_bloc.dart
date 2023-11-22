@@ -3,7 +3,6 @@ import 'dart:developer' as dev;
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:jcc/models/complaint_stats_model.dart';
-
 import '../../models/complaint_model.dart';
 import '../../repositories/complaint_repository.dart';
 

@@ -9,6 +9,7 @@ import 'package:lottie/lottie.dart';
 import '../../../bloc/complaint/complaint_bloc.dart';
 import '../../../common/widget/primary_button.dart';
 import '../../../constants/assets_constants.dart';
+import '../../../models/complaint_model.dart';
 import '../widgets/complaint_widget.dart';
 import 'package:jcc/common/widget/menu_drawer.dart';
 import 'package:jcc/generated/assets.dart';
@@ -30,6 +31,12 @@ class ComplaintList extends StatefulWidget {
 }
 
 class _ComplaintListState extends State<ComplaintList> {
+  List<ComplaintModel> originalList = [];
+  List<ComplaintModel> filteredList = [];
+  String statusValue = "All";
+  String sortValue = 'Newest';
+  String departmentValue = "All";
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -51,7 +58,6 @@ class _ComplaintListState extends State<ComplaintList> {
           ),
           icon: SvgPicture.asset(AssetsConstants.edit),
           onPressed: () {
-            // NotificationRepository().sendPushNotification('You are gay ', 'Jaylo is gay ', ['+918160639228','+919313096952']);
             context.push('/complaint_register');
           },
           backgroundColor: AppColors.greenBlue,
@@ -138,6 +144,8 @@ class _ComplaintListState extends State<ComplaintList> {
           if (state is ComplaintLoading || state is ComplaintInitial) {
             const CircularProgressIndicator();
           } else if (state is ComplaintLoaded) {
+            originalList = state.complaintList;
+
             if (state.complaintList.isEmpty) {
               return Column(
                 children: [
@@ -160,20 +168,29 @@ class _ComplaintListState extends State<ComplaintList> {
                 ],
               );
             } else {
-              return Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                ),
-                child: ListView.builder(
-                  controller: widget.controller,
-                  itemBuilder: (context, index) {
-                    return ComplaintWidget(
-                      complaint: state.complaintList[index],
-                    );
-                  },
-                  itemCount: state.complaintList.length,
-                ),
-              );
+              if ((departmentValue != 'All' || statusValue != 'All') &&
+                  filteredList.isEmpty) {
+                return const Center(
+                  child: Text('Nothing Found'),
+                );
+              } else {
+                return ListView.builder(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                    ),
+                  scrollDirection: Axis.vertical,
+                    controller: widget.controller,
+                    itemBuilder: (context, index) {
+                      return ComplaintWidget(
+                        complaint: filteredList.isEmpty
+                            ? originalList[index]
+                            : filteredList[index],
+                      );
+                    },
+                    itemCount: filteredList.isEmpty
+                        ? originalList.length
+                        : filteredList.length);
+              }
             }
           } else if (state is ComplaintError) {
             return Text(state.message);
@@ -190,8 +207,9 @@ class _ComplaintListState extends State<ComplaintList> {
     );
   }
 
+
+
   Widget _buildBottomSheet(BuildContext context) {
-    String values = "";
     return Container(
       height: 350,
       padding: const EdgeInsets.all(20),
@@ -218,6 +236,7 @@ class _ComplaintListState extends State<ComplaintList> {
             hint: const Text(
               "Sort By",
             ),
+            value: sortValue,
             items: const [
               DropdownMenuItem(
                 value: "Newest",
@@ -231,7 +250,7 @@ class _ComplaintListState extends State<ComplaintList> {
               ),
             ],
             onChanged: (value) {
-              values = value!;
+              sortValue = value!;
             },
           ),
           const SizedBox(
@@ -259,7 +278,10 @@ class _ComplaintListState extends State<ComplaintList> {
                       child: Text(e),
                     ))
                 .toList(),
-            onChanged: (value) {},
+            value: departmentValue,
+            onChanged: (value) {
+              departmentValue = value!;
+            },
           ),
           const SizedBox(height: 15),
           Text(
@@ -267,6 +289,7 @@ class _ComplaintListState extends State<ComplaintList> {
             style: GoogleFonts.robotoCondensed(fontSize: 14),
           ),
           DropdownButtonFormField(
+            value: statusValue,
             padding: const EdgeInsets.only(left: 15),
             style: const TextStyle(
               fontFamily: 'Poppins',
@@ -278,19 +301,58 @@ class _ComplaintListState extends State<ComplaintList> {
             decoration: const InputDecoration(
               border: InputBorder.none,
             ),
-            items: ComplaintStateDataConstants.complaintState
+            items: ComplaintStateDataConstants.complaintStatesForFilter
                 .map((e) => DropdownMenuItem(
                       value: e,
                       child: Text(e),
                     ))
                 .toList(),
-            onChanged: (value) {},
+            onChanged: (value) {
+              statusValue = value!;
+            },
           ),
           const SizedBox(height: 20),
-          PrimaryButton(onTap: () {}, title: "Apply Filters"),
-
+          PrimaryButton(
+            onTap: () {
+              filterList();
+              context.pop();
+            },
+            title: "Apply Filters",
+          ),
         ],
       ),
     );
+  }
+
+  void filterList() {
+    filteredList = originalList;
+    if (departmentValue == 'All' &&
+        statusValue == 'All' ) {
+      filteredList = originalList;
+    } else {
+      if (departmentValue != 'All') {
+        filteredList = filteredList
+            .where((element) => element.departmentName == departmentValue)
+            .toList();
+      }
+
+      if (statusValue != 'All') {
+        filteredList = filteredList
+            .where((element) => element.status == statusValue)
+            .toList();
+      }
+    }
+
+    if (sortValue == 'Newest') {
+      filteredList.sort(
+            (a, b) => b.registrationDate.compareTo(a.registrationDate),
+      );
+      dev.log(filteredList.toString(), name: 'Filtering list');
+    } else if (sortValue == 'Oldest') {
+      filteredList.sort(
+            (a, b) => a.registrationDate.compareTo(b.registrationDate),
+      );
+    }
+    setState(() {});
   }
 }
