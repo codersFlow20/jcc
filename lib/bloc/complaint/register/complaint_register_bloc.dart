@@ -50,6 +50,7 @@ class ComplaintRegisterBloc
         description: 'New complaint registered!',
         complaintId: response.id,
         userId: response.userId,
+        ward: response.ward,
       );
 
       await _notificationRepository.addNotification(notification);

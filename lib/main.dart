@@ -55,16 +55,14 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) =>
-              ComplaintBloc(complaintRepository: complaintRepository)
-                ..add(LoadComplaint()),
+              ComplaintBloc(complaintRepository: complaintRepository),
         ),
         BlocProvider(
           create: (context) => UserRegisterBloc(userRepository: userRepository),
         ),
         BlocProvider(
           create: (context) =>
-              NotificationBloc(notificationRepository: notificationRepository)
-                ..add(LoadNotifications()),
+              NotificationBloc(notificationRepository: notificationRepository),
         ),
         BlocProvider(
           create: (context) => ComplaintRegisterBloc(
@@ -74,8 +72,7 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) =>
-              ComplaintStatsBloc(complaintRepository: complaintRepository)
-                ..add(GetComplaintStats()),
+              ComplaintStatsBloc(complaintRepository: complaintRepository),
         ),
       ],
       child: MaterialApp.router(

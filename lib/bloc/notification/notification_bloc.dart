@@ -45,7 +45,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     try {
       dev.log('state is  $descending');
       _notificationSubscription =
-          _notificationRepository.getNotification().listen((list) {
+          _notificationRepository.getNotifications().listen((list) {
         add(UpdateNotification(list));
       });
     } catch (e) {

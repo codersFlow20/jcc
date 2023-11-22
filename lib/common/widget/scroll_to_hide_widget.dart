@@ -51,8 +51,8 @@ class ScrollToHideWidgetState extends State<ScrollToHideWidget> {
   }
 
   void hide() {
-    dev.log('Hide is called', name: 'Home');
     if (isVisible) {
+      dev.log('Hide is called', name: 'Home');
       setState(() {
         isVisible = false;
       });

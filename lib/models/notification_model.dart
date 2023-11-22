@@ -6,6 +6,7 @@ class NotificationModel {
   final String description;
   final String complaintId;
   final String userId;
+  final String ward;
 
   NotificationModel({
     required this.timeStamp,
@@ -13,6 +14,7 @@ class NotificationModel {
     required this.description,
     required this.complaintId,
     required this.userId,
+    required this.ward,
   });
 
   Map<String, dynamic> toMap() {
@@ -22,6 +24,7 @@ class NotificationModel {
       'description': description,
       'complaintId': complaintId,
       'userId': userId,
+      'ward' : ward,
     };
   }
 
@@ -32,6 +35,7 @@ class NotificationModel {
       description: map['description'] as String,
       complaintId: map['complaintId'] as String,
       userId: map['userId'] as String,
+      ward: map['ward'] as String,
     );
   }
 }

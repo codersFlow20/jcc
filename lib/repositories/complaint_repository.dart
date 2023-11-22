@@ -31,6 +31,7 @@ class ComplaintRepository {
           'userId',
           isEqualTo: _firebaseAuth.currentUser!.phoneNumber.toString(),
         )
+        .orderBy('registrationDate', descending: true)
         .snapshots()
         .map((event) {
       return event.docs
