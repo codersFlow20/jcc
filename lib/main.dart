@@ -17,6 +17,8 @@ import 'package:jcc/repositories/user_repository.dart';
 import 'package:jcc/theme/app_theme.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:jcc/config/onesignal_config.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'dart:developer' as dev;
 
 Future<void> main() async {
@@ -48,23 +50,23 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) =>
-              AuthBloc(authRepository: AuthRepository())..add(AppStarted()),
+          AuthBloc(authRepository: AuthRepository())..add(AppStarted()),
         ),
         BlocProvider(
           create: (context) => LogInBloc(authRepository: AuthRepository()),
         ),
         BlocProvider(
           create: (context) =>
-              ComplaintBloc(complaintRepository: complaintRepository)
-                ..add(LoadComplaint()),
+          ComplaintBloc(complaintRepository: complaintRepository)
+            ..add(LoadComplaint()),
         ),
         BlocProvider(
           create: (context) => UserRegisterBloc(userRepository: userRepository),
         ),
         BlocProvider(
           create: (context) =>
-              NotificationBloc(notificationRepository: notificationRepository)
-                ..add(LoadNotifications()),
+          NotificationBloc(notificationRepository: notificationRepository)
+            ..add(LoadNotifications()),
         ),
         BlocProvider(
           create: (context) => ComplaintRegisterBloc(
@@ -74,13 +76,16 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) =>
-              ComplaintStatsBloc(complaintRepository: complaintRepository)
-                ..add(GetComplaintStats()),
+          ComplaintStatsBloc(complaintRepository: complaintRepository)
+            ..add(GetComplaintStats()),
         ),
       ],
       child: MaterialApp.router(
         theme: AppTheme.getTheme(),
         routerConfig: router,
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        locale: Locale('gu',''),
       ),
     );
   }

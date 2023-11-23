@@ -5,7 +5,7 @@ import 'package:jcc/theme/colors.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class DataCard extends StatelessWidget {
-  DataCard({super.key, required this.index, required this.complaintStateData});
+  DataCard({super.key, required this.index, required this.complaintStateData, required this.label});
 
   final cardBackgroundColors = const [
     AppColors.brightTurquoise,
@@ -22,6 +22,7 @@ class DataCard extends StatelessWidget {
   ];
   final ComplaintStateData complaintStateData;
   final int index;
+  final String label;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +54,7 @@ class DataCard extends StatelessWidget {
                 ),
                 child: Center(
                   child: Text(
-                    ComplaintStateDataConstants.complaintState[index],
+                    label,
                     style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                         fontWeight: FontWeight.w600, color: AppColors.white),
                   ),
