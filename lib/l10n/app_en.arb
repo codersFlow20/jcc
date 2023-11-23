@@ -25,5 +25,20 @@
   "department": "Department",
   "post": "Post",
   "notificationTitle": "Notification",
-  "languageTitle": "Language"
+  "languageTitle": "Language",
+  "complaintRegister": "Register Complaint",
+  "whatIsYourProblem": "What is your problem?",
+    "selectDepartment": "Select Department",
+  "subject": "Subject",
+  "selectSubject": "Select Subject",
+  "description": "Description",
+  "descriptionOfProblem": "Describe the problem",
+  "whereIsTheProblem": "Where problem occured?",
+    "selectWard": "Select Ward",
+  "wardNo": "Ward No",
+  "selectArea": "Select Area",
+  "area": "Area",
+  "detailedAddress": "Detailed Address",
+  "detailedAddressHint": "Detailed Address of where problem occured",
+  "uploadPhoto": "Upload Photographs"
 }

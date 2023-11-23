@@ -62,7 +62,9 @@ class MenuDrawer extends StatelessWidget {
                             AppLocalizations.of(context)!.language,
                             style: Theme.of(context).textTheme.headlineMedium,
                           ),
-                          onTap: () {},
+                          onTap: () {
+                            context.push('/language_screen');
+                          },
                         ),
                         ListTile(
                           leading: SvgPicture.asset(

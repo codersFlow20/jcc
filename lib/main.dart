@@ -21,6 +21,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'dart:developer' as dev;
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -80,13 +82,41 @@ class MyApp extends StatelessWidget {
             ..add(GetComplaintStats()),
         ),
       ],
-      child: MaterialApp.router(
-        theme: AppTheme.getTheme(),
-        routerConfig: router,
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        locale: Locale('gu',''),
+      child: FutureBuilder<String>(
+        future: _getLocaleFromPreferences(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return MaterialApp.router(
+              theme: AppTheme.getTheme(),
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
+              locale: Locale(snapshot.data as String, ''),
+              routerConfig: router,
+            );
+          } else {
+            return MaterialApp.router(
+              theme: AppTheme.getTheme(),
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
+              locale: Locale('en', ''),
+              routerConfig: router,
+            );
+          }
+        },
       ),
     );
   }
+  Future<String> _getLocaleFromPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String languageCode = prefs.getString('selected_language') ?? 'en'; // Default to English
+    return languageCode;
+  }
 }
+
+//MaterialApp.router(
+//         theme: AppTheme.getTheme(),
+//         routerConfig: router,
+//         localizationsDelegates: AppLocalizations.localizationsDelegates,
+//         supportedLocales: AppLocalizations.supportedLocales,
+//         locale: Locale(_getLocaleFromPreferences() as String, ''),
+//       ),

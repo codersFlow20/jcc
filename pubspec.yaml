@@ -14,6 +14,7 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   go_router: ^11.1.3
+  shared_preferences:
 #  UI Libs
   google_fonts: ^6.1.0
   flutter_svg: ^2.0.7

@@ -25,5 +25,20 @@
   "department": "વિભાગ",
   "post": "પોસ્ટ",
   "notificationTitle": "સૂચના",
-  "languageTitle": "ભાષા"
+  "languageTitle": "ભાષા",
+  "complaintRegister": "નવી ફરિયાદ નોંધો",
+  "whatIsYourProblem": "તમારી સમસ્યા શું છે?",
+  "selectDepartment": "વિભાગ પસંદ કરો",
+  "subject": "વિષય",
+  "selectSubject": "વિષય પસંદ કરો",
+  "description": "વર્ણન",
+  "descriptionOfProblem": "તમારી સમસ્યાનો વર્ણન કરો",
+  "whereIsTheProblem": "સમસ્યા ક્યાં છે?",
+  "selectWard": "વોર્ડ પસંદ કરો",
+  "wardNo": "વોર્ડ નંબર",
+  "selectArea": "વિસ્તાર  પસંદ કરો",
+    "area": "વિસ્તાર ",
+  "detailedAddress": "વિગતવાર સરનામું",
+  "detailedAddressHint": "તમારું સરનામું લખો",
+  "uploadPhoto": "ફોટો અપલોડ કરો"
 }

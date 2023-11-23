@@ -15,7 +15,7 @@ import 'package:jcc/common/widget/menu_drawer.dart';
 import 'package:jcc/generated/assets.dart';
 import '../../../common/widget/scroll_to_hide_widget.dart';
 import 'dart:developer' as dev;
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class ComplaintList extends StatefulWidget {
   const ComplaintList({
     super.key,
@@ -49,7 +49,7 @@ class _ComplaintListState extends State<ComplaintList> {
         ),
         child: FloatingActionButton.extended(
           label: Text(
-            "Register Complaint",
+            AppLocalizations.of(context)!.complaintRegister,
             style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   fontFamily: 'Roboto',
                   fontWeight: FontWeight.w600,
