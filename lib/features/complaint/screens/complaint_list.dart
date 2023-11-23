@@ -147,49 +147,29 @@ class _ComplaintListState extends State<ComplaintList> {
             originalList = state.complaintList;
 
             if (state.complaintList.isEmpty) {
-              return Column(
-                children: [
-                  const SizedBox(
-                    height: 150,
-                  ),
-                  Lottie.asset(
-                    Assets.lottieSearch,
-                    repeat: true,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    'Nothing to Show',
-                    style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                  ),
-                ],
-              );
+              return lottieAnimation(context);
             } else {
               if ((departmentValue != 'All' || statusValue != 'All') &&
                   filteredList.isEmpty) {
-                return const Center(
-                  child: Text('Nothing Found'),
-                );
+                return lottieAnimation(context);
               } else {
                 return ListView.builder(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                    ),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                  ),
                   scrollDirection: Axis.vertical,
-                    controller: widget.controller,
-                    itemBuilder: (context, index) {
-                      return ComplaintWidget(
-                        complaint: filteredList.isEmpty
-                            ? originalList[index]
-                            : filteredList[index],
-                      );
-                    },
-                    itemCount: filteredList.isEmpty
-                        ? originalList.length
-                        : filteredList.length);
+                  controller: widget.controller,
+                  itemBuilder: (context, index) {
+                    return ComplaintWidget(
+                      complaint: filteredList.isEmpty
+                          ? originalList[index]
+                          : filteredList[index],
+                    );
+                  },
+                  itemCount: filteredList.isEmpty
+                      ? originalList.length
+                      : filteredList.length,
+                );
               }
             }
           } else if (state is ComplaintError) {
@@ -206,8 +186,6 @@ class _ComplaintListState extends State<ComplaintList> {
       ),
     );
   }
-
-
 
   Widget _buildBottomSheet(BuildContext context) {
     return Container(
@@ -326,8 +304,7 @@ class _ComplaintListState extends State<ComplaintList> {
 
   void filterList() {
     filteredList = originalList;
-    if (departmentValue == 'All' &&
-        statusValue == 'All' ) {
+    if (departmentValue == 'All' && statusValue == 'All') {
       filteredList = originalList;
     } else {
       if (departmentValue != 'All') {
@@ -345,14 +322,37 @@ class _ComplaintListState extends State<ComplaintList> {
 
     if (sortValue == 'Newest') {
       filteredList.sort(
-            (a, b) => b.registrationDate.compareTo(a.registrationDate),
+        (a, b) => b.registrationDate.compareTo(a.registrationDate),
       );
       dev.log(filteredList.toString(), name: 'Filtering list');
     } else if (sortValue == 'Oldest') {
       filteredList.sort(
-            (a, b) => a.registrationDate.compareTo(b.registrationDate),
+        (a, b) => a.registrationDate.compareTo(b.registrationDate),
       );
     }
     setState(() {});
+  }
+
+  Widget lottieAnimation(BuildContext context) {
+    return Column(
+      children: [
+        const SizedBox(
+          height: 150,
+        ),
+        Lottie.asset(
+          Assets.lottieSearch,
+          repeat: true,
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Text(
+          'Nothing to Show',
+          style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+        ),
+      ],
+    );
   }
 }
