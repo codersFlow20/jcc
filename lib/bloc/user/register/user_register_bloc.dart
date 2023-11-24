@@ -8,10 +8,13 @@ import 'package:jcc/models/user_model.dart';
 import 'package:jcc/repositories/user_repository.dart';
 
 part 'user_register_event.dart';
+
 part 'user_register_state.dart';
 
 class UserRegisterBloc extends Bloc<UserRegisterEvent, UserRegisterState> {
-  UserRegisterBloc({required UserRepository userRepository}) : _userRepository = userRepository, super(UserRegisterInitial()) {
+  UserRegisterBloc({required UserRepository userRepository})
+      : _userRepository = userRepository,
+        super(UserRegisterInitial()) {
     on<RegisterUser>(_onRegisterUser);
     on<UnRegisterUser>(_onUnRegisterUser);
     on<GetUser>(_onGetUser);
@@ -22,53 +25,61 @@ class UserRegisterBloc extends Bloc<UserRegisterEvent, UserRegisterState> {
   final UserRepository _userRepository;
   StreamSubscription? _userSubscription;
 
-  void _onInitializeUser(InitializeUser event, Emitter<UserRegisterState> emit) {
+  void _onInitializeUser(
+      InitializeUser event, Emitter<UserRegisterState> emit) {
     _userSubscription?.cancel();
     emit(UserRegisterInitial());
   }
 
-  Future<void> _onRegisterUser(RegisterUser event, Emitter<UserRegisterState> emit,) async {
+  Future<void> _onRegisterUser(
+    RegisterUser event,
+    Emitter<UserRegisterState> emit,
+  ) async {
     emit(UserRegistering());
     final user = await _userRepository.registerUser(event.user);
 
     if (user == null) {
       emit(const UserRegisterError('Some error occurred!'));
-    }else {
+    } else {
       add(GetUser(event.user.phoneNo));
     }
   }
 
-  void _onUpdateUser(UpdateUser event, Emitter<UserRegisterState> emit) {
+  void _onUpdateUser(UpdateUser event, Emitter<UserRegisterState> emit) async {
+    await _userRepository.updateUser(event.user);
     emit(UserRegistered(event.user));
   }
 
-  Future<void> _onGetUser(GetUser event, Emitter<UserRegisterState> emit) async {
+  Future<void> _onGetUser(
+      GetUser event, Emitter<UserRegisterState> emit) async {
     emit(GettingUser());
     try {
       _userSubscription?.cancel();
       _userSubscription =
           _userRepository.getUserStream(event.userId).listen((event) {
-            if (event == null) {
-              dev.log('User is null', name: 'User');
-              add(UnRegisterUser());
-            } else {
-              dev.log('User data: $event', name: 'User');
-              add(UpdateUser(user: event));
-            }
-          });
+        if (event == null) {
+          dev.log('User is null', name: 'User');
+          add(UnRegisterUser());
+        } else {
+          dev.log('User data: $event', name: 'User');
+          add(UpdateUser(user: event));
+        }
+      });
     } on FirebaseException catch (e) {
       dev.log('Error in registering: ${e.code}', name: 'User');
       emit(UserError(e.toString()));
     }
   }
 
-  void _onUnRegisterUser(UnRegisterUser event, Emitter<UserRegisterState> emit) {
+  void _onUnRegisterUser(
+      UnRegisterUser event, Emitter<UserRegisterState> emit) {
     _userSubscription?.cancel();
     emit(UserNotRegistered());
   }
 
   @override
-  void onTransition(Transition<UserRegisterEvent, UserRegisterState> transition) {
+  void onTransition(
+      Transition<UserRegisterEvent, UserRegisterState> transition) {
     dev.log(transition.toString(), name: 'User');
     super.onTransition(transition);
   }

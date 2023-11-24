@@ -23,7 +23,7 @@ class UserRegistered extends UserRegisterState {
 }
 
 class UserNotRegistered extends UserRegisterState {}
-
+class UserUpdated extends UserRegisterState{}
 class GettingUser extends UserRegisterState {}
 
 class UserError extends UserRegisterState {

@@ -19,13 +19,25 @@ class UserRepository {
   Future<UserModel?> registerUser(UserModel user) async {
     try {
       await _firestore.collection('users').doc(user.phoneNo).set(user.toMap());
-
+      
       return user;
     }catch(e) {
       dev.log('Got registration error: $e', name: 'User');
       return null;
     }
   }
+
+  Future<UserModel?> updateUser(UserModel user) async {
+    try {
+      await _firestore.collection('users').doc(user.phoneNo).update(user.toMap());
+dev.log('${user.toString()} sucess');
+      return user;
+    }catch(e) {
+      dev.log('Got  error in updating user : $e', name: 'User');
+      return null;
+    }
+  }
+
 
   Stream<UserModel?> getUserStream(String userId) {
     return _firestore.collection('users').doc(userId).snapshots().map((event) {
