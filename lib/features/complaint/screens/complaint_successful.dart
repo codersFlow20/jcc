@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jcc/common/widget/primary_button.dart';
 import 'package:jcc/common/widget/primary_outline_button.dart';
 import 'package:jcc/constants/assets_constants.dart';
 import 'package:lottie/lottie.dart';
+
+import '../../../bloc/complaint/complaint_bloc.dart';
 
 class ComplaintSuccess extends StatelessWidget {
   const ComplaintSuccess({super.key, required this.id});
@@ -71,6 +74,7 @@ class ComplaintSuccess extends StatelessWidget {
               ),
               PrimaryButton(
                 onTap: () {
+                  context.read<ComplaintBloc>().add(LoadComplaint());
                   context.go('/complaints');
                 },
                 title: 'Done',

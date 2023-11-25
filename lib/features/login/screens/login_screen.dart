@@ -12,7 +12,7 @@ import 'package:jcc/theme/colors.dart';
 import 'package:jcc/utils/validators.dart';
 import '../../../bloc/auth/auth_bloc.dart';
 import '../../../bloc/user/register/user_register_bloc.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -29,7 +29,6 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState();
     _loginBloc = BlocProvider.of<LogInBloc>(context);
-    // _mobileNoController.addListener(_onPhoneChanged);
   }
 
   @override
@@ -73,8 +72,8 @@ class _LoginScreenState extends State<LoginScreen> {
         child: BlocBuilder<LogInBloc, LogInState>(
           bloc: _loginBloc,
           builder: (context, state) {
-            return SafeArea(
-              child: Stack(
+            return Scaffold(
+              body: Stack(
                 children: [
                   SvgPicture.asset(
                     "assets/backgrounds/login_background.svg",
@@ -89,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Login with your mobile no",
+                          AppLocalizations.of(context)!.loginText,
                           style: GoogleFonts.poppins(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,

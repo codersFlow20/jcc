@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'dart:developer' as dev;
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -54,7 +52,7 @@ class _OtpScreenState extends State<OtpScreen> {
               context.go('/user_register');
             } else if (state is GettingUser) {
               showDialog(context: context, builder: (context) {
-                return AlertDialog(
+                return const AlertDialog(
                   content: Row(
                     children: [
                       CircularProgressIndicator(),
@@ -79,10 +77,10 @@ class _OtpScreenState extends State<OtpScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 80),
-                Expanded(child: SizedBox()),
+                const SizedBox(height: 80),
+                const Expanded(child: SizedBox()),
                 Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.horizontal(
                       left: Radius.circular(30.0),
@@ -91,8 +89,8 @@ class _OtpScreenState extends State<OtpScreen> {
                   ),
                   child: Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
+                      const Padding(
+                        padding: EdgeInsets.symmetric(
                             horizontal: 25.0, vertical: 20.0),
                         child: Text(
                           "We have sent an OTP to your mobile number",
@@ -110,26 +108,26 @@ class _OtpScreenState extends State<OtpScreen> {
                           cursorColor: Colors.black,
                           decoration: InputDecoration(
                             hintText: "Enter OTP",
-                            hintStyle: TextStyle(
+                            hintStyle: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w400,
                               color: Colors.black,
                             ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20),
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: AppColors.darkMidnightBlue,
                               ),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20),
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: AppColors.darkMidnightBlue,
                               ),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20),
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: AppColors.darkMidnightBlue,
                               ),
                             ),
@@ -174,9 +172,9 @@ class _OtpScreenState extends State<OtpScreen> {
                               );
                               try {
                                 final AuthCredential credential =
-                                    PhoneAuthProvider.credential(
+                                PhoneAuthProvider.credential(
                                   verificationId:
-                                      state.verificationId.toString(),
+                                  state.verificationId.toString(),
                                   smsCode: _otpController.text,
                                 );
                                 dev.log("Hello", name: "OTP");
@@ -189,7 +187,7 @@ class _OtpScreenState extends State<OtpScreen> {
                               }
                             },
                             child: Container(
-                              margin: EdgeInsets.symmetric(
+                              margin: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 20),
                               height: 60,
                               width: double.infinity,
@@ -197,7 +195,7 @@ class _OtpScreenState extends State<OtpScreen> {
                                 color: AppColors.darkMidnightBlue,
                                 borderRadius: BorderRadius.circular(20),
                               ),
-                              child: Center(
+                              child: const Center(
                                 child: Text(
                                   "Continue",
                                   style: TextStyle(

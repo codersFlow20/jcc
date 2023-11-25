@@ -10,8 +10,8 @@ import 'package:jcc/features/home/widgets/data_chart.dart';
 import 'package:jcc/features/home/widgets/recent_complaints_card.dart';
 import 'package:jcc/generated/assets.dart';
 import 'package:jcc/theme/colors.dart';
-
 import '../../../common/widget/scroll_to_hide_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -70,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text(
           CommonDataConstants.home,
           style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                fontSize: 22,
+                fontSize: 18,
               ),
         ),
         centerTitle: true,
@@ -97,25 +97,25 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   List<ComplaintStateData> complaintStateData = [
                     ComplaintStateData(
-                      ComplaintStateDataConstants.complaintState[0],
+                      AppLocalizations.of(context)!.registerd,
                       data.registered.toString(),
                       (data.registered / data.total) * 100,
                       AppColors.brightTurquoise,
                     ),
                     ComplaintStateData(
-                      ComplaintStateDataConstants.complaintState[1],
+                      AppLocalizations.of(context)!.onHold,
                       data.onHold.toString(),
                       (data.onHold / data.total) * 100,
                       AppColors.monaLisa,
                     ),
                     ComplaintStateData(
-                      ComplaintStateDataConstants.complaintState[2],
+                      AppLocalizations.of(context)!.inProgress,
                       data.inProcess.toString(),
                       (data.inProcess / data.total) * 100,
                       AppColors.heliotrope,
                     ),
                     ComplaintStateData(
-                      ComplaintStateDataConstants.complaintState[3],
+                      AppLocalizations.of(context)!.solved,
                       data.solved.toString(),
                       (data.solved / data.total) * 100,
                       AppColors.mantis,
@@ -131,9 +131,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             DataCard(
                               index: 0,
                               complaintStateData: complaintStateData[0],
+                              label: AppLocalizations.of(context)!.registerd,
                             ),
                             DataCard(
                               index: 1,
+                              label: AppLocalizations.of(context)!.onHold,
                               complaintStateData: complaintStateData[1],
                             ),
                           ],
@@ -142,10 +144,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             DataCard(
                               index: 2,
+                              label: AppLocalizations.of(context)!.inProgress,
                               complaintStateData: complaintStateData[2],
                             ),
                             DataCard(
                               index: 3,
+                              label: AppLocalizations.of(context)!.solved,
                               complaintStateData: complaintStateData[3],
                             ),
                           ],

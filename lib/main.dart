@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,9 +19,10 @@ import 'package:jcc/repositories/user_repository.dart';
 import 'package:jcc/theme/app_theme.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:jcc/config/onesignal_config.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'dart:developer' as dev;
-
 import 'bloc/complaint/selected_complaint/selected_complaint_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,7 +53,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) =>
-              AuthBloc(authRepository: AuthRepository())..add(AppStarted()),
+          AuthBloc(authRepository: AuthRepository())..add(AppStarted()),
         ),
         BlocProvider(
           create: (context) => LogInBloc(authRepository: AuthRepository()),
@@ -80,13 +83,46 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) =>
-              ComplaintStatsBloc(complaintRepository: complaintRepository),
+          ComplaintStatsBloc(complaintRepository: complaintRepository)
+            ..add(GetComplaintStats()),
         ),
       ],
-      child: MaterialApp.router(
-        theme: AppTheme.getTheme(),
-        routerConfig: router,
+      child: FutureBuilder<String>(
+        future: _getLocaleFromPreferences(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return MaterialApp.router(
+              theme: AppTheme.getTheme(),
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
+              locale: Locale(snapshot.data as String, ''),
+              routerConfig: router,
+            );
+          } else {
+            return MaterialApp.router(
+              theme: AppTheme.getTheme(),
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
+              locale: Locale('en', ''),
+              routerConfig: router,
+            );
+          }
+        },
       ),
     );
   }
+
+  Future<String> _getLocaleFromPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String languageCode = prefs.getString('selected_language') ?? 'en'; // Default to English
+    return languageCode;
+  }
 }
+
+//MaterialApp.router(
+//         theme: AppTheme.getTheme(),
+//         routerConfig: router,
+//         localizationsDelegates: AppLocalizations.localizationsDelegates,
+//         supportedLocales: AppLocalizations.supportedLocales,
+//         locale: Locale(_getLocaleFromPreferences() as String, ''),
+//       ),

@@ -14,7 +14,7 @@ import 'package:jcc/constants/assets_constants.dart';
 import 'package:jcc/generated/assets.dart';
 import 'package:jcc/theme/colors.dart';
 import 'package:jcc/utils/ui_utils.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../bloc/complaint/stats/complaint_stats_bloc.dart';
 
 class ComplaintRegistrationScreen extends StatefulWidget {
@@ -35,7 +35,7 @@ class _ComplaintRegistrationScreenState
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Register Complaint",
+          AppLocalizations.of(context)!.complaintRegister,
           style: Theme.of(context).textTheme.displayMedium?.copyWith(
                 fontWeight: FontWeight.w500,
               ),
@@ -118,7 +118,7 @@ class _ComplaintRegistrationScreenState
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "What is your problem?",
+                          AppLocalizations.of(context)!.whatIsYourProblem,
                           style: Theme.of(context)
                               .textTheme
                               .headlineSmall
@@ -130,31 +130,31 @@ class _ComplaintRegistrationScreenState
                           height: 5,
                         ),
                         _buildDropdownField(
-                          hint: '-- Select department --',
+                          hint: '-- ${AppLocalizations.of(context)!.selectDepartment} --',
                           bloc: registerBloc.department,
-                          label: 'Department',
+                          label: AppLocalizations.of(context)!.department,
                         ),
                         const SizedBox(
                           height: 5,
                         ),
                         _buildDropdownField(
-                          hint: '-- Select subject --',
+                          hint: '-- ${AppLocalizations.of(context)!.selectSubject} --',
                           bloc: registerBloc.subject,
-                          label: 'Subject',
+                          label: AppLocalizations.of(context)!.subject,
                         ),
                         const SizedBox(
                           height: 5,
                         ),
                         _buildTextField(
-                          label: 'Description',
+                          label: AppLocalizations.of(context)!.description,
                           bloc: registerBloc.description,
-                          hint: 'Describe the problem',
+                          hint: AppLocalizations.of(context)!.descriptionOfProblem,
                         ),
                         const SizedBox(
                           height: 15,
                         ),
                         Text(
-                          "Where problem occurs?",
+                          AppLocalizations.of(context)!.whereIsTheProblem,
                           style: Theme.of(context)
                               .textTheme
                               .headlineSmall
@@ -166,25 +166,25 @@ class _ComplaintRegistrationScreenState
                           height: 5,
                         ),
                         _buildDropdownField(
-                          hint: '-- Select Ward no --',
+                          hint: '-- ${AppLocalizations.of(context)!.selectWard} --',
                           bloc: registerBloc.wardNo,
-                          label: 'Ward no',
+                          label: AppLocalizations.of(context)!.wardNo,
                         ),
                         const SizedBox(
                           height: 5,
                         ),
                         _buildDropdownField(
-                          hint: '-- Select Area --',
+                          hint: '-- ${AppLocalizations.of(context)!.selectArea} --',
                           bloc: registerBloc.area,
-                          label: 'Area',
+                          label: AppLocalizations.of(context)!.area,
                         ),
                         const SizedBox(
                           height: 5,
                         ),
                         _buildTextField(
-                          label: 'Detailed Address',
+                          label: AppLocalizations.of(context)!.detailedAddress,
                           bloc: registerBloc.detailedAddress,
-                          hint: 'Detailed address of where problem occurs',
+                          hint: AppLocalizations.of(context)!.detailedAddressHint,
                         ),
                         const SizedBox(
                           height: 15,
@@ -250,7 +250,7 @@ class _ComplaintRegistrationScreenState
                           //           );
                           //         },
                           //       ),
-                          title: "Register Complaint",
+                          title: AppLocalizations.of(context)!.complaintRegister,
                         ),
                         const SizedBox(
                           height: 15,
@@ -272,7 +272,7 @@ class _ComplaintRegistrationScreenState
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Upload Photographs',
+          AppLocalizations.of(context)!.uploadPhoto,
           style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                 fontWeight: FontWeight.w600,
               ),

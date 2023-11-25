@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jcc/constants/assets_constants.dart';
-import 'package:jcc/constants/string_constants.dart';
 import 'package:jcc/theme/colors.dart';
-import 'package:jcc/theme/texts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AppBottomNavigationBar extends StatelessWidget {
   AppBottomNavigationBar({super.key});
@@ -59,7 +58,6 @@ class AppBottomNavigationBar extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
         child: BottomNavigationBar(
-          
           backgroundColor: AppColors.antiFlashWhite,
           type: BottomNavigationBarType.fixed,
           selectedItemColor: AppColors.blue,
@@ -70,20 +68,20 @@ class AppBottomNavigationBar extends StatelessWidget {
           currentIndex: _calculateSelectedIndex(context),
           onTap: (value) => onTap(value, context),
           items: [
-            _buildBottomNavigationBarItem(index: 0),
-            _buildBottomNavigationBarItem(index: 1),
-            _buildBottomNavigationBarItem(index: 2),
+            _buildBottomNavigationBarItem(index: 0,label: AppLocalizations.of(context)!.homeTitle),
+            _buildBottomNavigationBarItem(index: 1,label: AppLocalizations.of(context)!.complaints),
+            _buildBottomNavigationBarItem(index: 2,label: AppLocalizations.of(context)!.notification),
           ],
         ),
       ),
     );
   }
 
-  BottomNavigationBarItem _buildBottomNavigationBarItem({required int index}) {
+  BottomNavigationBarItem _buildBottomNavigationBarItem({required int index,required String label}) {
     return BottomNavigationBarItem(
       icon: outlinedIcon[index],
       activeIcon: filledIcons[index],
-      label: CommonDataConstants.bottomNavigation[index],
+      label: label,
     );
   }
 

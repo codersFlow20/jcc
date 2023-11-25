@@ -1,9 +1,15 @@
+
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:jcc/bloc/user/register/user_register_bloc.dart';
 import 'package:jcc/common/widget/primary_button.dart';
 import 'package:jcc/constants/string_constants.dart';
 import 'package:jcc/generated/assets.dart';
+import 'package:jcc/models/user_model.dart';
 import 'package:jcc/theme/colors.dart';
 import 'dart:developer' as dev;
 
@@ -103,7 +109,8 @@ class _EditUserProfileState extends State<EditUserProfile> {
                                   padding: const EdgeInsets.only(top: 5,right: 5),
                                   child: IconButton(
                                     onPressed: () {
-                                      dev.log("Pressed");
+
+
                                     },
                                     icon: SvgPicture.asset(
                                       Assets.iconsAddImage,
@@ -162,8 +169,9 @@ class _EditUserProfileState extends State<EditUserProfile> {
                               final firstName = _firstNameController.text;
                               final lastName = _lastNameController.text;
                               final email = _emailController.text;
-
-                              dev.log("$firstName $lastName, $email");
+                              var user = UserModel(phoneNo: FirebaseAuth.instance.currentUser!.phoneNumber!, name:'$firstName $lastName', notificationToken: FirebaseAuth.instance.currentUser!.phoneNumber!, email: email);
+                              context.read<UserRegisterBloc>().add(UpdateUser(user: user));
+                              context.pop();
                             } else {
                               dev.log('Validation not passed!');
                             }

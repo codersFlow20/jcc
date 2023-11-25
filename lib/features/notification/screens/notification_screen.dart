@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'dart:developer' as dev;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jcc/common/widget/menu_drawer.dart';
 import 'package:jcc/constants/string_constants.dart';
@@ -34,11 +35,10 @@ class NotificationScreen extends StatefulWidget {
 
 class _NotificationScreenState extends State<NotificationScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  List<NotificationModel> listOfNotification = [];
 
   @override
   Widget build(BuildContext context) {
-    List<NotificationModel> list = [];
-
     return Scaffold(
       key: scaffoldKey,
       drawer: const MenuDrawer(),
@@ -95,7 +95,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
               var bottomSheetController = showModalBottomSheet(
                 context: context,
                 builder: (context) {
-                  return _buildBottomSheet(context, list);
+                  return _buildBottomSheet(context);
                 },
               );
               bottomSheetController.whenComplete(() {
@@ -119,8 +119,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
           if (state is NotificationLoading || state is NotificationInitial) {
             return Center(child: CircularProgressIndicator());
           } else if (state is NotificationLoaded) {
-            list = state.notificationList;
-            if (list.isEmpty) {
+            if (state.notificationList.isEmpty) {
               return Column(
                 children: [
                   const SizedBox(
@@ -142,6 +141,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 ],
               );
             } else {
+              listOfNotification = state.notificationList;
               return ListView.separated(
                 controller: widget.controller,
                 padding: const EdgeInsets.all(10),
@@ -169,8 +169,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
     );
   }
 
-  Widget _buildBottomSheet(BuildContext context, List<NotificationModel> list) {
-    String values = "";
+  String sortValue = 'Newest';
+
+  Widget _buildBottomSheet(BuildContext context) {
     return Container(
       height: 200,
       padding: EdgeInsets.all(20),
@@ -184,6 +185,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
             style: GoogleFonts.robotoCondensed(fontSize: 14),
           ),
           DropdownButtonFormField(
+            value: sortValue,
             padding: const EdgeInsets.only(left: 15),
             style: TextStyle(
               fontFamily: 'Poppins',
@@ -210,27 +212,26 @@ class _NotificationScreenState extends State<NotificationScreen> {
               ),
             ],
             onChanged: (value) {
-              values = value!;
+              sortValue = value!;
             },
           ),
           SizedBox(height: 20),
           PrimaryButton(
-              onTap: () {
-                if (values == "Newest") {
-                  context
-                      .read<NotificationBloc>()
-                      .add(UpdateNotification(list.toList()));
-                } else if (values == 'Oldest') {
-                  context
-                      .read<NotificationBloc>()
-                      .add(UpdateNotification(list.reversed.toList()));
-                }
-                list = list.reversed.toList();
-                Navigator.pop(context);
-
-                // context.read<NotificationBloc>().add(ToggleOrderOfNotification());
-              },
-              title: "Apply Filters"),
+            onTap: () {
+              if (sortValue == 'Newest') {
+                listOfNotification.sort(
+                  (a, b) => b.timeStamp.compareTo(a.timeStamp),
+                );
+              } else if (sortValue == 'Oldest') {
+                listOfNotification.sort(
+                  (a, b) => a.timeStamp.compareTo(b.timeStamp),
+                );
+              }
+              setState(() {});
+              context.pop();
+            },
+            title: "Apply Filters",
+          ),
         ],
       ),
     );
