@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:jcc/constants/string_constants.dart';
 import 'package:jcc/models/notification_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
@@ -58,12 +57,12 @@ class NotificationRepository {
         .set(notification.toMap());
   }
 
-  Stream<List<NotificationModel>> getNotification() {
+  Stream<List<NotificationModel>> getNotifications() {
     return _firestore
         .collection('users')
         .doc(_firebaseAuth.currentUser!.phoneNumber.toString())
         .collection('notifications')
-        .orderBy('timeStamp',descending: true,)
+        .orderBy('timeStamp', descending: true)
         .snapshots()
         .map((event) {
       return event.docs

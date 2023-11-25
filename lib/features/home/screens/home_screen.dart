@@ -4,7 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jcc/bloc/complaint/stats/complaint_stats_bloc.dart';
 import 'package:jcc/common/widget/menu_drawer.dart';
 import 'dart:developer' as dev;
-import 'package:jcc/config/router.dart';
 import 'package:jcc/constants/string_constants.dart';
 import 'package:jcc/features/home/widgets/data_card.dart';
 import 'package:jcc/features/home/widgets/data_chart.dart';
@@ -83,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: SingleChildScrollView(
-        controller: controller,
+        controller: widget.controller,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

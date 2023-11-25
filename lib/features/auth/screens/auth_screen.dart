@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jcc/bloc/auth/auth_bloc.dart';
+import 'package:jcc/bloc/complaint/complaint_bloc.dart';
+import 'package:jcc/bloc/complaint/stats/complaint_stats_bloc.dart';
+import 'package:jcc/bloc/notification/notification_bloc.dart';
 import 'package:jcc/bloc/user/register/user_register_bloc.dart';
 
 import '../../../generated/assets.dart';
@@ -34,6 +37,9 @@ class AuthScreen extends StatelessWidget {
         BlocListener<UserRegisterBloc, UserRegisterState>(
           listener: (context, state) {
             if (state is UserRegistered) {
+              context.read<ComplaintStatsBloc>().add(GetComplaintStats());
+              context.read<ComplaintBloc>().add(LoadComplaint());
+              context.read<NotificationBloc>().add(LoadNotifications());
               context.go('/home');
             }else if (state is UserNotRegistered) {
               context.go('/user_register');

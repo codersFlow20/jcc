@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,10 +19,9 @@ import 'package:jcc/repositories/user_repository.dart';
 import 'package:jcc/theme/app_theme.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:jcc/config/onesignal_config.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'dart:developer' as dev;
-
+import 'bloc/complaint/selected_complaint/selected_complaint_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
@@ -59,16 +60,20 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) =>
-          ComplaintBloc(complaintRepository: complaintRepository)
-            ..add(LoadComplaint()),
+              ComplaintBloc(complaintRepository: complaintRepository),
+        ),
+        BlocProvider(
+          create: (context) => SelectedComplaintBloc(
+            complaintRepository: complaintRepository,
+            notificationRepository: notificationRepository,
+          ),
         ),
         BlocProvider(
           create: (context) => UserRegisterBloc(userRepository: userRepository),
         ),
         BlocProvider(
           create: (context) =>
-          NotificationBloc(notificationRepository: notificationRepository)
-            ..add(LoadNotifications()),
+              NotificationBloc(notificationRepository: notificationRepository),
         ),
         BlocProvider(
           create: (context) => ComplaintRegisterBloc(
@@ -106,6 +111,7 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
+
   Future<String> _getLocaleFromPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String languageCode = prefs.getString('selected_language') ?? 'en'; // Default to English

@@ -314,9 +314,17 @@ class _ComplaintListState extends State<ComplaintList> {
       }
 
       if (statusValue != 'All') {
-        filteredList = filteredList
-            .where((element) => element.status == statusValue)
-            .toList();
+        if (statusValue == 'In Process' || statusValue == 'Approval Pending') {
+          filteredList = filteredList
+              .where((element) =>
+                  element.status == 'In Process' ||
+                  element.status == 'Approval Pending')
+              .toList();
+        }else {
+          filteredList = filteredList
+              .where((element) => element.status == statusValue)
+              .toList();
+        }
       }
     }
 
