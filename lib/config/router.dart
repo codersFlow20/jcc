@@ -8,6 +8,7 @@ import 'package:jcc/features/complaint/screens/complaint_list.dart';
 import 'package:jcc/features/complaint/screens/complaint_register.dart';
 import 'package:jcc/features/complaint/screens/complaint_sucessful.dart';
 import 'package:jcc/features/home/screens/home_screen.dart';
+import 'package:jcc/features/language/screens/language_screen.dart';
 import 'package:jcc/features/login/screens/login_screen.dart';
 import 'package:jcc/features/login/screens/otp_screen.dart';
 import 'package:jcc/features/notification/screens/notification_screen.dart';
@@ -61,6 +62,11 @@ final router = GoRouter(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/user_profile',
       builder: (context, state) => const UserProfile(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/language_screen',
+      builder: (context, state) => const LanguageScreen(),
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,

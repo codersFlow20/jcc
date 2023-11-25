@@ -12,7 +12,7 @@ import 'package:jcc/bloc/notification/notification_bloc.dart';
 import 'package:jcc/constants/string_constants.dart';
 import 'package:jcc/generated/assets.dart';
 import 'package:jcc/theme/colors.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../bloc/user/register/user_register_bloc.dart';
 
 class MenuDrawer extends StatelessWidget {
@@ -59,10 +59,12 @@ class MenuDrawer extends StatelessWidget {
                             fit: BoxFit.cover,
                           ),
                           title: Text(
-                            CommonDataConstants.language,
+                            AppLocalizations.of(context)!.language,
                             style: Theme.of(context).textTheme.headlineMedium,
                           ),
-                          onTap: () {},
+                          onTap: () {
+                            context.push('/language_screen');
+                          },
                         ),
                         ListTile(
                           leading: SvgPicture.asset(
@@ -70,7 +72,7 @@ class MenuDrawer extends StatelessWidget {
                             fit: BoxFit.cover,
                           ),
                           title: Text(
-                            CommonDataConstants.aboutUs,
+                            AppLocalizations.of(context)!.aboutUs,
                             style: Theme.of(context).textTheme.headlineMedium,
                           ),
                           onTap: () {},
@@ -81,7 +83,7 @@ class MenuDrawer extends StatelessWidget {
                             fit: BoxFit.cover,
                           ),
                           title: Text(
-                            CommonDataConstants.needAnyHelp,
+                            AppLocalizations.of(context)!.needHelp,
                             style: Theme.of(context).textTheme.headlineMedium,
                           ),
                           onTap: () {},
