@@ -44,6 +44,21 @@ class ComplaintRepository {
     });
   }
 
+  Stream<ComplaintModel?> getSelectedComplaint(String id) {
+    return _firestore
+        .collection('complaints')
+        .doc(id)
+        .snapshots()
+        .map((e) => ComplaintModel.fromMap(e.data()!));
+  }
+  
+  Future<String> getEmployeeEmail(String id) async {
+    final response = await _firestore.collection('employees').where('employeeId', isEqualTo: id).get();
+    final email = response.docs.first.data()['email'];
+    dev.log('Got employee email: $email', name: 'Notification');
+    return email;
+  }
+
   Future<void> updateComplaint(
     String id,
     Map<String, dynamic> data,

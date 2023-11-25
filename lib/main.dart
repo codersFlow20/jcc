@@ -19,6 +19,8 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:jcc/config/onesignal_config.dart';
 import 'dart:developer' as dev;
 
+import 'bloc/complaint/selected_complaint/selected_complaint_bloc.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -56,6 +58,12 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               ComplaintBloc(complaintRepository: complaintRepository),
+        ),
+        BlocProvider(
+          create: (context) => SelectedComplaintBloc(
+            complaintRepository: complaintRepository,
+            notificationRepository: notificationRepository,
+          ),
         ),
         BlocProvider(
           create: (context) => UserRegisterBloc(userRepository: userRepository),

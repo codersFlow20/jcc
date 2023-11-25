@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jcc/models/complaint_model.dart';
 import 'package:jcc/theme/colors.dart';
 import 'package:jcc/utils/conversion.dart';
 
+import '../../../bloc/complaint/selected_complaint/selected_complaint_bloc.dart';
 import '../../../utils/ui_utils.dart';
 
 class ComplaintWidget extends StatelessWidget {
@@ -15,9 +17,11 @@ class ComplaintWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        context.read<SelectedComplaintBloc>().add(
+          LoadSelectedComplaint(complaint.id),
+        );
         context.go(
           '/complaints/complaint_details',
-          extra: complaint,
         );
       },
       child: Container(
