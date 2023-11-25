@@ -17,6 +17,7 @@ class ComplaintModel extends Equatable {
   final List<TimeLine> trackData;
   final String uniquePin;
   final List<String> imageUrls;
+  final List<String> verifiedImageUrls;
   final String status;
   final bool isLocked;
   final bool isAssigned;
@@ -40,6 +41,7 @@ class ComplaintModel extends Equatable {
         uniquePin,
         applicantName,
         trackData,
+    verifiedImageUrls,
         uniquePin,
         imageUrls,
         status,
@@ -62,6 +64,7 @@ class ComplaintModel extends Equatable {
     required this.imageUrls,
     required this.status,
     required this.detailedAddress,
+    required this.verifiedImageUrls,
     required this.isLocked,
     required this.isAssigned,
     required this.assignedEmployeeId,
@@ -87,6 +90,7 @@ class ComplaintModel extends Equatable {
     String? userId,
     String? uniquePin,
     List<String>? imageUrls,
+    List<String>? verifiedImageUrls,
     String? status,
     String? siteAddress,
     bool? isLocked,
@@ -108,6 +112,7 @@ class ComplaintModel extends Equatable {
       userId: userId ?? this.userId,
       uniquePin: uniquePin ?? this.uniquePin,
       imageUrls: imageUrls ?? this.imageUrls,
+      verifiedImageUrls: verifiedImageUrls ?? this.verifiedImageUrls,
       status: status ?? this.status,
       detailedAddress: siteAddress ?? detailedAddress,
       isLocked: isLocked ?? this.isLocked,
@@ -132,6 +137,7 @@ class ComplaintModel extends Equatable {
       'userId': userId,
       'uniquePin': uniquePin,
       'imageUrls': imageUrls,
+      'verifiedImageUrls' : verifiedImageUrls,
       'status': status,
       'siteAddress': detailedAddress,
       'isLocked': isLocked,
@@ -158,6 +164,8 @@ class ComplaintModel extends Equatable {
       uniquePin: map['uniquePin'] as String,
       imageUrls:
           (map['imageUrls'] as List<dynamic>).map((e) => e.toString()).toList(),
+      verifiedImageUrls:
+      (map['verifiedImageUrls'] as List<dynamic>).map((e) => e.toString()).toList(),
       status: map['status'] as String,
       detailedAddress: map['siteAddress'] as String,
       isLocked: map['isLocked'] as bool,
