@@ -47,9 +47,9 @@ class ComplaintDetails extends StatelessWidget {
         builder: (context, state) {
           if (state is SelectedComplaintLoading) {
             return const CircularProgressIndicator();
-          }else if (state is SelectedComplaintError) {
+          } else if (state is SelectedComplaintError) {
             return Text(state.message);
-          }else if (state is SelectedComplaintLoaded) {
+          } else if (state is SelectedComplaintLoaded) {
             final complaint = state.complaint;
 
             return WillPopScope(
@@ -84,7 +84,8 @@ class ComplaintDetails extends StatelessWidget {
                               children: [
                                 Text(
                                   ScreensDataConstants.status,
-                                  style: Theme.of(context).textTheme.headlineSmall,
+                                  style:
+                                      Theme.of(context).textTheme.headlineSmall,
                                 ),
                                 Row(
                                   children: [
@@ -92,8 +93,8 @@ class ComplaintDetails extends StatelessWidget {
                                       height: 16,
                                       width: 16,
                                       decoration: BoxDecoration(
-                                        color:
-                                        _buildSelectColor(status: complaint.status),
+                                        color: _buildSelectColor(
+                                            status: complaint.status),
                                         shape: BoxShape.circle,
                                       ),
                                     ),
@@ -106,8 +107,8 @@ class ComplaintDetails extends StatelessWidget {
                                           .textTheme
                                           .headlineMedium!
                                           .copyWith(
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                                            fontWeight: FontWeight.w600,
+                                          ),
                                     )
                                   ],
                                 )
@@ -128,8 +129,8 @@ class ComplaintDetails extends StatelessWidget {
                             child: _buildDataFiled(
                               context: context,
                               title: ScreensDataConstants.registrationDate,
-                              text:
-                              Conversion.formatDateTime(complaint.registrationDate),
+                              text: Conversion.formatDateTime(
+                                  complaint.registrationDate),
                             ),
                           ),
                           SizedBox(
@@ -300,6 +301,62 @@ class ComplaintDetails extends StatelessWidget {
                           itemCount: complaint.imageUrls.length,
                         ),
                       ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      if (complaint.isLocked && complaint.status != "Solved")
+                        Column(
+                          children: [
+                            Text(
+                              'Resolved Complaint Photographs',
+                              style: Theme.of(context).textTheme.headlineSmall,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            SizedBox(
+                              height: 250,
+                              child: ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                    height: 250,
+                                    width: 187.5,
+                                    clipBehavior: Clip.hardEdge,
+                                    decoration: const BoxDecoration(
+                                      color: AppColors.black50,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: AppColors.black25,
+                                          blurRadius: 1.0,
+                                          spreadRadius: 0.0,
+                                          offset: Offset(
+                                            0.0,
+                                            0.0,
+                                          ), // shadow direction: bottom right
+                                        ),
+                                      ],
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    ),
+                                    child: Image.network(
+                                      complaint.verifiedImageUrls[index],
+                                      fit: BoxFit.cover,
+                                    ),
+                                  );
+                                },
+                                separatorBuilder: (context, index) {
+                                  return const SizedBox(
+                                    width: 10,
+                                  );
+                                },
+                                itemCount: complaint.verifiedImageUrls.length,
+                              ),
+                            ),
+                          ],
+                        ),
                       if (complaint.isLocked)
                         const SizedBox(
                           height: 15,
@@ -307,10 +364,12 @@ class ComplaintDetails extends StatelessWidget {
                       if (complaint.isLocked && complaint.status != "Solved")
                         PrimaryButton(
                           onTap: () {
-                            context.read<SelectedComplaintBloc>().add(SolveComplaint(
-                              complaint: complaint,
-                              stats: stats,
-                            ));
+                            context
+                                .read<SelectedComplaintBloc>()
+                                .add(SolveComplaint(
+                                  complaint: complaint,
+                                  stats: stats,
+                                ));
                           },
                           title: 'Grant Approval',
                         ),
@@ -327,7 +386,7 @@ class ComplaintDetails extends StatelessWidget {
                 ),
               ),
             );
-          }else {
+          } else {
             return const Text('Unknown State');
           }
         },

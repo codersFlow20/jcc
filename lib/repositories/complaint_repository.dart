@@ -95,6 +95,7 @@ class ComplaintRepository {
           area: complaintData['area'],
           detailedAddress: complaintData['detailedAddress'],
           imageUrls: urls,
+          verifiedImageUrls: const [],
           isAssigned: false,
           isLocked: false,
           assignedEmployeeId: '',
