@@ -98,19 +98,39 @@ class DepartmentDataConstants {
     "Light EESL NAGAR SIm AREA",
     "Security",
     "FLOOD CONTROL",
-
   ];
 
   static const Map<String, List<String>> departmentComplaintsData = {
     'Water Works': [
       'No Water',
       'Irregular Water',
+      'Borewell Repairing',
+      'Pipe line leakage',
+      'Polluted Water in Water line',
+      'Low pressure of water',
     ],
     'Slum': ['Others'],
     'Health': [
       'Fogging Work',
       'Food Checking',
     ],
+    'Light eSMART CITY AREA' : [
+      'Whole area street light off',
+      ''
+    ],
+    'Civil' : [],
+    "Solid Waste Branch" : [],
+    "Estate" : [],
+    "Town Planning" : [],
+    "UGD" : [],
+    "House Tax" : [],
+    "UCD" : [],
+    "ICDS" : [],
+    "Garden" : [],
+    "Project Planning" : [],
+    "Light EESL NAGAR SIm AREA" : [],
+    "Security" : [],
+    "FLOOD CONTROL" : [],
   };
 
   static const Map<String, List<String>> wardNoAreas = {

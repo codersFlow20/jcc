@@ -41,7 +41,7 @@ class ComplaintRegisterFormBloc extends FormBloc<Map<String, dynamic>, String> {
   }
 
   final department = SelectFieldBloc(
-    items: DepartmentDataConstants.departmentComplaintsData.keys.toList(),
+    items: DepartmentDataConstants.departmentNameList,
     validators: [
       (value) {
         if (value == null) {
